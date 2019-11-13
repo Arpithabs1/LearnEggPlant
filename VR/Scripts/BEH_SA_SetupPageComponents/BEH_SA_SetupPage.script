@@ -1,0 +1,483 @@
+﻿(****** "Badge_OffUnitEventResponse", "Badge_StandardObservationlevellabel", "Badge_ObservationLevelOrderables", "Badge_ObservationLevelOrderables"
+
+HandlerName: ReadTextSetupPage
+Input: None
+Output:Text present in setuppage
+Description: Returns the text that is present in setuppage
+
+*******) 
+to ReadTextSetupPage
+	put ImageLocation("BEH_SA_SetupPage/Icon_binoculars") into Location1
+	put (location1-(15,0)) into Location2
+	put ReadText (Location2, "BEH_SA_SetupPage/Icon_ScrollDown") into SetUpPageDetails
+	return SetUpPageDetails
+end ReadTextSetupPage
+
+--------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ClickPatPopOptions "Badge_LocationTimeInterval", "Badge_DefaultTime"
+Input: PatPopOptions
+Output:NA
+Description: Clicks the required radio button for Patient Polpulation
+
+*******) 
+to ClickPatPopOptions PatPopOptions
+	put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation/Badge_WTSLocation") into Location1
+	put Location1+(420,0) into Location2
+	put ImageLocation( "BEH_SA_SetupPage/Badge_PatientPopulation", ) into Location3
+	put  (Location3-(50,0))into Location4
+	set the searchRectangle to ( Location4,Location2)
+	put topleft of imagerectangle (Text:PatPopOptions) into Location5
+	put Location5+(-12,4) into Location6
+	Click (Location6)
+	set the searchRectangle to ()
+end ClickPatPopOptions
+
+---------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:VerifyPatPopOptions
+Input: PatPopOptions
+Output:Radio button selected/RadioButton not selected
+Description: Checks for the selected radio button in for the patient population
+
+*******) 
+to VerifyPatPopOptions PatPopOptions
+	put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation/Badge_WTSLocation") into Location1
+	put Location1+(420,0) into Location2
+	put ImageLocation( "BEH_SA_SetupPage/Badge_PatientPopulation", ) into Location3
+	put  (Location3-(60,0))into Location4
+	set the searchRectangle to ( Location4,Location2)
+	put topleft of imagerectangle (Text:PatPopOptions) into Location5
+	put Location5+(-27,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text:PatPopOptions) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+		
+	End If
+end VerifyPatPopOptions
+--------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ClickWTSOptions
+Input: WTSOpt
+Output:NA
+Description: selects radio button in for the WTS Location
+
+*******) `
+to ClickWTSOptions WTSOpt
+	put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation/Badge_WTSLocation") into Location1
+	put Location1+(-43,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location2
+	put Location2+(623,0) into Location2
+	set the searchRectangle to ( Location1,Location2)
+	put topleft of imagerectangle (Text:WTSOpt) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()
+end ClickWTSOptions
+------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:VerifyWTSOptions
+Input: WTSOpt
+Output:Radio button selected/RadioButton not selected
+Description: Checks for the selected radio button in for WTS Location
+
+*******) 
+to VerifyWTSOptions WTSOpt
+	put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation/Badge_WTSLocation") into Location1
+	put Location1+(-43,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location2
+	put Location2+(623,0) into Location2
+	set the searchRectangle to ( Location1,Location2)
+	put topleft of imagerectangle (Text:WTSOpt) into TopLeft
+	put TopLeft+(-20,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text:WTSOpt) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+	End If
+end VerifyWTSOptions
+---------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ClickDefPop
+Input: DefPop
+Output:NA
+Description: selects radio button in for the Default Population
+*******) `
+
+to ClickDefPopOptions DefPop
+	put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location1
+	put Location1+(-43,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location2
+	put Location2+(623,0) into Location2
+	set the searchRectangle to ( Location1,Location2)
+	put topleft of imagerectangle (Text:DefPop) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()
+end  ClickDefPopOptions
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:VerifyDefPopOptions
+Input: DevPopOpt
+Output:Radio button selected/RadioButton not selected
+Description: Checks for the selected radio button in for Default Population
+
+*******) 
+
+to VerifyDefPopOptions DefPopOpt
+	put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location1
+	put Location1+(-43,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location2
+	put Location2+(623,0) into Location2
+	set the searchRectangle to ( Location1,Location2)
+	put topleft of imagerectangle (Text:DefPopOpt) into TopLeft
+	put TopLeft+(-20,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text:DefPopOpt) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+	End If
+end VerifyDefPopOptions
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:CheckDisplayInactiveItems
+Input: NA
+Output:NA
+Description:Ticks the checkbox for Display Inactive Items
+
+*******) 
+
+to CheckDisplayInactiveItems
+	put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location1
+	put Location1+(-84,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_PatientLink") into Location2
+	put Location2+(150,0) into Location2
+	set the searchRectangle to (Location1,Location2)
+	put  ImageLocation(Text:"Display inactive itmes") into Location3
+	Put Location3+(-74,0) into Location3
+	If ImageFound(2, "BEH_SA_SetupPage/Button_DisplayInactiveItemsChecked") then
+		set the searchRectangle to ()
+	else
+		set the searchRectangle to ()
+		Click (Location3)	
+	End If
+end CheckDisplayInactiveItems
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** "BEH_SA_SetupPage/Badge_MRN", "Badge_FIN", "Badge_ClinicalEvents"
+
+HandlerName:ValidateDisplayInactiveItems "BEH_SA_SetupPage/Badge_PatientImage"
+Input: NA
+Output:NA
+Description:Validates the checkbox for Display Inactive Items
+
+*******)
+to ValidateDisplayInactiveItems
+	put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location1
+	put Location1+(-84,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_PatientLink") into Location2
+	put Location2+(150,0) into Location2
+	set the searchRectangle to (Location1,Location2)
+	put topleft of imagerectangle (Text:"Display inactive itmes") into TopLeft
+	put TopLeft+(-25,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text:"Display inactive itmes") into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image:"BEH_SA_SetupPage/Button_DisplayInactiveItemsChecked", searchRectangle: (TopLeft,BottomRight)) then
+		set the searchRectangle to ()
+		return "Checkbox selected"
+	else 
+		set the searchRectangle to ()
+		return ("Checkbox not selected")
+	End If
+end ValidateDisplayInactiveItems
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:SelectPatientImage 
+Input: PatImg
+Output:NA
+Description:Selects the radio button for Patient Image
+
+*******)
+to SelectPatientImage PatImg
+	put ImageLocation("BEH_SA_SetupPage/Badge_PatientImage") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_MRN") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text:PatImg) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()
+end SelectPatientImage
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidatePatientImage 
+Input: PatImg
+Output:Radio button selected/RadioButton not selected
+Description:Validates the radiobutton for Patient Image
+
+*******)
+to ValidatePatientImage PatImg
+	put ImageLocation("BEH_SA_SetupPage/Badge_PatientImage") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_MRN") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text: PatImg) into TopLeft
+	put TopLeft+(-20,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text: PatImg) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+	End If
+end ValidatePatientImage
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:SelectTabNavigation
+Input: TabNav
+Output:NA
+Description:Selects the radio button for Tab Navigation
+
+*******)
+
+to SelectTabNavigation TabNav
+	put ImageLocation("BEH_SA_SetupPage/Badge_TabNavigation") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_AvailableNomenclatureResponsesLoc") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text:TabNav) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()
+end SelectTabNavigation
+
+----------------------------------------------------------------------------------------------------------------------------------------------- 
+(******
+
+HandlerName:ValidateTabNavigation 
+Input: TabNav
+Output:Radio button selected/RadioButton not selected
+Description:Validates the radiobutton for Tab Navigation
+
+*******)
+
+to ValidateTabNavigation TabNav
+	put "Yes" into TabNav
+	put ImageLocation( "BEH_SA_SetupPage/Badge_TabNavigation") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_AvailableNomenclatureResponsesLoc") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	
+	put topleft of Imagerectangle (Text: TabNav) into TopLeft
+	put TopLeft+(-25,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text: TabNav) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image:"BEH_SA_SetupPage/Button_Selected/",searchRectangle: (TopLeft,BottomRight )) then
+		log true
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		log false
+		set the searchRectangle to ()
+		return "RadioButton not selected"
+	End If
+end ValidateTabNavigation
+----------------------------------------------------------------------------------------------------------------------------------------------- 
+(******
+
+HandlerName:SetDefaulTime 
+Input: DefTimeVal
+Output:Radio NA
+Description:Sets the value for the default Time
+
+*******)
+to SetDefaulTime DefTimeVal
+	put last item of everyImageLocation("BEH_SA_SetupPage/Badge_DefaultTime") into Location1
+	put Location1+(0,70) into Location1
+	click Location1
+	TypeText controlKey & "a" 
+	TypeText DefTimeVal
+end SetDefaulTime
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+(****** 
+
+HandlerName:SelectAll
+Input: SelcAll
+Output:NA
+Description:Selects the radio button for Tab Navigation
+
+*******)
+
+to SelectAll SelcAll
+	put ImageLocation("BEH_SA_SetupPage/Badge_SelectAll") into Location1
+	put Location1+(-30,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text:SelcAll) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()	
+end SelectAll
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:ValidateSelectAll
+Input: SelcAll
+Output:NA
+Description:Validates the radio button for SelectAll
+
+*******)
+
+to ValidateSelectAll SelcAll
+	//set SelcAll to "Yes"
+	put ImageLocation("BEH_SA_SetupPage/Badge_SelectAll") into Location1
+	put Location1+(-30,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text: SelcAll) into TopLeft
+	put TopLeft+(-20,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text: SelcAll) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+	End If
+end ValidateSelectAll
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:SetMultiSelect
+Input: SetMulSelct
+Output:NA
+Description:Selects the radio button for Multiple Select
+
+*******)
+
+to SetMultiSelect SetMulSelct
+	put ImageLocation("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Button_Update") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text:SetMulSelct) into Location3
+	put Location3+(-12,4) into Location3
+	Click (Location3)
+	set the searchRectangle to ()	
+end SetMultiSelect
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:ValidateSetMultiSelect
+Input:SetMulSelct
+Output:NA
+Description:Validates the radio button for Enable Multi 
+
+*******)
+
+to ValidateSetMultiSelect SetMulSelct
+	put ImageLocation("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location1
+	put Location1+(-74,0) into Location1
+	put ImageLocation("BEH_SA_SetupPage/Button_Update") into Location2
+	put Location2+(90,0) into Location2
+	set the searchRectangle to(Location1,Location2)
+	put topleft of imagerectangle (Text:SetMulSelct) into TopLeft
+	put TopLeft+(-20,-10) into TopLeft
+	put BottomLeft of imagerectangle (Text:SetMulSelct) into BottomRight
+	put BottomRight+(0,10) into BottomRight
+	If ImageFound(Image: "BEH_SA_SetupPage/Button_Selected", searchRectangle: (TopLeft,BottomRight )) then
+		set the searchRectangle to ()
+		return "Radio button selected"
+	else 
+		set the searchRectangle to ()
+		return ("RadioButton not selected")
+	End If
+end ValidateSetMultiSelect
+----------------------------------------------------------------------------------------------------------------------------------------------- "BEH_SA_SetupPage/Badge_AvailableNomenclatureResOthers", "BEH_SA_SetupPage/Icon_Add"
+(****** 
+
+HandlerName:ReadAvailableItems
+Input:NA
+Output:Returns Available items name in the list
+Description: reads the Available items in Location type selection 
+
+*******)
+
+to ReadAvailableItems
+	put ImageRectangle("BEH_SA_SetupPage/Badge_LocationTypeSelection").bottomLeft()+(0,60) into SRectangle
+	insert ImageRectangle("BEH_SA_SetupPage/Badge_LocationTypeSelection").BottomRight+(10,225) into SRectangle
+	put ReadText(SRectangle) into Var1
+	set SRectangle to ()
+	Return Var1
+end ReadAvailableItems
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(****** 
+
+HandlerName:SelectAvailableItems
+Input:Item name to be selected
+Output:NA
+Description:Selects the Available items in Location type selection
+
+*******)
+to SelectAvailableItems ItemName
+	put ImageRectangle("BEH_SA_SetupPage/Badge_LocationTypeSelection").bottomLeft() into SRectangle
+	insert ImageRectangle("BEH_SA_SetupPage/Badge_LocationTypeSelection").BottomRight+(10,225) into SRectangle 
+	put ImageLocation(text:"Available items") into Location1
+	Click (Location1+(0,20))
+	TypeText ItemName
+	set SRectangle to ()
+end SelectAvailableItems
+----------------------------------------------------------------------------------------------------------------------------------------------- "BEH_SA_SetupPage/Icon_Danger", "BEH_SA_SetupPage/Icon_Refresh"
+
+(****** 
+
+HandlerName:ReadSelectedItems
+Input:NA
+Output:Rerturns the itemsunder Selected items
+Description:Returns all the items under Selected items
+
+*******)
+
+to ReadSelectedItems
+	put ImageRectangle("BEH_SA_SetupPage/Badge_SelectedItems").bottomLeft()into SRectangle
+	insert ImageRectangle ("BEH_SA_SetupPage/Badge_SelectedItems").bottomRight()+(20,200)into SRectangle
+	put ReadText(SRectangle) into SelectedItems
+	return SelectedItems
+	set SRectangle to ()
+end ReadSelectedItems
+
+

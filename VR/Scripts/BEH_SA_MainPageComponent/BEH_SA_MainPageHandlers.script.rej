@@ -1,0 +1,9 @@
+diff a/IPDev-Millennium-Shared-PowerchartBehavioralHealth.suite/Scripts/BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers.script b/IPDev-Millennium-Shared-PowerchartBehavioralHealth.suite/Scripts/BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers.script	(rejected hunks)
+@@ -631,6 +631,7 @@
+ end validateTextSelected
+ 
+ ----------------------------------------------------------------------------------------------------------------------------------------------------
++dfghj
+ 
+ 
+ 

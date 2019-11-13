@@ -1,0 +1,490 @@
+﻿(****** "BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_High/Icon_High", "BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_Plan/Icon_Plan", "BEH_SA_MainPageComponent/Icon_Time_Warning/Icon_TimeWarning1501"
+HandlerName: ValidateMainPageheaderLabels
+Input: MainPageName(For Example:S&A Main Page,Patient List:,Facility:)
+Output:True or False
+Description: Validates the text that is present in Mainpage
+
+*******)
+-----------------------------------------------------------------------------------------------------------------------------------
+to ValidateMainPageheaderLabels  MainPageName
+	Put  bottomleft of ImageRectangle ("BEH_SA_MainPageComponent/Icon_binoculars") into Searchlist 
+	insert Searchlist+(1800,80)  into Searchlist
+	log ReadText(Searchlist,DPI:120)
+	if ReadText(Searchlist,DPI:120) contains  MainPageName then		
+		Return True
+	Else
+		Return False
+	end if	
+end ValidateMainPageheaderLabels
+-------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidatePatientlist
+Input: No
+Output:NA
+Description:Click on Patientlist dropdown and  Read patient list
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidatePatientlistFrom PatientListNames
+	//set PatientListNames to  "Profit Auto Buildingl, Profit Auto Building2"
+	Log "Selecting" &&PatientListNames &&"option from Patientlistnames"
+	Put  ImageLocation("BEH_SA_MainPageComponent/Badge_PatientList")+(120,-20) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-300,150) into SearchList
+	Click ( "BEH_SA_MainPageComponent/Badge_PatientList")--Opens "patientlist" drop box
+	wait 3
+	//log ReadText(Searchlist,DPI:100)
+	if ReadText(Searchlist,DPI:100) contains  PatientListNames then	
+		Click ("BEH_SA_MainPageComponent/Badge_PatientList")
+		Return True
+	Else
+		Return False
+	end if
+End ValidatePatientlistFrom
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName: SelectPatientlist
+Input: PatientListNames(Ex:Profit Auto Building1, Profit Auto Building2)
+Output:NA
+Description:select patient list name from dropdown 
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectPatientlistFrom PatientListNames
+	Log "Selecting" &&PatientListNames &&"option from Patient list"
+	Put  ImageLocation("BEH_SA_MainPageComponent/Badge_PatientList")+(120,-20) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-300,150) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_PatientList")--Opens "patientlist" drop box
+	click(Waitfor:5,text:PatientListNames,searchRectangle:SearchList)
+End SelectPatientlistFrom
+
+
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:SelectFacility
+Input: FacilityName(Ex:Profit Auto Facility)
+Output:NA
+Description: select Facility name from dropdown
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectFacilityFrom FacilityNames
+	Log "Selecting" &&FacilityNames &&"option from Facilities"
+	Put  ImageLocation(text:"Facilities")+(20,-220) into SearchList--Setting (X1,Y1)
+	insert SearchList+(180,700) into SearchList
+	click (ImageLocation(text:"Facilities")+(100,0))--Opens "Facilities" drop box
+	click(Waitfor:5,text:FacilityNames,ignoreSpaces:yes,searchRectangle:SearchList)
+End SelectFacilityFrom
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:SelectNurseUnithyperlink
+Input: NurseUnit
+Output:NA
+Description:SelectNurseUnitt Hyperlink
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectNurseUnithyperlink NurseUnit
+	//set NurseUnit to  "Nurse Unit"
+	Put  bottomleft of ImageRectangle ("BEH_SA_MainPageComponent/Icon_binoculars") into Searchlist
+	insert Searchlist+(1800,60)  into Searchlist
+	//log ReadText(Searchlist,DPI:100)
+	click(Waitfor:5,text:NurseUnit,searchRectangle:SearchList)
+End SelectNurseUnithyperlink
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:SelectNurseUnitName
+Input: NurseUnitName(Ex:Profit Auto B2NU2)
+Output:NA
+Description:Click oncheckbox to select  NurseUnit
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectNurseUnitNameFrom NurseUnitName
+	Log "Selecting" &&NurseUnitName &&"option from NurseUnitwindow"
+	Put  ImageLocation("BEH_SA_MainPageComponent/Button_NurseUnitClose")+(-600,-20) into SearchList--Setting (X1,Y1)
+	insert SearchList+(600,500) into SearchList
+	Put TopLeft of ImageRectangle (Text: NurseUnitName,ignoreSpaces:Yes,searchrectangle:SearchList) into ToClick
+	click ToClick+(-12,3)	---Check the checkbox
+End SelectNurseUnitNameFrom
+-------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName:Select NurseUnitSubmitCancelbutton
+Input: Button Name(Ex:Submit)
+Output:NA
+Description:Click onSubmitbutton to apply the changes and click on Cancel button to cancel the changes.
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectNurseUnitSubmitCancelButtonFrom ButtonName
+	Log "Selecting" &&NurseUnitName &&"option from NurseUnitwindow"
+	Put  ImageLocation("BEH_SA_MainPageComponent/Button_NurseUnitClose")+(-600,-20) into SearchList--Setting (X1,Y1)
+	insert SearchList+(600,500) into SearchList
+	Click (Text: ButtonName,searchrectangle:SearchList) 
+End SelectNurseUnitSubmitCancelButtonFrom
+
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:Select HeaderSubmitResetSignChangesToChartbuttons
+Input: Button Name(Ex:Sign Changes To Chart)
+Output:NA
+Description:Click onSubmitbutton to apply the changes, click on Reset button to Reset the changes and Click on the Sign button to sign the page.
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On  HeaderSubmitResetSignChangesToChartbuttons ButtonName
+	Put  bottomleft of ImageRectangle ("BEH_SA_MainPageComponent/Icon_binoculars") into Searchlist
+	insert Searchlist+(1800,60)  into Searchlist
+	click(Waitfor:5,text:ButtonName,ignoreSpaces:yes,searchRectangle:SearchList)
+End HeaderSubmitResetSignChangesToChartbuttons
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:SelectTimeIntervalFrom
+Input: TimeInterval(Ex:30 min)
+Output:NA
+Description:Click on TimeInterval dropdownand and  select TimeInterval
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectTimeIntervalFrom TimeInterval
+	//set TimeInterval to "1 hour"
+	Log "Selecting" &&TimeInterval &&"option from TimeInterval"
+	Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeInterval")+(50,-60) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-150,125) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_TimeInterval")--Opens "patientlist" drop box
+	moveto (100,100)
+	click(Waitfor:5,text:TimeInterval,DPI:60,tolerance:50,ignoreSpaces:YES,searchRectangle:SearchList)
+End SelectTimeIntervalFrom
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateTimeInterval
+Input: NA
+Output:TimeInterval(10 min,15 min,30 min)
+Description:ValidateTimeInterval
+*******)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateTimeIntervalFrom TimeInterval
+	Log "Selecting" &&TimeInterval &&"option from Timeinterval"
+	//put "2 hours" into TimeInterval
+	Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeInterval")+(50,-60) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-150,130) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_TimeInterval")--Opens "patientlist" drop box
+	MoveTo (100,100)
+	wait 3
+	put ReadText(Searchlist,DPI:70,ignoreSpaces:Yes,aggressiveTextExtraction:yes) into TempVar
+	replace every occurrence of "\thour" in TempVar with "hour"
+	log TempVar
+	
+	if (TempVar) contains  TimeInterval then
+		//log true
+		Return True	
+	Else
+		//log false
+		Return False
+	end if
+End ValidateTimeIntervalFrom
+
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateTimeRangeFrom
+Input: TimeRange(Ex:8 hours)
+Output:NA
+Description:TimeRange
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateTimeRangeFrom TimeRange
+	//set TimeRange to "4 hours"
+	Log "Selecting" &&TimeRange &&"option from TimeRange"
+	Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeRange")+(15,-120) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-140,350) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_TimeRange")--Opens "TimeRange" drodown
+	wait 5
+	//log ReadText(Searchlist,DPI:115)
+	if ReadText(Searchlist,DPI:115) contains  TimeRange then
+		Return True
+	Else
+		//log false
+		Return False
+	end if
+End ValidateTimeRangeFrom
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:SelectTimeRange
+Input: TimeInterval(Ex:4 hours)
+Output:NA
+Description:Click on TimeRange dropdownand and  select TimeRangeF
+
+*******) 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+On SelectTimeRangeFrom TimeRange
+	//set TimeRange to "4 hours"
+	Log "Selecting" &&TimeRange &&"option from TimeRange"
+	Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeRange")+(15,-120) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-100,250) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_TimeRange")--Opens "TimeRange" dropdown
+	moveTo (100,100)
+	log ReadText(SearchList)
+	click(Waitfor:5,text:TimeRange,ignoreSpaces:YES,DPI:60,tolerance:50,searchRectangle:SearchList)
+End SelectTimeRangeFrom
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(*****
+Handler Name: ValidatePatientDetails  
+Input: PatientName (Patientname,FIN,MRN,DOB,Comennts and other details etc)
+Output: True or False
+Description: Validate patient details in search resulted in section. 
+**** *)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Function ValidatePatientDetails  PatientName,FIN
+
+	//put ("SOLGM") into  PatientName
+	put number of items of PatientName into listCount
+	log listCount
+	put 1 into Flag
+	repeat listCount times
+		put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+		insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea 
+		Put Topright of ImageRectangle(Text:item Flag of PatientName, SearchRectangle:PatListArea )+(150,-50) into SearchList  --Setting (X1,Y1)   
+		Insert SearchList+(-400,200)into SearchList
+		put ReadText(SearchList,DPI:120) into PatientDetails
+		put Flag+1 into Flag
+	end repeat
+	log PatientDetails
+	return  PatientDetails
+	
+End ValidatePatientDetails
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateSUTDate
+Input: UserName(Lgin:UserName)
+Output:SUT Date
+Description:Validating the SUT date and Time
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateSUTDate UserName
+
+	//set UserName to  "AH042544"
+	
+	Put  Topright of ImageRectangle(Text:UserName) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(100,14) into SearchList
+	put ReadText(SearchList,DPI:173) into VarDate
+	//log VarDate
+	put date(VarDate) into VarDate
+	//log VarDate
+	set  searchrectangle to ()
+	return VarDate
+	
+	
+end ValidateSUTDate
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateSUTTime
+Input: UserName(Lohin:UserName)
+Output:SUT Time
+Description:Validating the SUT date and Time
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateSUTTime UserName
+
+	//set UserName to  "AH042544"
+	
+	
+	Put  Topright of ImageRectangle(Text:UserName)+(100,0)into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(200,14) into SearchList
+	put ReadText(SearchList,DPI:173) into VarTime
+	log VarTime
+	set  searchrectangle to ()
+	return VarTime
+	
+	
+end ValidateSUTTime
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateIntervalBar
+Input:Enter Date ,Time and count
+(set VarDate to "08/21/18"
+set Vartime to "1:30"
+set count to "3"  //Enter only odd numbers)
+Output:Date and TimeInterval
+Description:Validating the Date and Time interval
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateIntervalBar VarDate,VarTime,count
+
+	//set VarDate to "08/21/18"
+	//set Vartime to "1:30"
+	//set count to "3"  //Enter only odd numbers
+	put Topright of ImageRectangle( "BEH_SA_MainPageComponent/Badge_Precautions/Badge_Precautions") into Topright--Setting(x1,y1)
+	insert Topright +(500,35) into Bottomleft 
+	put  ReadText(Topright,Bottomleft) into DateTimeRange
+	//log DateTimeRange
+	//put (Topright,Bottomleft) into DateTimeRange
+	
+	//set the searchrectangle to ()
+	
+	//put DateTimeRange into Data1
+	replace "\t" by return in DateTimeRange
+	replace space by return in DateTimeRange
+	log DateTimeRange
+	
+	put line count of (DateTimeRange) into Date1
+	put line count+3 of ( DateTimeRange) into time2
+	//delete every occurrence of "(" in Date1
+	log (Date1)
+	log (time2)
+	
+	if  trim(VarDate) equals trim(Date1)
+		log "success"
+	else
+		log "Failure"
+	end if
+	
+	if  trim(VarTime) is greater than or equal to trim(time2)
+		log "success"
+	else
+		log "Failure"
+	end if
+	
+end ValidateIntervalBar
+
+-------------------------------------------------------------------------------------------------------------------
+(******
+
+HandlerName:ValidateIntervalCel
+Input:NA(Works for 10min,15min and 30min)
+Output:Date and TimeInterval
+Description:Validating the Date and Time interval
+
+*******) 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateIntervalCel VarDate,VarTime
+
+	set VarDate to "08/13/18"
+	set Vartime to "06:59"
+	
+	
+	put (726,291,858,340) into var
+	
+	
+	repeat 4 times
+		insert readtext(var) into value
+		put var+(131, 0, 131,0) into var
+	end repeat
+	
+	replace "\t" by retun in value
+	log value
+	
+	put line 1 of value into time1
+	put line 2 of value into time2
+	delete every occurrence of "(" in time1
+	log time1
+	
+	log time2
+	
+	if  trim(VarDate) contains trim(time1)
+		log "success"
+	else
+		log "Failure"
+	end if
+	
+	if  trim(VarTime) is greater than or equal to trim(time2)
+		log "success"
+	else
+		log "Failure"
+	end if
+	
+end ValidateIntervalCel	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: ValidatetimeChrongicalorder  
+Input:Enter the count
+Output:True or False
+Description: Validates the text that is present in Mainpage
+
+*******)
+-------------------------------------------------------------------------------------------------------------------
+to ValidatetimeChrongicalorder count   ///Please enter the count more than 1 and less than or equal to 4
+	
+	//set count to  3
+	
+	Put ((738,317,844,335)) into Tim
+	
+	repeat count times  ///3
+		
+		insert readtext(Tim,DPI:75) into IntRange
+		put Tim+(127, 0, 135,0) into Tim
+	end repeat
+	replace "\t" by retun in IntRange
+	delete every occurrence of "E" in IntRange
+	delete every occurrence of "^" in IntRange
+	log IntRange
+	Put item count-1 of IntRange into IntRange  //2
+	log IntRange
+	put (IntRange) - 10 into var3
+	log var3
+	put c  time(IntRange) into var3
+	log var3
+	delete the first 10 characters of line 1 of var3
+	delete the last 8 characters of line 1 of var3
+	put (var3) - 1 into var3
+	log var3
+	Put ((778,317,815,335)) into Tim
+	repeat 4 times
+		
+		insert readtext(Tim,DPI:110) into value
+		put Tim+(134, 0, 139,0) into Tim
+	end repeat
+	replace "\t" by retun in value
+	log value
+	Put item count of value into value ///3
+	delete every occurrence of "-" in value
+	delete every occurrence of "^" in value
+	delete every occurrence of "c" in value
+	delete every occurrence of "i" in value
+	delete every occurrence of " " in value
+	log var3
+	
+	if  trim(value) is equal to trim(var3)
+		
+		return true
+		//log "success"
+	else
+		return false
+		//log "Fail"
+	end if
+	
+	
+end ValidatetimeChrongicalorder   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+

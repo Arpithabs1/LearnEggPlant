@@ -1,0 +1,261 @@
+﻿log readtext((726,291,858,340))
+
+put (726,291,858,340) into var
+//log readtext(var)
+
+//log readtext(857,290,989,339)
+
+repeat 4 times
+	insert readtext(var) into value
+	put var+(131, 0, 131,0) into var
+end repeat
+
+replace "\t" by retun in value
+log value
+
+put line 2 of value into time1
+put line 4 of value into time2
+
+put timeInterval(time1) - 10 into var3
+log var3
+
+if var3 is equal time2
+	log "Success"
+end if
+
+put timeInterval
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Put (756,299,821,315) into Dat
+//log readtext(Dat)
+//log readtext((892,299,957,315))
+
+repeat 4 times
+	
+	insert readtext(Dat) into value
+	put Dat+(73, 0, 131,0) into Dat
+end repeat
+
+replace "\t" by retun in value
+log value
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: ValidatetimeChrongicalorder  
+Input:Enter the count
+Output:True or False
+Description: Validates the text that is present in Mainpage
+
+*******)
+-------------------------------------------------------------------------------------------------------------------
+to ValidatetimeChrongicalorder count   ///Please enter the count more than 1 and less than or equal to 4
+	
+	set count to  2
+	
+	Put ((738,317,844,335)) into Tim
+	//log readtext(Tim)
+	//(865,315,984,337)
+	//log readtext((875,317,979,335))
+	
+	repeat count times  ///3
+		
+		insert readtext(Tim,DPI:75) into IntRange
+		put Tim+(127, 0, 135,0) into Tim
+	end repeat
+	replace "\t" by retun in IntRange
+	delete every occurrence of "E" in IntRange
+	delete every occurrence of "^" in IntRange
+	log IntRange
+	Put item count-1 of IntRange into IntRange  //2
+	log IntRange
+	put (IntRange) - 10 into var3
+	log var3
+	put c  time(IntRange) into var3
+	log var3
+	delete the first 10 characters of line 1 of var3
+	delete the last 8 characters of line 1 of var3
+	put (var3) - 1 into var3
+	log var3
+	//put trim(var3) into var3
+	//log var3
+	Put ((778,317,815,335)) into Tim
+	//log readtext(Tim)
+	//log readtext((912,316,954,334))
+	repeat 4 times
+		
+		insert readtext(Tim,DPI:110) into value
+		put Tim+(134, 0, 139,0) into Tim
+	end repeat
+	
+	replace "\t" by retun in value
+	log value
+	Put item count of value into value ///3
+	delete every occurrence of "-" in value
+	delete every occurrence of "^" in value
+	delete every occurrence of "c" in value
+	delete every occurrence of "i" in value
+	delete every occurrence of " " in value
+	log var3
+	//Put trim(value) into value
+	//log value
+	
+	if  trim(value) is equal to trim(var3)
+		
+		return true
+		log "success"
+	else
+		return false
+		log "Fail"
+	end if
+	
+	
+end ValidatetimeChrongicalorder   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(736,320,814,331)
+put "August 03, 2018 1:52 AM CDT " into var1
+
+put date("August 03, 2018") into var1
+put "08/03/18\t08/03/18\n01:30-01:39 CDT" into var2
+replace "\t" by return in var2
+log var2
+put line 1 of var2 into value1
+put line 3 of var2 into value2
+
+if  var1 is less than or equal to value1
+	log "success"
+end if
+
+put time(value2) - 10 into var3
+log var3
+put date("August 03, 2018 1:52 AM CDT") into var1
+
+
+put time("01:30-01:39 CDT") - 10 into var3
+log var3
+
+convert 
+
+
+if the var1 is between date(08/03/18) and date(08/03/18)
+	log "Happy"
+end if
+
+
+
+put (" 1:52 AM CDT") into (var1,var2,var3)
+log var1
+put date("August 03, 2018") into var1
+
+log var1
+
+
+
+
+(1518,218,1582,348)
+
+
+
+Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeInterval")
+insert SearchList+(-85,130) into SearchList
+
+
+log readtext((1518,218,1582,348))
+
+
+(1518,218,1582,348)
+1599,226,1514,356
+1571, 276
+
+
+
+
+
+On SelectTimeRangeFrom TimeRange
+	set TimeRange to "8 hours"
+	Log "Selecting" &&TimeRange &&"option from TimeRange"
+	Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeRange")+(15,-120) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-100,250) into SearchList
+	Click ("BEH_SA_MainPageComponent/Badge_TimeRange")--Opens "TimeRange" dropdown
+	click(Waitfor:5,text:TimeRange,ignoreSpaces:YES,DPI:60,tolerance:50,searchRectangle:SearchList)
+End SelectTimeRangeFrom 
+
+
+[‎8/‎8/‎2018 1:01 PM]  C V,Vinaya Kumar:  
+log readtext((1517,210,1589,358), saveimagefile:"First.png", dpi:110,contrast:yes) 
+
+Log "Selecting" &&TimeInterval &&"option from Timeinterval"
+put "10 min" into TimeInterval
+Put  ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeInterval")+(50,-60) into SearchList--Setting (X1,Y1)
+insert SearchList+(-150,130) into SearchList
+Click ("BEH_SA_MainPageComponent/Badge_TimeInterval")--Opens "patientlist" drop box
+wait 3
+log ReadText(Searchlist,DPI:20)
+
+
+put hourminute ("11:39 PM") into var
+log var
+put c  time("11:39 PM") into var
+log var
+delete the first 10 characters of line 1 of var
+delete the last 8 characters of line 1 of var
+
+log var
+//
+delete the last "10" in word 3 of var
+log var
+Delete items 1 to 3 of var
+
+log var
+
+
+Put (var) into bb
+log bb
+put thetimeInputFormat("11:39 PM", "%H:%M") to var
+log var
+put convert time("11:39 PM","%h:%M") into var
+
+put "11:39 PM" into the timeInputFormat
+log timeInputFormat
+convert
+put"11:39 PM" to time24
+put "%A, %B %e." into the timeInputFormat
+
+#include "utils.h"
+
+
+
+tm theTime = utils::createTime(2011, 5, 19, 15, 36, 51)
+
+string theDate = utils::formatTime(theTime, "%Y-%m-%d %H:%M:%S")
+//put (Date) into VarDate
+//log VarDate
+//put time(DateTime) into VarTime
+//log VarTime
+
+
+log readtext((726,291,858,340))
+
+put readtext(726,291,858,340) into DateTimeRange
+log DateTimeRange
+
+put DateTimeRange into Data1
+replace "\t" by return in Data1
+log Data1
+
+put line 1 of Data1 into value1
+put line 2 of Data1 into value2
+
+if  VarDate is equal Value1
+	log "success"
+else
+	log "Failure"
+end if
+
+if  VarTime is greater than or equal to Value2
+	log "success"
+else
+	log "Failure"
+end if

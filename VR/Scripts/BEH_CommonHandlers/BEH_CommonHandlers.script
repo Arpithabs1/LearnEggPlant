@@ -1,0 +1,69 @@
+﻿(******
+HandlerName: clearBrowserHistory
+Input: None
+Output: Clears browser history(firefox)
+Description: Clears browser history(firefox)
+*******)
+
+on clearBrowserHistory
+	TypeText windowsKey & "r"
+	TypeText "firefox.exe", return
+	if(ImageFound(3, "BEH_SA_CommonHandlers/Button_Maximize"))
+		Click "BEH_SA_CommonHandlers/Button_Maximize"
+	end if	
+	wait 4
+	click("BEH_SA_CommonHandlers/Button_ViewBrowserHistory")
+	click(Text:"History",dpi:100)
+	wait 1
+	click(Text:"Clear Recent History...",dpi:100)
+	wait 1
+	put ImageLocation(Text:"Time range to clear:")+(150,0) into DropDown
+	click DropDown
+	click(Text:"Everything",dpi:100)
+	wait 1
+	click (Text:"Clear Now",dpi:100)
+	click ("BEH_SA_CommonHandlers/Button_BrowserClose")
+end clearBrowserHistory
+------------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: logIntoCitrix
+Input: None
+Output: Logs in to Citrix box
+Description: Logs in to Citrix box
+*******)
+
+on logIntoCitrix UserName,Password
+	TypeText windowsKey & "r"
+	TypeText "firefox.exe", return
+	if(ImageFound(3, "BEH_SA_CommonHandlers/Button_Maximize"))
+		Click "BEH_SA_CommonHandlers/Button_Maximize"
+	end if
+	wait 2
+	TypeText "http://ipsf01.northamerica.cerner.net/Citrix/IPCTXWeb/", return
+	wait 2
+	Click(Text: "Detect Receiver")
+	wait 2
+	TypeText UserName,tab
+	TypeText Password,return
+	wait 4
+	TypeText "solgm"
+	wait 5
+	Click (Text:"SOLGM Apps 2016")
+	wait until ImageFound(Text:"File")
+	click "BEH_SA_CommonHandlers/Icon_SolutionApps"
+	TypeText "powerchart.lnk",return
+	wait 3
+	click "BEH_SA_CommonHandlers/Text_UserName"
+	TypeText controlKey & "a"
+	TypeText "ah042544"
+	wait 1
+	click "BEH_SA_CommonHandlers/Text_Password"
+	TypeText controlKey & "a"
+	TypeText "cerner"
+	wait 1
+	click "BEH_SA_CommonHandlers/Text_Domain"
+	TypeText controlKey & "a"
+	TypeText "solgm", returnKey
+	wait 10
+end logIntoCitrix

@@ -1,0 +1,1501 @@
+﻿(****** "BEH_SA_MainPageComponent/Icon_Close", "BEH_SA_MainPageComponent/Bage_Tightness", "BEH_SA_MainPageComponent/Icon_PrecautionIcons", "BEH_SA_MainPageComponent/Icon_DropDown/Icon_Dropdown1501"
+HandlerName: clickSelectAll
+Input: None
+Output: All the patients gets selected expect offUnit Patients
+Description: Upon clicking on Select All all the patients gets selected expect for offUnit Patients
+*******) 
+
+on clickSelectAll
+	Click "BEH_SA_MainPageComponent/Icon_SelectAll"
+end clickSelectAll
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectPatient
+Input: Patient Name (eg: Pat, new)
+Output: Selects the Patient Name based on the parameter passed
+Description: Selects a patient by clicking on Select Patient Icon 
+*******) 
+on selectPatient PatName
+	//put "FEB04, OBS4"  into PatName
+	click(ImageLocation("BEH_SA_MainPageComponent/Icon_Patient")+(60,0))
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat	
+	put ImageLocation(Text:PatName, searchRectangle:PatListArea) into PatientNameLoc
+	put PatientNameLoc+(-280,5) into SelectPatArea
+	MoveTo SelectPatArea
+	if(ImageFound("BEH_SA_MainPageComponent/Icon_SelectPatient_Disabled"))
+		click "BEH_SA_MainPageComponent/Icon_SelectPatient_Disabled"
+		Set the SearchRectangle to ()
+	end if
+end selectPatient
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: deSelectPatient
+Input: Patient Name
+Output: De-Selects a Patient Name based on the parameter passed
+Description: De-Selects a patient by clicking on Select Patient Icon"Icon_SelectPatient_Enabled"
+*******) 
+on deSelectPatient PatName
+	click(ImageLocation("BEH_SA_MainPageComponent/Icon_Patient")+(60,0))
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageLocation(Text:PatName, searchRectangle:PatListArea) into PatientNameLoc
+	put PatientNameLoc+(-280,5) into SelectPatArea
+	MoveTo SelectPatArea
+	if(ImageFound("BEH_SA_MainPageComponent/Icon_SelectPatient_Enabled"))
+		click "BEH_SA_MainPageComponent/Icon_SelectPatient_Enabled"
+		Set the SearchRectangle to ()
+	end if
+end deSelectPatient
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickLoadMorePatients
+Input: None
+Output: Finds LoadMorePatients Buttons and Clicks on it once
+Description: Finds LoadMorePatients and clicks on the button once
+*******) 
+on clickLoadMorePatients 
+	click(ImageLocation("BEH_SA_MainPageComponent/Icon_Patient")+(60,0))
+	Repeat until ImageFound("BEH_SA_MainPageComponent/Button_LoadMorePatient")
+		TypeText pageDown	
+	End repeat
+	click "BEH_SA_MainPageComponent/Button_LoadMorePatient"
+end clickLoadMorePatients
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickLoadMorePatients
+Input: Patient Name
+Output: Finds LoadMorePatients Buttons and Clicks on it once
+Description: Finds LoadMorePatients and clicks on the button once
+*******) 
+on LoadAllPatients
+	click(ImageLocation("BEH_SA_MainPageComponent/Icon_Patient")+(60,0))
+	repeat until ImageFound("BEH_SA_MainPageComponent/Button_LoadMorePatients_Disabled")
+		typetext pageDown
+		if ImageFound("BEH_SA_MainPageComponent/Button_LoadMorePatient")
+			click "BEH_SA_MainPageComponent/Button_LoadMorePatient"
+			moveto "BEH_SA_MainPageComponent/Icon_Patient"
+		end if		
+	end repeat
+end LoadAllPatients
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectTab 
+Input: TabName which accepts Tab name like 
+"BH SETUP PAGE1"  "BH MAIN PAGE 1" "BH SETUP PAGE2"
+"BH MAIN PAGE2" "BH SETUP PAGE3" "BH MAIN PAGE3"
+Output: The required Tab is selected and gets displayed
+Description: Select the required tab and upon clicking the selected tab gets displayed
+*******)
+on selectTab TabName
+	Click "BEH_SA_MainPageComponent/Icon_TabSelect"
+	wait 1
+	moveto (0,10)
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_AddRemoveButton").bottomLeft() into LeftEnd
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_TabSelect").topRight() into LeftEnd
+	--TabListArea is a search rectangle created around the list of Tab available
+	click (Text:TabName,dpi:120,ignorespaces:yes,SearchRectangle:LeftEnd)
+	Set the SearchRectangle to ()
+end selectTab
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: selectTabFromHeader
+Input: TabName which accepts Tab name like 
+"BH SETUP PAGE1"  "BH MAIN PAGE 1" "BH SETUP PAGE2"
+"BH MAIN PAGE2" "BH SETUP PAGE3" "BH MAIN PAGE3"
+Output: The required Tab is selected and gets displayed
+Description: Select the required tab and upon clicking the selected tab gets displayed
+*******)
+on selectTabFromHeader TabName
+	Click "BEH_SA_MainPageComponent/Icon_TabSelection"
+	wait 1
+	moveto (0,10)
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_AddRemoveButton").bottomLeft() into LeftEnd
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_TabSelection").topRight() into LeftEnd
+	--TabListArea is a search rectangle created around the list of Tab available
+	click (Text:TabName,dpi:120,ignorespaces:yes,SearchRectangle:LeftEnd)
+	Set the SearchRectangle to ()
+end selectTabFromHeader
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: selectAddToClick 
+Input: Patient Name and Cell Number(Number should be 8 or less only.) (eg: Kate,May 3)
+Output: The required Cell is selected and Documentation window is displayed
+Description: Selects the required cell and upon clicking the selected cell, documentation window gets displayed
+*******)
+on selectAddToClick PatName,CellNum
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes,searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	put EveryImageLocation((Text:"Click to add..",searchRectangle:ClickToAddArea)) into ClickToAddList	
+	put item CellNum of ClickToAddList into SelectionList
+	click SelectionList	
+	Set the SearchRectangle to ()
+end selectAddToClick
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectLastAddToClick 
+Input: Patient Name (eg: Pat, New)
+Output: The last cell of the Patient is clicked
+Description: The patient name is sent as parameter, the patient's last cell is clicked.
+*******)
+on selectLastAddToClick PatName
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	Repeat until ImageFound(Image:"BEH_SA_MainPageComponent/Icon_HorizontalScrollEnd",tolerance:70)
+		TypeText rightArrow
+	End Repeat	
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName, ignoreSpaces:yes,searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1800,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	put EveryImageLocation((Text:"Click to add..",searchRectangle:ClickToAddArea)) into ClickToAddList
+	log ClickToAddList	
+	put the number of items of ClickToAddList into AddtoListCount	
+	put item AddtoListCount of ClickToAddList into ToSelectCell
+	click ToSelectCell
+	Set the SearchRectangle to ()
+end selectLastAddToClick
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectTabDocumentWindow 
+Input: Tab Name (eg:A#123)
+Output: Selects the Tab displayed in Document Window
+Description: Clicks on the Tab displayed in Document window based on the tab name sent as parameter
+*******)
+on selectTabDocumentWindow TabName
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	put (Text:TabName,ignoreSpaces:yes,searchRectangle:DocWindowArea) into selectTab
+	click selectTab
+	Set the SearchRectangle to ()
+end selectTabDocumentWindow
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectOKDocumentWindow 
+Input: None
+Output: Clicks on OK button displayed in Document Window
+Description: Clicks on the OK button displayed in Document window
+*******)
+
+on selectOKDocumentWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,500) into DocWindowArea
+	click(ImageName:"BEH_SA_MainPageComponent/Button_OKDocWindow",searchRectangle:DocWindowArea) 
+	Set the SearchRectangle to ()
+end selectOKDocumentWindow
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectCancelDocumentWindow 
+Input: None
+Output: Clicks on Cancel button displayed in Document Window
+Description: Clicks on the Cancel button displayed in Document window
+*******)
+on selectCancelDocumentWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	put (ImageName:"BEH_SA_MainPageComponent/Button_CancelDocWindow",searchRectangle:DocWindowArea) into CancelButton
+	click CancelButton
+	Set the SearchRectangle to ()
+end selectCancelDocumentWindow
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: checkOffUnitChkBox
+Input: None
+Output: Checks "Mark as off Unit" Check Box displayed in Document Window
+Description: Checks "Mark as off Unit" Check Box displayed in Document Window
+*******)
+on checkOffUnitChkBox
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	put (ImageName:"BEH_SA_MainPageComponent/CheckBox_MarkAsOffUnit",searchRectangle:DocWindowArea) into CheckBox
+	click  CheckBox
+	Set the SearchRectangle to ()
+end checkOffUnitChkBox
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: SetValueOtherTxtBox
+Input: String Value eg: Dull
+Output: Enters the data sent as parameter in "Other" TextBox 
+Description: Enters the data sent as parameter in "Other" TextBox 
+*******)
+on SetValueOtherTxtBox Value
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into       DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400)        into DocWindowArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/TextBox_Others",searchRectangle:DocWindowArea) into           OtherTextBox
+	click OtherTextBox
+	TypeText Value
+	Set the SearchRectangle to ()
+end SetValueOtherTxtBox
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectClinicalEvents
+Input: Clinical Event List, (eg: Needs further teaching", "Demonstrates)
+Output: Selects all the required Clinical events without using control key
+Description: Selects all the required Clinical events without using control key
+*******)
+on selectClinicalEvents EventList
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into       DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400)        into DocWindowArea
+	put number of items of EventList into listCount
+	put 1 into Flag
+	repeat listCount times
+		click Text:item Flag of EventList,searchRectangle:DocWindowArea
+		click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime"
+		put Flag+1 into Flag
+	end repeat	
+	Set the SearchRectangle to ()
+end selectClinicalEvents
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickAddNewPatient
+Input: None
+Output: Clicks on "Add New Patient" button
+Description: Clicks on "Add New Button" to open the add new patient window
+*******)
+on clickAddNewPatient
+	click "BEH_SA_MainPageComponent/Icon_Patient"
+	Repeat until ImageFound("BEH_SA_MainPageComponent/Button_AddNewPatient")
+		TypeText pageDown	
+	End repeat
+	click "BEH_SA_MainPageComponent/Button_AddNewPatient"
+end clickAddNewPatient
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickSumitInAddNewPatWindow
+Input: None
+Output: Clicks on Submit button in Add New Patient Window
+Description: Clicks on Submit button in Add New Patient Window
+*******)
+on clickSumitInAddNewPatWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient Window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,450) into AddPatWindowArea
+	//put ImageLocation(ImageName:"BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Button_Submit",searchRectangle:AddPatWindowArea) into SubmitButton
+	click (Text:"Submit",SearchRectangle:AddPatWindowArea)	
+	Set the SearchRectangle to ()
+end clickSumitInAddNewPatWindow
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickCancelInAddNewPatWindow
+Input: None
+Output: Clicks on Cancel button in Add New Patient Window
+Description: Clicks on Cancel button in Add New Patient Window
+*******)
+on clickCancelInAddNewPatWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient Window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,450) into AddPatWindowArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Button_Cancel",searchRectangle:AddPatWindowArea) into CancelButton
+	click CancelButton
+	Set the SearchRectangle to ()
+end clickCancelInAddNewPatWindow
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickNurseUnitInAddNewPatWindow
+Input: None
+Output: Clicks on Nurse Unit link in Add New Patient Window
+Description: Clicks on Nurse Unit link in Add New Patient Window
+*******)
+on clickNurseUnitInAddNewPatWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient Window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,450) into AddPatWindowArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit",searchRectangle:AddPatWindowArea) into NurseUnitLink
+	click NurseUnitLink	
+	Set the SearchRectangle to ()
+end clickNurseUnitInAddNewPatWindow
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: readWarningMsg
+Input: None
+Output: Reads the text in the warning window
+Description:  Reads the text in the warning window(displayed when Nurse Unit link is clicked and if there are no facilities)
+*******)
+to readWarningMsg
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--WarningWindowArea is a search rectangle created around the Warning window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/BEH_SA_WarningWindow").bottomLeft()+(-80,80) into WarningWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/BEH_SA_WarningWindow").bottomRight()+(200,-95) into WarningWindowArea
+	put ReadText(WarningWindowArea) into message
+	return message
+	Set the SearchRectangle to ()
+end readWarningMsg
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickOKWarningWin
+Input: None
+Output: Clicks on OK displayed in the warning window
+Description:  Clicks on OK displayed in the warning window(displayed when Nurse Unit link is clicked and if there are no facilities)
+*******)
+
+on clickOKWarningWin
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--WarningWindowArea is a search rectangle created around the Warning window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/BEH_SA_WarningWindow").bottomLeft()+(-80,80) into WarningWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/BEH_SA_WarningWindow").bottomRight()+(200,-95) into WarningWindowArea
+	click (Text:"OK",SearchRectangle:WarningWindowArea)
+	Set the SearchRectangle to ()
+end clickOKWarningWin
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectPatListAddNewPatWindow
+Input: Patient List Name
+Output: Selects Patient List Name from dropDown in Add New Patient window
+Description: Selects Patient List Name from dropDown in Add New Patient window
+*******)
+on selectPatListAddNewPatWindow PatListName
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,450) into AddPatWindowArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/DropDown_PatientList",searchRectangle:AddPatWindowArea) into PatListDropDown
+	click PatListDropDown
+	wait 2
+	click (Text:PatListName,searchRectangle:AddPatWindowArea)
+	Set the SearchRectangle to ()
+end selectPatListAddNewPatWindow
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectFacilityAddNewPatWindow
+Input: Facility Name
+Output: Selects Facility Name from dropDown in Add New Patient window
+Description: Selects Facility Name from dropDown in Add New Patient window
+*******) 
+on selectFacilityAddNewPatWindow FacilityName
+	//put "Baseline East" into FacilityName
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,550) into AddPatWindowArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_Facilities",searchRectangle:AddPatWindowArea) into FacListDropDown
+	click FacListDropDown
+	wait 2
+	click (Text:FacilityName,searchRectangle:AddPatWindowArea)	
+end selectFacilityAddNewPatWindow
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: setMarkOffUnitDrpDwn
+Input: Off Unit Options to select from the drop down eg:Sharp,Tightness,Aching
+Output: Selects the option from the dropdown
+Description: Selects the option from the dropdown
+*******)
+on setMarkOffUnitDrpDwn DrpDwnOption
+	//put "Tightness" into DrpDwnOption
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_MarkAsOffUnit").bottomLeft()+(3,-110) into DropDownArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Text_MarkAsOffUnit").bottomRight()+(750,300) into DropDownArea
+	put ImageLocation(ImageName:"BEH_SA_MainPageComponent/Icon_DropDown", SearchRectangle:DropDownArea) into DropDown
+	click DropDown
+	wait 2
+	click(Text:DrpDwnOption,SearchRectangle:DropDownArea)
+	Set the SearchRectangle to ()
+end setMarkOffUnitDrpDwn
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validatePrecautionsDrpDwn
+Input: None
+Output: Reads the value set in precautions dropdown
+Description: Reads the value set in precautions dropdown
+*******)
+
+to validatePrecautionsDrpDwn
+	//click "BEH_SA_MainPageComponent/Icon_Patient"
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomLeft()+(-10,-140) into DropDownArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomRight()+(50,300) into DropDownArea
+	click(50,10)
+	put ReadText(DropDownArea) into message	
+	return message
+	Set the SearchRectangle to ()
+end validatePrecautionsDrpDwn
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectPrecautions
+Input: Options from Precaution dropdown, eg: Suicide Risk
+Output: sets value in precautions dropdown as per the parameter sent
+Description: sets value in precautions dropdown as per the parameter sent
+*******)
+on selectPrecautions PreOption
+	//put "None" into PreOption
+	click "BEH_SA_MainPageComponent/Icon_Patient"
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomLeft()+(-10,-140) into DropDownArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomRight()+(50,300) into DropDownArea
+	click(ImageName:"BEH_SA_MainPageComponent/Icon_DropDown", SearchRectangle:DropDownArea)
+	click(Text:PreOption,dpi:72,searchRectangle:DropDownArea)
+	Set the SearchRectangle to ()
+end selectPrecautions
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectClinicalEventsUsingCtrl
+Input: Clinical Event List, (eg: "Needs further teaching", "Demonstrates")
+Output: Selects all the required Clinical events using control key
+Description: Selects all the required Clinical events using control key
+*******)
+on selectClinicalEventsUsingCtrl EventList
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into       DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400)        into DocWindowArea
+	put number of items of EventList into listCount
+	put 1 into Flag
+	repeat listCount times
+		KeyDown controlKey	
+		click Text:item Flag of EventList,searchRectangle:DocWindowArea
+		--click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime"
+		put Flag+1 into Flag
+	end repeat	
+	Keyup controlKey
+	Set the SearchRectangle to ()
+end selectClinicalEventsUsingCtrl
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateCellData
+Input: Patient Name and Cell Number(Number should be 4 or less only.) (eg: Kate,May 3)
+Output: The required Cell details are read
+Description: The required Cell details are read
+*******)
+to validateCellData PatName,CellNum
+	Put  bottomleft of ImageRectangle ("BEH_SA_MainPageComponent/Icon_binoculars") into Searchlist 
+	insert Searchlist+(1800,60)  into Searchlist
+	put ReadText(Searchlist,DPI:120) into TimeIntrvalValue
+	log TimeIntrvalValue
+	--PatListArea is a search rectangle created around the Patient list"BEH_SA_SetupPage/Button_OK/Button_OK1501"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:Yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	if (TimeIntrvalValue contains ("min")) then
+		put 425+CellNum*150 into X1
+		put 170+CellNum*140 into X2
+		//click "BEH_SA_MainPageComponent/Icon_Patient"
+		--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+		put ImageRectangle(Text:PatName,ignorespaces:yes, searchRectangle:PatListArea).bottomLeft()+(X1,-50) into ClickToAddArea
+		insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(X2,130) into ClickToAddArea
+		wait 5
+		put readtext(ClickToAddArea,dpi:120,aggressiveTextExtraction:true) into celDetails
+		log celDetails
+	else
+		
+		put 430+CellNum*220 into X5
+		put 110+CellNum*240 into X6
+		--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+		put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(X5,-85) into ClickToAddArea
+		insert ImageRectangle(Text:PatName,ignorespaces:yes, searchRectangle:PatListArea).bottomRight()+(X6,130) into ClickToAddArea
+		wait 5
+		put readtext(ClickToAddArea,dpi:120) into celDetails
+		log celDetails		
+		(*else
+		put 420+CellNum*400 into X3
+		put -180+CellNum*430 into X4
+		--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+		put ImageRectangle(Text:PatName, ignorespaces:yes,searchRectangle:PatListArea).bottomLeft()+(X3,-50) into ClickToAddArea
+		insert ImageRectangle(Text:PatName,ignorespaces:yes, searchRectangle:PatListArea).bottomRight()+(X4,130) into ClickToAddArea
+		wait 5
+		put readtext(ClickTo AddArea,dpi:120) into celDetails
+	        log celDetails*)			
+	end if
+	Set the SearchRectangle to ()
+	return celDetails
+end validateCellData
+-------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateDateInDocWindow
+Input: None
+Output: Reads the date and time in document window
+Description: Reads the date and time in document window
+*******)
+
+to validateDateInDocWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	put ImageRectangle(ImageName:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime",SearchRectangle:DocWindowArea).bottomLeft()+(5,-40) into DateArea
+	insert ImageRectangle(ImageName:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime",SearchRectangle:DocWindowArea).bottomLeft()+(290,25) into DateArea
+	wait 3
+	put readText(DateArea,dpi:110,tolerance:80,EnableAgressiveTextExtraction:Yes) into DateTime
+	log DateTime
+	return DateTime
+	Set the SearchRectangle to ()
+end validateDateInDocWindow
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: selectFacilityInNewPatWIndow
+Input: Facility name, eg: AVAO
+Output: Select Facility name from the dropdown in the Add New Patient Window
+Description: Select Facility name from the dropdown in the Add New Patient Window
+*******)
+
+on selectFacilityInNewPatWIndow FacName
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--AddPatWindowArea is a search rectangle created around the Add New Patient Window
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-90,-80) into AddPatWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,450) into AddPatWindowArea
+	click "BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_Facilities"
+	wait 2
+	click (Text:FacName,SearchRectangle:AddPatWindowArea)
+	Set the SearchRectangle to ()
+end selectFacilityInNewPatWIndow
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateClinicalEventData
+Input: None
+Output: Reads all the clinical events present in the Document window
+Description: Reads all the clinical events present in the Document window
+*******)
+to validateClinicalEventData
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-230,50) into clininalEventArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(200,230) into clininalEventArea
+	put readtext(clininalEventArea,dpi:120) into result
+	log result
+	return result	
+	Set the SearchRectangle to ()
+end validateClinicalEventData
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: setTimeDocWindow
+Input: Time eg: 0-59
+Output: Sets the time in the Document window
+Description: Sets the time in the Document window
+*******)
+on setTimeDocWindow Time
+	click "BEH_SA_MainPageComponent/TextBox_Time"
+	TypeText controlKey & "a"
+	wait(2)
+	TypeText Time
+end setTimeDocWindow
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: readTimeWarningWindow
+Input: None
+Output: Reads the data in Warning window obtained when future time is entered in Document window
+Description: Reads the data in Warning window obtained when future time is entered in Document window
+*******)
+to readTimeWarningWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Time_Warning").bottomLeft()+(-30,20) into warningText
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Time_Warning").bottomRight()+(400,-60) into warningText
+	put readtext(warningText) into Text
+	log Text
+	Set the SearchRectangle to ()
+	return Text
+end readTimeWarningWindow
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: readTextSelected
+Input: None
+Output: Reads the Text selected in the Document window
+Description: Reads the Text selected in the Document window
+*******)
+
+to validateTextSelected SelectedText
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-230,50) into clininalEventArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(200,230) into clininalEventArea
+	put ImageLocation(text:SelectedText,contrast:on,validWords:SelectedText,SearchRectangle:clininalEventArea)+(150,0) into HighlightedText
+	--moveto HighlightedText
+	log ColorAtLocation(HighlightedText)
+	log ColorAtLocation(1084,507)
+	log ColorAtLocation(977,697)
+	put "33,162,222" into HighlightedColor
+	insert "0,0,132" into HighlightedColor
+	if (HighlightedColor contains ColorAtLocation(HighlightedText))
+		log "text Highlighted"
+		return true
+	else
+		log "not highlighted"
+		return false
+	end if
+end validateTextSelected
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validatePatDetails
+Input : Patient Name
+Output: Reads the Patient Details
+Description: Reads the Patient Details
+*******)
+
+to validatePatDetails PatientName
+	click "BEH_SA_MainPageComponent/Icon_Location"
+	//put "KAV, CER1" into PatientName
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,dpi:150,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignoreSpaces:yes, SearchRectangle:PatListArea )+(150,-50) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(-500,200)into SearchList
+	put ReadText(SearchList,DPI:120) into PatDetails
+	log PatDetails
+	return PatDetails	
+end validatePatDetails
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validatePecautionDetails
+Input : Patient Name
+Output: Reads the Patient Details
+Description: Reads the Patient Details
+*******)
+
+to validatePecautionDetails PatientName
+
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,ignoreSpaces:Yes,dpi:150, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignoreSpaces:yes,dpi:150, SearchRectangle:PatListArea )+(120,-10) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(230,130)into SearchList
+	put ReadText(SearchList,DPI:100, AggressiveTextExtraction:yes) into PatDetails
+	--log PatDetails
+	if ImageFound(Image:"BEH_SA_MainPageComponent/Icon_BlankPrecaution",SearchRectangle:SearchList)
+		return "No Precaution"
+	else
+		log PatDetails
+		return PatDetails	
+	end if
+end validatePecautionDetails
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validatesilhouetteicon
+Input : Patient Name
+Output: Checks for the patient image and returns true/false
+Description: Checks for the patient image
+*******)
+to validatesilhouetteicon PatientName
+	//put "NEW, AP" into PatientName
+	//click "BEH_SA_MainPageComponent/Icon_Patient"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignoreSpaces:yes, SearchRectangle:PatListArea )+(150,-50) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(-400,200)into SearchList
+	if ImageFound(Image:"BEH_SA_MainPageComponent/Icon_Silhouette",SearchRectangle:SearchList) 
+		return true
+	else
+		return false
+	end if
+end   validatesilhouetteicon
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: clickPatientName
+Input : Patient Name
+Output: Patient Chart of the required patient gets displayed
+Description: Patient Chart of the required patient gets displayed
+*******)
+
+
+to clickPatientName PatientName
+	click "BEH_SA_MainPageComponent/Icon_Location"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,dpi:150, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	click (Text:PatientName,dpi:150, searchRectangle:PatListArea)
+	wait 10
+	Set the SearchRectangle to ()
+end clickPatientName
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validatePatExists
+Input : Patient Name
+Output: Returns true/false for existance of a patient
+Description: Reads if the patient exists in the list
+*******)
+to validatePatExists PatientName
+
+	//put "STEPHENMPARNELL" into PatientName
+	click "BEH_SA_MainPageComponent/Icon_Patient"
+	moveto(60,255)
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound("BEH_SA_MainPageComponent/Button_LoadMorePatient")
+		if  ImageFound(Text:PatientName,ignorespaces:yes, searchRectangle:PatListArea)
+			//log True
+			return true
+		else
+			TypeText pageDown
+		end if
+	End repeat
+	if  ImageFound(Text:PatientName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		return True
+	else
+		return False
+	end if
+end validatePatExists
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: UncheckMarkOffUnit
+Input : Patient Name
+Output: Unchecks "Mark off Unit" checkbox of the required patient
+Description: Unchecks "Mark off Unit" checkbox of the required patient
+*******)
+
+to UncheckMarkOffUnit PatientName
+	//put "KAV, CER1"  into PatientName
+	click "BEH_SA_MainPageComponent/Icon_Location"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,ignorespaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignorespaces:yes, SearchRectangle:PatListArea )+(150,-40) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(-500,200)into SearchList
+	put ReadText(SearchList,DPI:120) into PatDetails
+	if ImageFound(Image:"BEH_SA_MainPageComponent/Icon_SelectedCheckBox",SearchRectangle:SearchList)
+		click (Image:"BEH_SA_MainPageComponent/Icon_SelectedCheckBox",SearchRectangle:SearchList)
+	end if
+	set the SearchRectangle to ()
+end UncheckMarkOffUnit
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: ValidateNameInMarkOffUnitWindow
+Input : None
+Output: Returns the name of the patient in the Mark Off Unit Window
+Description: Returns the name of the patient in the Mark Off Unit Window
+*******)
+
+to ValidateNameInMarkOffUnitWindow
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomLeft()+(-400,-170) into OffUnitWindow --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomRight()+(10,50) into OffUnitWindow
+	wait 3
+	put ReadText(OffUnitWindow) into OffUnitWindowDetails 
+	log OffUnitWindowDetails
+	return OffUnitWindowDetails
+end ValidateNameInMarkOffUnitWindow
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: ValidateDateTimeInMarkOffUnitWindow
+Input : None
+Output: Returns the Date/Time in the Mark Off Unit Window
+Description: Returns the Date/Time in the Mark Off Unit Window
+*******)
+
+to ValidateDateTimeInMarkOffUnitWindow
+	--click "BEH_SA_MainPageComponent/Icon_binoculars"
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomLeft()+(-400,-120) into OffUnitWindow --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomRight()+(50,-90) into OffUnitWindow
+	wait 3
+	put ReadText(OffUnitWindow) into OffUnitWindowDetails 
+	return OffUnitWindowDetails
+end ValidateDateTimeInMarkOffUnitWindow
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: CheckDisabledCell
+Input : PAtient Name
+Output: Returns the number of dithered cell
+Description:Returns the number of dithered cell
+*******)
+to CheckDisabledCell PatName
+	//put "CDQ,CDQ" into PatName
+	click "BEH_SA_MainPageComponent/Icon_Location"
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+	put ImageRectangle(Text:PatName, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	put number of items  of everyimageLocation(Image:"BEH_SA_MainPageComponent/Badge_Clicktoadd",searchRectangle:ClickToAddArea) into ClickToAddList	
+	return ClickToAddList
+	Set the SearchRectangle to ()
+end CheckDisabledCell
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidatePrecautionIcon PatientName,IconName
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,ignoreSpaces:Yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignoreSpaces:yes, SearchRectangle:PatListArea )+(150,-80) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(230,300)into SearchList
+	if ImageFound(Image:IconName,SearchRectangle:SearchList)
+		return True
+	else
+		return False	"BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_Elopement/Icon_Elopement"
+	end if
+end ValidatePrecautionIcon
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+to ValidateSelectedPatient PatientName
+	//put "KAV,CER1" into PatientName
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatientName,dpi:150,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	Put Topright of ImageRectangle(Text:PatientName,ignoreSpaces:yes, SearchRectangle:PatListArea )+(-260,0) into SearchList  --Setting (X1,Y1)   
+	Insert SearchList+(-130,150)into SearchList
+	if ImageFound(Image:"BEH_SA_MainPageComponent/Icon_SelectPatient_Enabled",SearchRectangle:SearchList)
+		return true
+	else
+		return false
+	end if
+end ValidateSelectedPatient
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validateNewPatWindow
+Input : None
+Output: true/false
+Description: validates if the new patient window is displayed or not
+*******)
+
+to validateNewPatWindow
+	if  ImageFound("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat")
+		return True
+	else
+		return False
+	end if
+end validateNewPatWindow
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validateNewPatWindowElements
+Input : None
+Output: true/false
+Description: validates if the new patient window is displayed or not
+*******)
+
+to validateNewPatWindowElements 
+
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-30,10) into AddPatArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,400) into AddPatArea
+	put ReadText(AddPatArea,dpi:120,ignoreSpaces:yes,aggressiveTextextraction:yes) into data
+	return data
+end validateNewPatWindowElements 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: selectPatListFromNewPatWindow
+Input : None
+Output: true/false
+Description: validates if the new patient window is displayed or not
+*******) 
+
+to selectPatListFromNewPatWindow PatientListName
+	//put "List B" into PatientListName
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-30,10) into AddPatArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,400) into AddPatArea
+	Put  ImageLocation("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/DropDown_PatientList")+(120,-20) into SearchList--Setting (X1,Y1)
+	insert SearchList+(-300,150) into SearchList
+	Click ("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/DropDown_PatientList")--Opens "patientlist" drop box
+	click(Waitfor:5,text:PatientListName,ignoreSpaces:yes,searchRectangle:SearchList)
+end selectPatListFromNewPatWindow
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: selectPatFromNewPatWindow
+Input : None
+Output: Patient Name
+Description: Selects the given Patient name in new pat window
+*******) 
+
+to selectPatFromNewPatWindow PatName
+	//put "KAV, CER1" into PatName
+	put ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomLeft()+(-30,10) into AddPatArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Text_AddNewPat").bottomRight()+(800,400) into AddPatArea
+	Click(Text:PatName, SearchRectangle:AddPatArea)
+end selectPatFromNewPatWindow
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validateFreeTextInDocWindow
+Input : None
+Output: FreeText value
+Description: Returns the free text typed in Other text field of Document window
+*******) 
+
+to validateFreeTextInDocWindow
+	Click "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow"
+	--DocWindowArea is a search rectangle created around the Document Window
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	put ImageRectangle(ImageName:"BEH_SA_MainPageComponent/TextBox_Others", SearchRectangle:DocWindowArea).bottomLeft()+(-30,-30) into OtherTextBox
+	insert ImageRectangle(ImageName:"BEH_SA_MainPageComponent/TextBox_Others", SearchRectangle:DocWindowArea).bottomRight()+(200,20) into OtherTextBox
+	put ReadText(OtherTextBox) into OtherData
+	return OtherData
+	Set the SearchRectangle to ()
+end validateFreeTextInDocWindow
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: validateSignedCell
+Input : None
+Output: true/false
+Description: Validate if the cell is in dark green colour after signing
+*******) 
+
+to validateSignedCell PatName, CellData
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	put ImageLocation(Text: CellData,SearchRectangle:ClickToAddArea)+(-30,10) into ColorArea
+	put ColorAtLocation(ColorArea) into SignedCellColor
+	log SignedCellColor
+	put "123,195,66" into DarkGreenColCode
+	//put ColorAtLocation(880,505) into DarkGreenColCode
+	if (SignedCellColor contains DarkGreenColCode )
+		log "Cell colour is dark green"
+		return true
+	else
+		log "Cell Color is not dark green"
+		return false
+	end if
+end validateSignedCell
+
+log ColorAtLocation(1152,883)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+(*******
+HandlerName: clickOnChartedResponse
+Input : Patient name, cell data
+Output: None
+Description: Clicking on a charted reponses for a patient
+*******) 
+
+to clickOnChartedResponse PatName,CellData
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(200,100) into ClickToAddArea
+	wait 3
+	click(Text:CellData,ignoreSpaces:yes,SearchRectangle: ClickToAddArea)
+end clickOnChartedResponse
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: readChartedCell
+Input : Patient name
+Output: None
+Description: Reads the data in the charted cell for the given patient
+*******) 
+
+to readChartedCell PatName
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait(2)
+	put  ReadText(ClickToAddArea) into result
+	log result
+	return result
+end readChartedCell
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: deSelectEvent
+Input : Patient name, cell data
+Output: None
+Description: Reads the data in the charted cell for the given patient
+*******) 
+
+to deSelectEvent PatName,CellData
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	Click(Text:CellData,SearchRectangle:ClickToAddArea)	
+end deSelectEvent
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: getLastCellTime
+Input : Patient name, cell data
+Output: None
+Description: Get the time for the last cell and click on last cell
+*******) 
+
+to getLastCellTime PatName
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	Repeat until ImageFound(Image:"BEH_SA_MainPageComponent/Icon_HorizontalScrollEnd",tolerance:70)
+		TypeText rightArrow
+	End Repeat	
+	--PatListArea is a search rectangle created around the Patient list
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName, ignoreSpaces:yes,searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	--ClickToAddArea is a search rectangle created around the Click to Add cells based on Patient Name
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1800,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	put Topright of ImageRectangle(Text:"Precautions") into LastCellTime
+	put LastCellTime+(1070,4) into LastCellTime
+	insert LastCellTime +(125,40) into LastCellTime
+	put ReadText(LastCellTime) into LastCellTimeVar
+	log LastCellTimeVar
+	put EveryImageLocation((Text:"Click to add..",searchRectangle:ClickToAddArea)) into ClickToAddList
+	log ClickToAddList	
+	put the number of items of ClickToAddList into AddtoListCount	
+	put item AddtoListCount of ClickToAddList into ToSelectCell
+	click ToSelectCell
+	Set the SearchRectangle to ()
+	return LastCellTimeVar
+end getLastCellTime
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: clickUnchartAll
+Input : none
+Output: clicks on unchart all
+Description: clicks unchart all in document window
+*******) 
+
+to clickUnchartAll
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomLeft()+(-280,-80) into DocWindowArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomRight()+(490,400) into DocWindowArea
+	click(Text:"Unchart All",SearchRectangle: DocWindowArea)
+end clickUnchartAll
+---------------------------------------------------------------------------------------------------------------------------------------------
+(*******
+HandlerName: scrollUp
+Input : none
+Output: scrolls up to the top of the patient list
+Description: scrolls up to the top of the patient list
+*******) 
+
+to scrollUp
+	put ImageRectangle("BEH_SA_SetupPage/Icon_Refresh").bottomLeft()+(50,90) into ScrollBarArea
+	insert ImageRectangle("BEH_SA_SetupPage/Icon_Refresh").bottomRight()+(150,300) into ScrollBarArea
+	Repeat until ImageFound(Image:"BEH_SA_MainPageComponent/Icon_ScrollUp",SearchRectangle:ScrollBarArea)
+		TypeText pageUp			
+	End repeat
+end scrollUp
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: clickPrecautions
+Input: None
+Output:  clicks Precaution dropdown
+Description:  clicks Precaution dropdown,
+*******)
+on clickPrecautions 
+	//put "None" into PreOption
+	click "BEH_SA_MainPageComponent/Icon_Patient"
+	put ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomLeft()+(-10,0) into DropDownArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Text_Precautions").bottomRight()+(50,300) into DropDownArea
+	click(ImageName:"BEH_SA_MainPageComponent/Icon_DropDown", SearchRectangle:DropDownArea)
+	
+end clickPrecautions
+---------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateCellColor
+Input: None
+Output:  returns the cell color
+Description:  checks and return the cell color
+*******)
+
+to validateCellColor PatName, CellData
+	click (ImageLocation("BEH_SA_MainPageComponent/Icon_Location")+(70,0))
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	put ImageLocation(Text: CellData,SearchRectangle:ClickToAddArea)+(-30,10) into ColorArea
+	put ColorAtLocation(ColorArea) into CellColor
+	log CellColor
+	put "206,235,181" into LightGreenColCode
+	//put ColorAtLocation(880,505) into DarkGreenColCode
+	if (CellColor contains LightGreenColCode )
+		log "Cell colour is light green"
+		return true
+	else
+		log "Cell Color is not light green"
+		return false
+	end if
+end validateCellColor
+
+light green 206,235,181
+blue 181,215,239
+log ColorAtLocation(621,314)
+
+---------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: cancelOrder
+Input: None
+Output:  Cancels an order
+Description:  Cancels an order from powerorders
+*******)
+
+to cancelOrder PatName
+	Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickPatientName(PatName)
+	wait until ImageFound("BEH_SA_MainPageComponent/Title_OrderName")
+	RightClick ("BEH_SA_MainPageComponent/Title_OrderName")
+	wait 10
+	click(Text:"Cancel/Discontinue")
+	wait 10
+	click ("BEH_SA_MainPageComponent/Button_OrdersForSignature")
+	wait 5
+	click("BEH_SA_MainPageComponent/Button_Sign") 
+	wait until ImageFound("BEH_SA_MainPageComponent/Title_OrderName")
+end cancelOrder
+
+--------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: completeOrder
+Input: None
+Output:  Completes an order
+Description:  Completes an order from powerorders
+*******)
+
+to completeOrder PatName
+	Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickPatientName(PatName)
+	wait until ImageFound("BEH_SA_MainPageComponent/Title_ElopementPrecautions")
+	Rightclick ("BEH_SA_MainPageComponent/Title_ElopementPrecautions")
+	wait 10
+	click(Text:"Complete")
+	wait until ImageFound("BEH_SA_MainPageComponent/Button_OrdersForSignature")
+	click ("BEH_SA_MainPageComponent/Button_OrdersForSignature")
+	
+end completeOrder
+--------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: validatecompleteOrder
+Input: None
+Output: validates if order is complete
+Description: validates if order is complete
+*******)
+to validatecompleteOrder
+
+	wait until ImageFound("BEH_SA_MainPageComponent/Icon_OrderComplete")
+	if ImageFound("BEH_SA_MainPageComponent/Icon_OrderComplete")
+		return true
+	else
+		return false
+	end if
+	
+end validatecompleteOrder
+
+--------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: SelectFacility
+Input: None
+Output: Selects the facility
+Description: Selects the facility
+*******)
+to SelectFacility FacilityNames
+	put ImageRectangle("BEH_SA_MainPageComponent/Badge_Facilities/Badge_Facilities").bottomLeft()+(-280,-80) into DropDownArea
+	insert ImageRectangle("BEH_SA_MainPageComponent/Badge_Facilities/Badge_Facilities").bottomRight()+(490,400) into DropDownArea
+	click (ImageLocation(Image:"BEH_SA_MainPageComponent/Badge_Facilities/Badge_Facilities"))--Opens "Facilities" drop box
+	click(Waitfor:5,text:FacilityNames,ignoreSpaces:yes,searchRectangle:DropDownArea)
+	
+end SelectFacility
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: changeTimeInDocWindow
+Input: None
+Output: Changes minute value to highest value
+Description: Changes minute value to highest value
+*******)
+
+to changeTimeInDocWindow
+	put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+	insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+	click(text:"Other")	
+	wait 3
+	put readText(SRectangle) into Var3
+	put Var3+59 into var3
+	if Var3>59
+		put 59 into Var3
+	end if 
+	set SearchRectangle to ()
+	Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".setTimeDocWindow(Var3)	
+end changeTimeInDocWindow
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: changeTimeInDocWindow1501
+Input: None
+Output: Changes minute value to highest value
+Description: Changes minute value to highest value
+*******)
+
+to changeTimeInDocWindow1501
+	put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+	insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+	click(text:"Other")	
+	wait 3
+	put readText(SRectangle) into Var3
+	put Var3+59 into var3
+	if Var3>59
+		put 59 into Var3
+	end if 
+	click "BEH_SA_MainPageComponent/TextBox_Time"
+	TypeText backspace
+	TypeText backspace
+	wait(2)
+	TypeText Var3	
+end changeTimeInDocWindow1501
+--------------------------------------------------------------------------------------------------------------------------------------
+
+(******
+HandlerName: validateNurseUnitToolTip
+Input: None
+Output: Returns the tool tip value of nurse unit
+Description: Returns the tool tip value of nurse unit
+*******)
+
+to validateNurseUnitToolTip
+	put MouseLocation() into SRectangle
+	wait 3
+	insert SRectangle+(200,60) into SRectangle
+	put ReadText(SRectangle,dpi:120) into NureToolTip
+	return NureToolTip
+end validateNurseUnitToolTip
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateNurseUnitWindow
+Input: None
+Output: validates the presence of 
+Description: Returns the tool tip value of nurse unit
+*******)
+
+to validateNurseUnitWindow
+	Put  ImageLocation("BEH_SA_MainPageComponent/Button_NurseUnitClose")+(-600,-20) into     SearchList--Setting (X1,Y1)
+	insert SearchList+(600,500) into SearchList
+	put ReadText(SearchList) into NurseUnitWindow
+	return NurseUnitWindow
+end validateNurseUnitWindow
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateTimeRange
+Input: None
+Output: validates the value in Time Range dropdown
+Description: validates the value in Time Range dropdown
+*******)
+
+to validateTimeRange
+	put  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").topRight into SRectangle
+	//log SRectangle
+	insert  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").bottomRight+(100,3) into SRectangle
+	put ReadText(SRectangle) into Result
+	return Result	
+end validateTimeRange
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateTimeInterval 
+Input: None
+Output: validates the value in Time Interval dropdown
+Description: validates the value in Time Interval dropdown
+*******)
+
+to validateTimeInterval
+	put ImageRectangle ("BEH_SA_MainPageComponent/Badge_TimeInterval").topRight()+(0,-10) into SRectangle
+	insert ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeInterval").bottomRight+(70,10) into SRectangle
+	put ReadText(SRectangle) into Result
+	return Result	
+end validateTimeInterval
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateCellInError
+Input: None
+Output: validates  and returns true if the cell is in In-Error state 
+Description: validates  and returns true if the cell is in In-Error state
+*******)
+to validateCellInError PatName
+
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomLeft()+(-100,10) into PatListArea --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Patient").bottomRight()+(130,700) into PatListArea
+	Repeat until ImageFound(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea)
+		TypeText pageDown	
+	End repeat
+	put ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomLeft()+(1500,5) into ClickToAddArea
+	insert ImageRectangle(Text:PatName,ignoreSpaces:yes, searchRectangle:PatListArea).bottomRight()+(300,100) into ClickToAddArea
+	wait 2
+	if ImageFound(Image:"BEH_SA_MainPageComponent/Icon_InError",SearchRectangle:ClickToAddArea)
+		return true
+	else
+		return false
+	end if
+end validateCellInError
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: setTimeInterval
+Input: Time interval value
+Output: set the time interval as per input
+Description: set the time interval as per input
+*******)
+
+to setTimeInterval TimeIntervalValue
+	click (ImageLocation(Text:"Interval")+(70,0))
+	TypeText TimeIntervalValue,return
+	wait 3 # takes time to refresh
+end setTimeInterval
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateCellTimeSlot
+Input: 
+Output: returns the time interval for the 1st cell
+Description: set the time interval as per input
+*******)
+
+to validateCellTimeSlot
+	put  Topright of ImageRectangle(Image:"BEH_SA_MainPageComponent/Badge_Precautions/Badge_Precautions",Tolerance:60)+(200,0) into Topright
+	insert Topright +(100,50) into Bottomleft 
+	put  ReadText(Topright,Bottomleft) into DateTimeRangeTimeSlot
+	return DateTimeRangeTimeSlot	
+end validateCellTimeSlot
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateCellTimeSlotWithSUTTime
+Input: 
+Output: validates the time interval 1st cell with SUT time
+Description: validates the time interval 1st cell with SUT time
+*******)
+
+to validateCellTimeSlotWithSUTTime
+	put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime("MA051214") into Var1
+	click (Text:"Mark as")
+	wait 1
+	put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+	insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+	click(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")
+	put readText(SRectangle) into Var3
+	return Var3
+end validateCellTimeSlotWithSUTTime
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: validateOffUnitTimeInterval
+Input: 
+Output: validates the time interval for Off unit
+Description: validates the time interval for Off unit
+*******)
+
+to enterTimeInOffUnitTimeWindow TimeValue
+log TimeValue
+	put ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomLeft()+(-400,-120) into OffUnitWindow --Setting(x1,y1)
+	insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomRight()+(50,-90) into OffUnitWindow
+	wait 3
+	click "BEH_SA_MainPageComponent/Icon_TimeZone"
+	TypeText Backspace
+	TypeText Backspace
+	TypeText TimeValue
+	click "BEH_SA_MainPageComponent/Button_Submit"
+end enterTimeInOffUnitTimeWindow
+-------------------------------------------------------------------------------------------------------------------------------------------
+(******
+HandlerName: setTimeRange
+Input: time range value
+Output: sets the time range
+Description: sets the time range
+*******)
+
+to setTimeRange rangeValue
+	click (ImageLocation(Text:"Range")+(70,0))
+	TypeText rangeValue ,return
+	wait 5# takes time to refresh
+end setTimeRange
