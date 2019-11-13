@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-14 12:43:09.956 +0530"
+ tests="1"  failures="0" errors="0" time="384.302000">
+  <properties>
+   <property name="RunDate" value="2019-10-14 12:43:09.956 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders.script" assertions="40" status="error"  time="384.289">
+    <error type="Exception" message="No Text Found On Screen: &quot;(TEXT:&quot;Nurse Units&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

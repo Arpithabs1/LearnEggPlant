@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-17 10:30:49.785 +0530"
+ tests="1"  failures="2" errors="1" time="343.800000">
+  <properties>
+   <property name="RunDate" value="2019-10-17 10:30:49.785 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="11" status="error"  time="343.778">
+    <failure type="LogError" message="Assertion Error: Validating Future time warning message (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.readTimeWarningWindow contains &quot;The entered time is outside the chosen time frame.&quot;; actually: The entered time is in the future. Activity Date/Time will default to\ncurrent date and time. DOES NOT contain The entered time is outside the chosen time frame.)" />
+    <failure type="FAILURE" message="Image Not Found click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_ScrollBar&quot; -- Execution Time 0:05:44 BEH-VR-S&A-Facility or nurse unit.script" />
+    <error type="Exception" message="No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_ScrollBar&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

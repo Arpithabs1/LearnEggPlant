@@ -1,0 +1,503 @@
+﻿(******************* MyJarvis *******************
+Script Name: BEH-VR-SA-Facility or nurse unit.
+Test ID: 10748
+Author: AB056220
+Date of creation: 09-Sep-2019
+*****************************
+
+
+Description:Verify the Safety and Attendance MPage component functions appropriately for Facility or nurse unit.
+Prerequisites:
+
+1. User1 should have DBA privileges.
+2. Identify or create Powerform with the Event set 93 and 72 mapped.
+3. Define Suicide Risk Precaution. (Qualifier not defined, response defined)
+1. Label: Suicide Risk Precuation.
+ii. Intermittent-> Danger icon
+iii. Constant-> High risk icon
+iv. Plan-> Medium risk icon
+v. None-> No Icon
+4. Fall Risk Precautions (Qualifier defined, but no response)
+5. Define Elopement Risk Precaution with the event set 200 (status marked as Ordered) mapped.(Qualifier not defined, response defined) and elopement risk icon selected in the dropdown 
+6. Define Assault Risk Precaution with the event set 200 mapped (Status marked as InProcess).(Qualifier not defined, response defined ) and Assault risk icon selected in the dropdown 
+7. Define Seizure Risk Precaution with the event set 200 mapped(Status marked as InProcess MedStud). (Qualifier not defined, response defined ) and  Seizure risk icon selected in the dropdown 
+8. Identify Order A at least 30 characters.
+9.  Identify facility A, B and C which has nursing units associated to it.
+10. Configure these facilities A and B's nursing units using BH setup page.
+11. Ensure User1 is associated to facility A and B in hnauser.exe but not facility C.
+12. Identify or register Patients A, B, C, D, E associated to facilities A,
+
+a. Patient A: name at least 50 characters long, chart the suicide risk event by selecting the 'Intermittent' value, chart the Fall risk events, chart multiple Observation Level events and place an order A for the patient and chart for the comments(Powerfrom)
+b. Patient B: chart the suicide risk event by selecting the 'Constant' value and chart the Fall risk events, chart for the comments(Powerfrom)
+c. Patient C: chart the suicide risk event by selecting the 'Plan' value and chart the Fall risk events and chart for the comments(Powerfrom) and place and Order B.
+d. Patient D: chart the suicide risk event by selecting the 'None' value, chart the Observation Level event and place an order A.
+e. Patient E: chart the suicide risk event by selecting the ' Intermittent ' value.
+f.  Patient F associated to Facility A and chart for Elopement Risk,Assault Risk and Seizure Risk 
+g. Patient G associated to facility A and chart for Elopement Risk and Assault Risk
+h. Patient H associated to facility A and chart for Elopement Risk and Seizure Risk                                                                                                                                                                                             
+13. Ensure the patients registered under the facilities have male, female and unknown genders with Date of Birth.
+14. Identify the Code set in the domain patient location, Fall Risk and Suicide Risk 93 and patient activity 72.  (file:Behavioral Health MPage SetUp)
+15. Identify the script "dc_mp_bhv_hlth_setup" for the setup page
+16. Perform the steps provided in the setup document for the user1 at the position level to configure/access Safety and Attendance MPage.
+17. Identify Internet Explorer web browsers from Versions 7 or above.
+
+Change Control:
+
+Date                       EDITOR                                                                        DESCRIPTION
+
+9/10/2019              AB056220                                                                     Initial Design
+
+*****************************)
+
+Log ("Step 1:Launch Powerchart by User 1")
+//run Google_Chrome.OpenGoogleChrome
+//run Google_Chrome.TypeInWebAddress "ipsf01.northamerica.cerner.net/Citrix/IPCTXweb/"
+
+
+#Expected Result:Verify Powerchart is launched without error.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 2: Click on 'Safety and Attendance mPage' tab at organizer level.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabFromHeader("SA Main")
+# Expected Result: Verify that 'Safety and Attendance mPage' is displayed without any error.
+
+wait(15) // waiting for the Main Page 1 is loaded completely and responsive
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("Setup and Main Page") contains True with error "Validating Main Page 1 loads successfully"
+
+CaptureScreen(Name:"Step 2")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 3: Check if the Title and the Labels of Submit, Reset, Sign changes To Chart, Time Interval and Time Range are displayed.")
+
+# Expected Result: Verify the title Safety and Attendance mPage is displayed in the top left corner. Verify the dropdown of Facilities is displayed appropriately. Verify Nurse Units and Reset buttons are enabled. Verify Time Range displays as 4 hours and dithered. Time Interval is not displayed and dithered.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("Reset","Facilities","Sign changes To Chart","Time Interval","Time Range") contains "True" with error "Main Page 1 error"
+assert ImageFound("BEH_SA_MainPageComponent/Button_Submit","BEH_SA_MainPageComponent/Button_Reset") with error "Validating Submit button is Enabled"
+
+CaptureScreen(Name:"Step 3")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 4: Hover over the Nurse unit hyperlink.")
+
+MoveTo "BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit"
+
+# Expected Result: Verify the Tool tip displays as "Click to open nurse units".
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNurseUnitToolTip contains "Open Nurse units" with error "Validating Nurse Unit Tool Tip displays"
+
+CaptureScreen(Name:"Step 4")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 5: From the drop down, select any Facility A.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SelectFacility("Baseline East Medical Center")
+
+# Expected Result: Verify that the facility is selected.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("Baseline East Medical Center") contains "True" with error "Required Facility is not selected"
+
+CaptureScreen(Name:"Step 5")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 6: Select the Nurse unit hyper link.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnithyperlink("Nurse Units")
+wait 5
+
+# Expected Result: Verify that the window displays for the selection of nurse unit.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNurseUnitWindow contains "BE 2E" with error "Required Facility is not selected"
+
+
+CaptureScreen(Name:"Step 6")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 7: Select the required nurse units and click on Submit..")
+
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitNameFrom("BE 2E")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitSubmitCancelButtonFrom("Submit")
+wait 15
+
+# Expected Result: Verify that the patients associated to the facility are displayed.Verify that only 10 Patients are loaded.
+#Counting number of patients in eggplant is not possible
+
+CaptureScreen(Name:"Step 7")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 8: Scroll down to end of the patient list and click on Load more patients button.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickLoadMorePatients
+
+# Expected Result: Verify that next batch of 10 Patient are loaded.
+#Counting number of patients in eggplant is not possible
+
+CaptureScreen(Name:"Step 8")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 9: Scroll up to the top of patient list.")
+Set the SearchRectangle to ()
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".scrollUp
+
+# Expected Result: Verify that Previously loaded patients are displayed. Verify that 20 Patients are displayed in the patient list.
+#Counting number of patients in eggplant is not possible
+
+CaptureScreen(Name:"Step 9")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 10: Scroll down to end of the patient list and click on Load more patients button.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickLoadMorePatients
+
+# Expected Result: Verify that next batch of 10 Patient are loaded.
+#Counting number of patients in eggplant is not possible
+
+CaptureScreen(Name:"Step 10")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 11: Scroll up to the top of patient list..")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".scrollUp
+
+# Expected Result: Verify that Previously loaded patients are displayed.Verify that 30 Patients are displayed in the patient list.
+#Counting number of patients in eggplant is not possible
+
+CaptureScreen(Name:"Step 11")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 12: Check the Location Column..")
+
+
+# Expected Result: Verify that blue silhouette icon is displayed for the patients. Beneath the blue silhouette icon, Patient location is displayed in the following format:Unit/Room/Bed.
+
+Assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatesilhouetteicon("CARA, CADBURY MILK") equals "true" with error "Silhouette icon is not diaplayed"
+wait 3
+
+CaptureScreen(Name:"Step 12")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 13: Check the Patient Column.")
+
+# Expected Result: Verify that the Patient name is wrapped across multiple lines,, Gender,DOB, MRN, Fin and Level of Observation is wrapped across multiple lines.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails("CARA, CADBURY MILK") into PatientDetailVar
+
+assert that PatientDetailVar contains ("Level of Observation") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("F") with error "Validating Patient Details"
+assert that PatientDetailVar contains("34") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("DOB") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("11/08/84") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("MRN") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("1375") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("FIN") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("1641") with error "Validating Patient Details"
+
+CaptureScreen(Name:"Step 13")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 14: Click on Precautions drop down.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickPrecautions
+
+# Expected Result: Verify that the Precautions configured on setup page are displayed in the same order as its been configured.Verify that Ascending Sort icon (up arrow) is displayed beside the combo box.
+
+put  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePrecautionsDrpDwn into AvailableRiskVar
+assert that AvailableRiskVar contains "Suicide Risk"  with error "Validating Precautions in precautions dropdown"
+assert that AvailableRiskVar contains "Fall Risk"  with error "Validating Precautions in precautions dropdown"
+assert that AvailableRiskVar contains "Seizure Risk"  with error "Validating Precautions in precautions dropdown"
+assert that AvailableRiskVar contains "Elopement Risk"  with error "Validating Precautions in precautions dropdown"
+
+CaptureScreen(Name:"Step 14")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 15: Select the first precaution, I.e., Suicide Risk.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("suicide risk")
+wait 3
+
+# Expected Result: Verify that the below patients having Suicide Risk precaution charted are displayed on top of the patient list. Patients A, B, C, D and E. Verify that value in precaution is displayed in the below format.<Risk Icon><Name of the precaution>: <Charted Value>
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePrecautionsDrpDwn contains "suicide risk" with "Validating Precautions header" 
+click (Image:"BEH_SA_MainPageComponent/Icon_ScrollBar")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".scrollUp
+
+CaptureScreen(Name:"Step 15")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 16: Verify the precaution displayed for patients.")
+
+# Expected Result: Verify that following precautions are displayed for the patients. Patient A: <Risk Icon > Suicide Risk precaution: Intermittent Patient B: <Risk Icon > Suicide Risk precaution: Constant Patient C: <Risk Icon > Suicide Risk precaution: Plan Patient D: Suicide Risk precaution: None
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("R, BHAVANI") contains("Suicide Risk:","Plan") with error "Validating Suicide Risk for Patient A"
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidatePrecautionIcon("R, BHAVANI","BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_Plan") equals True with error "validating Suicide risk icon"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("GDPR, HLXTWO") contains ("Suicide Risk:","Intermittent") with error "Validating Suicide Risk for Patient B"
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidatePrecautionIcon("GDPR, HLXTWO","BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_Intermittent") equals True with error "validating Suicide risk icon"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC3") contains("Suicide Risk:","Constant") with error "Validating Suicide Risk for Patient C"
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidatePrecautionIcon("TEST, MIC3","BEH_SA_MainPageComponent/Icon_PrecautionIcons/Icon_High") equals True with error "validating Suicide risk icon"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, EVE1") contains("Risk:","None") with error "Validating Suicide Risk for Patient D"
+
+CaptureScreen(Name:"Step 16")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 17: Select Fall Risk.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("Fall risk")
+
+# Expected Result: Verify that the below patients for which Fall Risk is charted are displayed on top of the patient list.Patients A, B, C.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("R, BHAVANI") contains("Fall Risk") with error "Validating Suicide Risk for Patient A"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("GDPR, HLXTWO") contains ("Fall Risk") with error "Validating Suicide Risk for Patient B"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC3") contains("Fall Risk") with error "Validating Suicide Risk for Patient C"
+
+
+CaptureScreen(Name:"Step 17")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 18: Verify the precaution displayed for patients.")
+
+
+
+# Expected Result: Verify that following precautions are displayed for the patients. Patient A: Fall Risk Patient B: Fall Risk Patient C: Fall Risk
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("R, BHAVANI") contains("Fall Risk") with error "Validating Suicide Risk for Patient A"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("GDPR, HLXTWO") contains ("Fall Risk") with error "Validating Suicide Risk for Patient B"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC3") contains("Fall Risk") with error "Validating Suicide Risk for Patient C"
+
+CaptureScreen(Name:"Step 18")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 19: Select Precaution for Risk Order A")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("Assault Risk")
+
+# Expected Result: Verify that the below patients for which Assault Risk is charted are displayed on the top of the list Patient F and G.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC4") contains("Braden Assessment") with error "Validating Suicide Risk for Patient F"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("JW, MODIFIER") contains ("Braden Assessment") with error "Validating Suicide Risk for Patient G"
+
+
+CaptureScreen(Name:"Step 19")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 20: Select Precaution for Risk Order B")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("Seizure Risk")
+
+# Expected Result: Verify that the below patients for which Seizure Risk is charted are displayed on the top of the list Patient F,G,H.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC4") contains("Braden Assessment") with error "Validating Suicide Risk for Patient F"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("JW, MODIFIER") contains ("Braden Assessment") with error "Validating Suicide Risk for Patient G"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("_PATIENT") contains("Braden Assessment") with error "Validating Suicide Risk for Patient H"
+
+CaptureScreen(Name:"Step 20")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 21: Open the chart for Patient H and cancel the order for Seizure Risk")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".cancelOrder("_PATIENT")
+
+# Expected Result: Verify that the corresponding order is cancelled
+click "BEH_SA_SetupPage/Icon_Refresh"
+Wait 20
+assert that ImageFound("BEH_SA_MainPageComponent/Title_OrderName") equals False with error "Order is not cancelled"
+
+CaptureScreen(Name:"Step 21")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 22: Navigate back to the S&A mPage and refresh the page and load the load unit ")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabFromHeader("SA Main")
+wait 5
+click "BEH_SA_SetupPage/Icon_Refresh"
+WaitFor 20, "BEH_SA_MainPageComponent/Icon_NurseUnits"
+wait 5 
+WaitFor 20, "BEH_SA_MainPageComponent/Icon_NurseUnits"
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SelectFacility("Baseline East Medical Center")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnithyperlink("Nurse Units")
+wait 5
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitNameFrom("BE 2E")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitSubmitCancelButtonFrom("Submit")
+
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_Location")
+
+# Expected Result: Verify that the page is loaded successfully
+
+CaptureScreen(Name:"Step 22")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 23: Select the Seizure Risk")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("Seizure Risk")
+wait 2
+DoubleClick (500,200)
+
+# Expected Result: Select the Seizure Risk
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePrecautionsDrpDwn contains "Seizure risk" with "Validating Precautions header" 
+
+CaptureScreen(Name:"Step 23")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 24: Open chart for Patient G and mark order corresponding to Elopement Risk as completed")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".completeOrder("JW, MODIFIER")
+
+# Expected Result: Verify that the order is in completed status
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatecompleteOrder equals true with error "Order not complete"
+
+
+CaptureScreen(Name:"Step 24")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 25: Verify that the order is in completed status")
+
+wait until  ImageFound("BEH_SA_MainPageComponent/Button_Sign")
+click("BEH_SA_MainPageComponent/Button_Sign") 
+wait 15
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabFromHeader("SA Main")
+
+wait 8
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_Location")
+
+# Expected Result: Verify that the page is loaded successfully
+
+CaptureScreen(Name:"Step 25")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 26: Select Elopement Risk")
+
+click "BEH_SA_SetupPage/Icon_Refresh"
+WaitFor 20, text:"Facilities"
+wait 2
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SelectFacility("Baseline East Medical Center")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnithyperlink("Nurse Units")
+wait 5
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitNameFrom("BE 2E")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitSubmitCancelButtonFrom("Submit")
+
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_Location")
+
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPrecautions("Elopement Risk")
+
+# Expected Result: Verify that Patient F and H are loaded on the top of the list and patient G doesn't qualify for elopement risk
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("TEST, MIC4") contains("Elopement") with error "Validating Suicide Risk for Patient F"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("_PATIENT") contains("Elopement") with error "Validating Suicide Risk for Patient H"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails("JW, MODIFIER") does not contain ("Elopement") with error "Validating Suicide Risk for Patient G"
+
+CaptureScreen(Name:"Step 26")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 27: Check the Time range section.")
+
+assert ImageFound("BEH_SA_MainPageComponent/Badge_TimeRange") with error "Time Range Error"
+
+# Expected Result: Verify that the Time range slot defaults to 4 hours.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTimeRange contains "4 hours" with error "Validating Time Range section" 
+set SRectangle to ()
+
+CaptureScreen(Name:"Step 27")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 28: Check the time interval drop down.")
+
+assert ImageFound("BEH_SA_MainPageComponent/Badge_TimeRange") with error "Time Interval Error"
+
+# Expected Result: Verify that time interval defaults as per the setup page.
+
+Assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("15 min") contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+Assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("30 min") contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+Assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("hour") contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+Assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("hours") contains "True" with error "Validating Time Interval values"
+
+CaptureScreen(Name:"Step 28")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 29: Click the time range drop down.")
+# Expected Result: Verify that drop down options displays upto 12 hours.
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeRangeFrom("12") contains "True" with error "Validating Time Range Details"
+TypeText escapeKey
+
+CaptureScreen(Name:"Step 29")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 30: Select Time Range of 4 hours from drop down and also select Time Interval of 1 hour from the drop down.")
+
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectTimeRangeFrom("4")
+click (ImageLocation( "BEH_SA_MainPageComponent/Badge_TimeInterval"))
+Click text:"1 hour"
+
+
+# Expected Result: Verify that the Time Range is selected and displayed from the dropdown. Verify that the time interval is set to "1 hour" in the drop down and verify that 4 or 5 activity columns are displayed based on the test execution time. 
+
+moveto (700,200)// removes mouse focus
+wait(5)// waiting for focus to move
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTimeInterval contains "1 hour" with error "Validaing  Time Interval as 1 hour"
+
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTimeRange contains "4 hour" with error "Validaing Time Range as 4 hours"
+
+CaptureScreen(Name:"Step 30")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 31: Check the activity section displayed for date and time.")
+
+#This step has been removed from VR and is convertered to SBET 
+
+# Expected Result: Verify that the Date and time is being displayed as Reverse Chronological order in particular time slot and verify the time range is being displayed as iView. For Ex"3:00-3.59 CST" " 2:00 -2:59 CST" 1:00-1:59 CST" or 14:00 – 14:59 -0600 UTC". Verify that Date interval is displayed in MM/DD/YY format. Note: CST depends on the date time setup.
+
+CaptureScreen(Name:"Step 31")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 32: Sort all the columns")
+
+click(Image:"BEH_SA_MainPageComponent/Icon_Sort")
+
+# Expected Result: Verify all the columns are sorted.
+
+assert that ImageFound("BEH_SA_MainPageComponent/Icon_Patient/Icon_Patient1") with error "Validating Documentiaon window  displays"
+
+CaptureScreen(Name:"Step 32")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 33: Click on the Reset/Refresh button.")
+
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 10
+# Expected Result: Verify the Safety and Attendance mPage refreshes without error. The initial display of the mPage is displayed.
+assert that "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("Setup and Main Page") contains True with error "Validating Main Page 1 loads successfully"
+
+CaptureScreen(Name:"Step 33")
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 34:Close PowerChart Application")
+
+# Expected Result: PowerChart application closes without error.
+
+CaptureScreen(Name:"Step 34")
+-------------------------------------------------------------------------------------------------------------------------------------------------

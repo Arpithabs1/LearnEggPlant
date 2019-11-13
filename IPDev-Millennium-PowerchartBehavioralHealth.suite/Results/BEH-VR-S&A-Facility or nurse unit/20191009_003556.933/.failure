@@ -1,0 +1,1 @@
+2019-10-09 00:35:56.933 +0530,Failure,0:06:54,2,0,0,20191009_003556.933/LogFile.txt,"","AssertionFailed -- Validating Precautions header (assertion: PrecautionOptions contains ""Seizure risk""; actually: V\nsuicide risk: Plan\nFall risk: 40 DOES NOT contain Seizure risk)",42

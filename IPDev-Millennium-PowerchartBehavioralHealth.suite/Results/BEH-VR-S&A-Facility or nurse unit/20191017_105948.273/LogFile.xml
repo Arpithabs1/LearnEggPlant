@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-17 10:59:48.273 +0530"
+ tests="1"  failures="1" errors="1" time="417.461000">
+  <properties>
+   <property name="RunDate" value="2019-10-17 10:59:48.273 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="15" status="error"  time="417.443">
+    <failure type="LogError" message="Assertion Error: Validating Future time warning message (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.readTimeWarningWindow contains &quot;The entered time is outside the chosen time frame.&quot;; actually: The entered time is in the future. Activity Date/Time will default to\ncurrent date and time. DOES NOT contain The entered time is outside the chosen time frame.)" />
+    <error type="Exception" message="Searching For Image: OCR Error: Operation was aborted" />
+  </testcase>
+ </testsuite>
+</testsuites>

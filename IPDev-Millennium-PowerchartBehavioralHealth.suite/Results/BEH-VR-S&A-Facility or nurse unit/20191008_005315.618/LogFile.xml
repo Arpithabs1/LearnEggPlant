@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-08 00:53:15.618 +0530"
+ tests="1"  failures="1" errors="1" time="42.917000">
+  <properties>
+   <property name="RunDate" value="2019-10-08 00:53:15.618 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="4" status="error"  time="42.885">
+    <failure type="LogError" message="Assertion Error: Validating Main Page 1 loads successfully (assertion: Var1 contains &quot;True&quot;; actually: False DOES NOT contain True)" />
+    <error type="Exception" message="No Image Found On Screen: &quot;BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

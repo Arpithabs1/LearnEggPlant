@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-08 19:07:36.227 +0530"
+ tests="1"  failures="2" errors="0" time="427.702000">
+  <properties>
+   <property name="RunDate" value="2019-10-08 19:07:36.227 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="44" status="failure"  time="427.652">
+    <failure type="LogError" message="Assertion Error: Validating Main Page 1 loads successfully (assertion: Var1 contains &quot;True&quot;; actually: False DOES NOT contain True)" />
+    <failure type="FAILURE" message="AssertionFailed Validating Precautions header (assertion: PrecautionOptions contains &quot;Seizure risk&quot;; actually: V\nsuicide risk: Plan\nFall risk: 40 DOES NOT contain Seizure risk) -- Execution Time 0:07:07 BEH-VR-S&A-Facility or nurse unit.script" />
+  </testcase>
+ </testsuite>
+</testsuites>

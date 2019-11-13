@@ -1,0 +1,413 @@
+﻿<?xml version="1.0"?>
+<runHistory script="BEH-VR-S&A-Facility or nurse unit 1501expkg">
+ <run>
+  <RunDate>2019-10-24 16:07:53.225 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>3.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191024_160753.225/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-28 00:06:43.440 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>619.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>35</Successes>
+  <LogFile>20191028_000643.440/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagelocation Error - Unable To Find Image &quot;(TEXT:&quot;Heavy&quot;)&quot;  Restricted Search Rectangle ((673,627),(1804,722))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-29 00:02:22.091 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>619.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>26</Successes>
+  <LogFile>20191029_000222.091/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-29 10:21:16.027 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>584.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>30</Successes>
+  <LogFile>20191029_102116.027/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_SetupPage/Icon_Refresh&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-29 14:33:42.343 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>284.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>12</Successes>
+  <LogFile>20191029_143342.343/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-29 15:26:02.777 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1917.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>38</Successes>
+  <LogFile>20191029_152602.777/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-29 23:42:53.823 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1619.000000</Duration>
+  <Errors>3</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>36</Successes>
+  <LogFile>20191029_234253.823/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-30 00:12:41.898 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191030_001241.898/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>No Remote Connection -- click Error - Remote Connection Unavailable</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-30 12:26:46.436 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>176.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>7</Successes>
+  <LogFile>20191030_122646.436/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-30 12:47:46.120 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>213.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>10</Successes>
+  <LogFile>20191030_124746.120/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-30 14:06:20.329 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1227.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>59</Successes>
+  <LogFile>20191030_140620.329/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-31 10:56:03.364 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1446.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>74</Successes>
+  <LogFile>20191031_105603.364/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-31 12:35:31.515 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>369.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>12</Successes>
+  <LogFile>20191031_123531.515/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-31 15:03:36.586 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1157.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>70</Successes>
+  <LogFile>20191031_150336.586/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-05 11:59:16.852 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1442.000000</Duration>
+  <Errors>3</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>57</Successes>
+  <LogFile>20191105_115916.852/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-05 12:29:21.069 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>74.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>1</Successes>
+  <LogFile>20191105_122921.069/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-05 12:49:04.666 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1051.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>70</Successes>
+  <LogFile>20191105_124904.666/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_CDT&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-05 14:01:55.325 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1429.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>68</Successes>
+  <LogFile>20191105_140155.325/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;(TEXT:&quot;BE Nurse Unit&quot;)&quot;  Restricted Search Rectangle ((795,413),(1395,913))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-05 14:58:13.896 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1411.000000</Duration>
+  <Errors>4</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>67</Successes>
+  <LogFile>20191105_145813.896/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 10:01:31.133 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1374.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>69</Successes>
+  <LogFile>20191108_100131.133/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 10:59:33.495 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1679.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>84</Successes>
+  <LogFile>20191108_105933.495/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagelocation Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Location&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 12:06:10.850 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1067.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>59</Successes>
+  <LogFile>20191108_120610.850/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 12:23:58.446 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191108_122358.446/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 12:29:04.037 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>81.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>1</Successes>
+  <LogFile>20191108_122904.037/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-08 14:01:19.447 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1484.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>69</Successes>
+  <LogFile>20191108_140119.447/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_TimeZone&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 09:49:02.989 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1493.395000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>59</Successes>
+  <LogFile>20191111_094902.989/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 10:13:56.812 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1.388000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191111_101356.812/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 10:17:04.419 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>3799.169000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>71</Successes>
+  <LogFile>20191111_101704.419/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 11:23:25.352 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>156.324000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>6</Successes>
+  <LogFile>20191111_112325.352/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 11:56:50.511 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>861.146000</Duration>
+  <Errors>3</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>48</Successes>
+  <LogFile>20191111_115650.511/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- moveto Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 12:15:25.382 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1618.025000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>71</Successes>
+  <LogFile>20191111_121525.382/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 12:47:28.024 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1578.574000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>71</Successes>
+  <LogFile>20191111_124728.024/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 13:20:56.203 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>1280.765000</Duration>
+  <Errors>3</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>85</Successes>
+  <LogFile>20191111_132056.203/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_OKDocWindow/Button_OK1501exp&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-11-11 14:22:11.523 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>506.030000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>26</Successes>
+  <LogFile>20191111_142211.523/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+</runHistory>

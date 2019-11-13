@@ -1,0 +1,1 @@
+2019-10-14 15:12:08.926 +0530,Failure,0:07:20,1,0,0,20191014_151208.926/LogFile.txt,"","AssertionFailed -- Validating Precautions header (assertion: ""BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers"".validatePrecautionsDrpDwn contains ""Seizure risk""; actually: Precautions\nNone\n=3\nsuicide risk: Plan\nFall risk: 40 DOES NOT contain Seizure risk)",40

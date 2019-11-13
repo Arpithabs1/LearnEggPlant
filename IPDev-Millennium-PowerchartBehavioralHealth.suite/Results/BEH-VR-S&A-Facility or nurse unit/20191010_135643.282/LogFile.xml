@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-10 13:56:43.282 +0530"
+ tests="1"  failures="0" errors="0" time="452.107000">
+  <properties>
+   <property name="RunDate" value="2019-10-10 13:56:43.282 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="44" status="error"  time="452.077">
+    <error type="Exception" message="No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

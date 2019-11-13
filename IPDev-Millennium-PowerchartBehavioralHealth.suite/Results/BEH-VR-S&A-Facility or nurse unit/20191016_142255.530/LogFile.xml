@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-16 14:22:55.530 +0530"
+ tests="1"  failures="2" errors="0" time="849.586000">
+  <properties>
+   <property name="RunDate" value="2019-10-16 14:22:55.530 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="35" status="failure"  time="849.567">
+    <failure type="LogError" message="Assertion Error: Validating Future time warning message (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.readTimeWarningWindow contains &quot;The entered time is outside the chosen time frame.&quot;; actually: The entered time is in the future. Activity Date/Time will default to\ncurrent date and time. DOES NOT contain The entered time is outside the chosen time frame.)" />
+    <failure type="LogError" message="Assertion Error: Error in 2nd cell time slot (assertion: DateTimeRange contains Var3; actually: DT DOES NOT contain 59)" />
+  </testcase>
+ </testsuite>
+</testsuites>

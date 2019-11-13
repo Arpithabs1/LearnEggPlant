@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-10 15:17:54.140 +0530"
+ tests="1"  failures="1" errors="1" time="424.221000">
+  <properties>
+   <property name="RunDate" value="2019-10-10 15:17:54.140 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="44" status="error"  time="424.19">
+    <failure type="FAILURE" message="Image Not Found click Error - No Text Found On Screen: &quot;(TEXT:&quot;Nurse Units&quot;)&quot;  Restricted Search Rectangle ((12,182),(1812,242))\n -- Execution Time 0:07:04 BEH-VR-S&A-Facility or nurse unit.script" />
+    <error type="Exception" message="No Text Found On Screen: &quot;(TEXT:&quot;Nurse Units&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

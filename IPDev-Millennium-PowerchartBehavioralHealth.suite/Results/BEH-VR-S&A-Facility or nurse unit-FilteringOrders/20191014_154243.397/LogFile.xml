@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-14 15:42:43.397 +0530"
+ tests="1"  failures="0" errors="0" time="637.356000">
+  <properties>
+   <property name="RunDate" value="2019-10-14 15:42:43.397 +0530"/>
+   <property name="Status" value="Success"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders.script" assertions="57" status="success"  time="637.34">
+  </testcase>
+ </testsuite>
+</testsuites>

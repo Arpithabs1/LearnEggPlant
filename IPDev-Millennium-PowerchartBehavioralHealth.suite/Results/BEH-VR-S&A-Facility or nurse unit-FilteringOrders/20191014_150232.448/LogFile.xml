@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-14 15:02:32.448 +0530"
+ tests="1"  failures="1" errors="1" time="370.426000">
+  <properties>
+   <property name="RunDate" value="2019-10-14 15:02:32.448 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders.script" assertions="41" status="error"  time="370.414">
+    <failure type="LogError" message="Assertion Error: Order is not cancelled (assertion: ImageFound(&quot;BEH_SA_MainPageComponent/Title_OrderName&quot;) equals False; actually: True IS NOT equal to False)" />
+    <error type="Exception" message="Unable To Find Image &quot;BEH_SA_MainPageComponent/Text_AddRemoveButton&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

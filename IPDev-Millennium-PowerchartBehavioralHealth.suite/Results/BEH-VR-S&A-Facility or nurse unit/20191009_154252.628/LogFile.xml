@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-09 15:42:52.628 +0530"
+ tests="1"  failures="1" errors="1" time="59.180000">
+  <properties>
+   <property name="RunDate" value="2019-10-09 15:42:52.628 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="4" status="error"  time="59.15">
+    <failure type="FAILURE" message="Image Not Found moveto Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit&quot; -- Execution Time 0:00:59 BEH-VR-S&A-Facility or nurse unit.script" />
+    <error type="Exception" message="No Image Found On Screen: &quot;BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

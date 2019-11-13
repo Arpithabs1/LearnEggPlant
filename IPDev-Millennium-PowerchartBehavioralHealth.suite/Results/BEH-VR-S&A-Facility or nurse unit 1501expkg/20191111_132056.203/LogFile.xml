@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit 1501expkg_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-11-11 13:20:56.203 +0530"
+ tests="1"  failures="3" errors="1" time="1280.765000">
+  <properties>
+   <property name="RunDate" value="2019-11-11 13:20:56.203 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit 1501expkg.script" assertions="88" status="error"  time="1280.745">
+    <failure type="LogError" message="Assertion Error: Validating off unit reason below the patient name (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.validatePatDetails(item 10 of TestData.PatientNames) contains (item 6 of TestData.ClinicalEvents); actually: Added From:\nBS NU1\nPatient is off unit\natrNeeds further teaching\nSince:10/Nov/2019 22:14\n0\nTN, PATE\nLevel Of Observation: STANDARD\nComments: -\nF 26 Years\nDOB: 04/05/93\nMRN: 9879879 FIN: 98709870987 DOES NOT contain practice/)" />
+    <failure type="LogError" message="Assertion Error: Validating Flowsheet tab loaded(false: ImageFound (&quot;BEH_SA_MainPageComponent/Bage_OffSetReason&quot;))" />
+    <failure type="FAILURE" message="Image Not Found click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_OKDocWindow/Button_OK1501exp&quot; -- Execution Time 0:21:20 BEH-VR-S&A-Facility or nurse unit 1501expkg.script" />
+    <error type="Exception" message="No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_OKDocWindow/Button_OK1501exp&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

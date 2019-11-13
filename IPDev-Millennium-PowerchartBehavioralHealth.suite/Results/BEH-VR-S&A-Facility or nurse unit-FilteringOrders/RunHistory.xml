@@ -1,0 +1,115 @@
+﻿<?xml version="1.0"?>
+<runHistory script="BEH-VR-S&A-Facility or nurse unit-FilteringOrders">
+ <run>
+  <RunDate>2019-10-14 12:43:09.956 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>384.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>39</Successes>
+  <LogFile>20191014_124309.956/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 13:03:25.146 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>376.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>39</Successes>
+  <LogFile>20191014_130325.146/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 13:17:07.549 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>342.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>39</Successes>
+  <LogFile>20191014_131707.549/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_Sign&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 14:09:53.338 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>714.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>54</Successes>
+  <LogFile>20191014_140953.338/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Script Error -- Number of Errors logged: 1</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 14:31:53.086 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>1334.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>39</Successes>
+  <LogFile>20191014_143153.086/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 15:02:32.448 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>370.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>39</Successes>
+  <LogFile>20191014_150232.448/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 15:12:08.926 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>439.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>40</Successes>
+  <LogFile>20191014_151208.926/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>AssertionFailed -- Validating Precautions header (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.validatePrecautionsDrpDwn contains &quot;Seizure risk&quot;; actually: Precautions
+None
+=3
+suicide risk: Plan
+Fall risk: 40 DOES NOT contain Seizure risk)</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 15:33:12.798 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>72.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>6</Successes>
+  <LogFile>20191014_153312.798/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-14 15:42:43.397 +0530</RunDate>
+  <Status>Success</Status>
+  <Duration>637.000000</Duration>
+  <Errors>0</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>57</Successes>
+  <LogFile>20191014_154243.397/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+</runHistory>

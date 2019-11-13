@@ -1,0 +1,7 @@
+﻿2019-10-09 14:48:21.049 +0530	START		Running BEH-VR-S&A-Facility or nurse unit.script
+2019-10-09 14:48:21.967 +0530	Log		Step 1:Launch Powerchart by User 1	54	on_beh_vr_s_a_facility_or_nurse_unit	BEH-VR-S&A-Facility or nurse unit.script
+2019-10-09 14:48:21.971 +0530	Log		Step 2: Click on 'Safety and Attendance mPage' tab at organizer level.	63	on_beh_vr_s_a_facility_or_nurse_unit	BEH-VR-S&A-Facility or nurse unit.script
+2019-10-09 14:48:22.301 +0530	click	BEH_SA_MainPageComponent/Icon_TabSelection	at (1643, 58)	2	on_selecttabfromheader	C:/EggPlantSA/IPDev-Millennium-Shared-PowerchartBehavioralHealth/IPDev-Millennium-Shared-PowerchartBehavioralHealth.suite/Scripts/BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers.script
+2019-10-09 14:48:23.320 +0530	moveto		at (0, 10)	4	on_selecttabfromheader	C:/EggPlantSA/IPDev-Millennium-Shared-PowerchartBehavioralHealth/IPDev-Millennium-Shared-PowerchartBehavioralHealth.suite/Scripts/BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers.script
+2019-10-09 14:48:28.306 +0530	EndTestCase		(Duration:"7.254", Errors:"1", Exceptions:"0", StartTime:"2019-10-09 14:48:21 +0530", Successes:"0", TestCase:"BEH-VR-S&A-Facility or nurse unit.script", Warnings:"0")
+2019-10-09 14:48:28.319 +0530	ABORTED		Execution Time 0:00:07 BEH-VR-S&A-Facility or nurse unit.script

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-22 12:30:27.694 +0530"
+ tests="1"  failures="1" errors="1" time="170.992000">
+  <properties>
+   <property name="RunDate" value="2019-10-22 12:30:27.694 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="5" status="error"  time="170.97">
+    <failure type="FAILURE" message="Image Not Found imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Patient&quot; -- Execution Time 0:02:51 BEH-VR-S&A-Facility or nurse unit.script" />
+    <error type="Exception" message="Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Patient&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

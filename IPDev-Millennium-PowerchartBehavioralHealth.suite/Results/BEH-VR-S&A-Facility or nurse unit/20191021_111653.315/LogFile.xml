@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-21 11:16:53.315 +0530"
+ tests="1"  failures="0" errors="0" time="237.084000">
+  <properties>
+   <property name="RunDate" value="2019-10-21 11:16:53.315 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="11" status="error"  time="237.042">
+    <error type="Exception" message="No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_ScrollBar&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

@@ -1,0 +1,747 @@
+﻿<?xml version="1.0"?>
+<runHistory script="BEH-VR-S&A-Facility or nurse unit">
+ <run>
+  <RunDate>2019-10-07 11:38:44.519 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>913.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>41</Successes>
+  <LogFile>20191007_113844.519/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-07 17:18:15.508 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>38.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191007_171815.508/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-07 17:19:04.164 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>579.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191007_171904.164/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-07 23:57:32.640 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>261.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191007_235732.640/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-08 00:53:15.618 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>42.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>2</Successes>
+  <LogFile>20191008_005315.618/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-08 19:07:36.227 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>427.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191008_190736.227/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>AssertionFailed -- Validating Precautions header (assertion: PrecautionOptions contains &quot;Seizure risk&quot;; actually: V
+suicide risk: Plan
+Fall risk: 40 DOES NOT contain Seizure risk)</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-08 21:54:25.154 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>2675.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191008_215425.154/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-08 22:39:01.218 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>3.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191008_223901.218/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 00:24:01.049 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>381.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191009_002401.049/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 00:35:56.933 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>413.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>42</Successes>
+  <LogFile>20191009_003556.933/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>AssertionFailed -- Validating Precautions header (assertion: PrecautionOptions contains &quot;Seizure risk&quot;; actually: V
+suicide risk: Plan
+Fall risk: 40 DOES NOT contain Seizure risk)</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 11:18:24.926 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>35.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>3</Successes>
+  <LogFile>20191009_111824.926/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 11:19:25.584 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>411.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191009_111925.584/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;  Restricted Search Rectangle ((201,50),(451,1080))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 11:31:20.209 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>780.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>58</Successes>
+  <LogFile>20191009_113120.209/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;  Restricted Search Rectangle ((201,50),(451,1080))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 14:06:46.544 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>2.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191009_140646.544/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 14:41:12.586 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>333.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>38</Successes>
+  <LogFile>20191009_144112.586/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 14:47:34.135 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>5.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191009_144734.135/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 14:48:21.018 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>7.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191009_144821.018/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 14:48:30.251 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>451.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191009_144830.251/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 15:23:21.615 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>624.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191009_152321.615/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 15:37:18.362 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>314.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>38</Successes>
+  <LogFile>20191009_153718.362/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 15:42:52.628 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>59.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>3</Successes>
+  <LogFile>20191009_154252.628/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- moveto Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 15:44:23.517 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>465.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191009_154423.517/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_OrdersForSignature&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-09 19:58:05.461 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>517.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191009_195805.461/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 10:53:52.535 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>9.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191010_105352.535/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 10:54:13.967 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>562.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>45</Successes>
+  <LogFile>20191010_105413.967/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Text Found On Screen: &quot;(TEXT:&quot;Nurse Unit&quot;)&quot;  Restricted Search Rectangle ((12,182),(1812,242))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 12:18:28.171 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>436.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191010_121828.171/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 12:43:00.520 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>339.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>38</Successes>
+  <LogFile>20191010_124300.520/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;(TEXT:&quot;TEST, MIC4&quot;)&quot;  Restricted Search Rectangle ((286,283),(586,973))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 13:56:43.282 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>452.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191010_135643.282/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 14:18:22.758 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>371.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191010_141822.758/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 15:17:54.140 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>424.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>43</Successes>
+  <LogFile>20191010_151754.140/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Text Found On Screen: &quot;(TEXT:&quot;Nurse Units&quot;)&quot;  Restricted Search Rectangle ((12,182),(1812,242))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-10 15:33:40.319 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>837.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>58</Successes>
+  <LogFile>20191010_153340.319/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;  Restricted Search Rectangle ((0,159),(769,639))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 10:25:18.527 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>133.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>6</Successes>
+  <LogFile>20191011_102518.527/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 10:34:00.204 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>393.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>27</Successes>
+  <LogFile>20191011_103400.204/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 10:41:08.643 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>890.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>27</Successes>
+  <LogFile>20191011_104108.643/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 10:56:18.945 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>2465.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>27</Successes>
+  <LogFile>20191011_105618.945/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 11:38:23.979 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>9.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191011_113823.979/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 11:38:45.532 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>859.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>27</Successes>
+  <LogFile>20191011_113845.532/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 11:57:02.057 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>734.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>27</Successes>
+  <LogFile>20191011_115702.057/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 12:20:16.328 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>516.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>44</Successes>
+  <LogFile>20191011_122016.328/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-11 14:31:38.922 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>872.000000</Duration>
+  <Errors>4</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>67</Successes>
+  <LogFile>20191011_143138.922/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>STInvalidNumber -- Value is not a number: &#x27;(14&#x27;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-16 00:04:15.476 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>113.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>7</Successes>
+  <LogFile>20191016_000415.476/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>STInvalidNumber -- Value is not a number: &#x27;36|&#x27;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-16 10:13:39.685 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>679.000000</Duration>
+  <Errors>6</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>30</Successes>
+  <LogFile>20191016_101339.685/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagelocation Error - Unable To Find Image &quot;(TEXT:&quot;Heavy&quot;)&quot;  Restricted Search Rectangle ((636,595),(1821,690))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-16 11:11:42.315 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>5.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191016_111142.315/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-16 13:13:33.605 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>94.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>1</Successes>
+  <LogFile>20191016_131333.605/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-16 14:22:55.530 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>849.000000</Duration>
+  <Errors>3</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>32</Successes>
+  <LogFile>20191016_142255.530/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 10:30:49.785 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>343.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>9</Successes>
+  <LogFile>20191017_103049.785/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_ScrollBar&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 10:48:29.418 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>130.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191017_104829.418/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 10:55:25.765 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>43.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191017_105525.765/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 10:57:18.208 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>78.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>1</Successes>
+  <LogFile>20191017_105718.208/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 10:59:48.273 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>417.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>13</Successes>
+  <LogFile>20191017_105948.273/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 14:56:28.129 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>165.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191017_145628.129/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagelocation Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Location&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-17 15:03:58.257 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>163.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>1</Successes>
+  <LogFile>20191017_150358.257/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_OKDocWindow&quot;  Restricted Search Rectangle ((710,513),(1543,993))
+</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-20 14:26:19.238 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>139.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191020_142619.238/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Patient&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-21 11:16:53.315 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>237.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>10</Successes>
+  <LogFile>20191021_111653.315/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-21 14:13:59.343 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>143.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191021_141359.343/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-21 15:27:12.863 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>181.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>7</Successes>
+  <LogFile>20191021_152712.863/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-22 11:31:48.799 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>16.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>0</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191022_113148.799/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-22 11:40:19.407 +0530</RunDate>
+  <Status>Aborted</Status>
+  <Duration>195.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191022_114019.407/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage></ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-22 12:22:57.276 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>212.000000</Duration>
+  <Errors>2</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>7</Successes>
+  <LogFile>20191022_122257.276/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Button_CancelWarningWindow&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-22 12:30:27.694 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>170.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>4</Successes>
+  <LogFile>20191022_123027.694/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- imagerectangle Error - Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Patient&quot;</ErrorMessage>
+ </run>
+ <run>
+  <RunDate>2019-10-22 13:11:43.675 +0530</RunDate>
+  <Status>Failure</Status>
+  <Duration>24.000000</Duration>
+  <Errors>1</Errors>
+  <Warnings>0</Warnings>
+  <Exceptions>1</Exceptions>
+  <Successes>0</Successes>
+  <LogFile>20191022_131143.675/LogFile.txt</LogFile>
+  <ReturnValue></ReturnValue>
+  <ErrorMessage>Image Not Found -- click Error - No Image Found On Screen: &quot;BEH_SA_MainPageComponent/Icon_TabSelection&quot;</ErrorMessage>
+ </run>
+</runHistory>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-22 11:40:19.407 +0530"
+ tests="1"  failures="1" errors="1" time="195.344000">
+  <properties>
+   <property name="RunDate" value="2019-10-22 11:40:19.407 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="6" status="error"  time="195.324">
+    <failure type="LogError" message="Assertion Error: Validating event is charted in the latest time slot (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.validateCellData(&quot;TEST, EVE&quot;,&quot;1&quot;) contains (&quot;Dull&quot;); actually: Click to add.. DOES NOT contain Dull)" />
+    <error type="Exception" message="Unable To Find Image &quot;(TEXT:&quot;Dull&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

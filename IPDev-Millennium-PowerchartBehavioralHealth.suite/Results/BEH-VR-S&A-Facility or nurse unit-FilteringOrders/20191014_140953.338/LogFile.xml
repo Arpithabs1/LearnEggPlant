@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-14 14:09:53.338 +0530"
+ tests="1"  failures="2" errors="0" time="714.341000">
+  <properties>
+   <property name="RunDate" value="2019-10-14 14:09:53.338 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit-FilteringOrders.script" assertions="55" status="failure"  time="714.323">
+    <failure type="LogError" message="Assertion Error: Validating Suicide Risk for Patient F (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.validatePecautionDetails(&quot;TEST, MIC4&quot;) contains(&quot;Elopement&quot;); actually: ^suicide risk:\nIntermittent\nFall risk: 56 DOES NOT contain Elopement)" />
+    <failure type="FAILURE" message="Script Error Number of Errors logged: 1 -- Execution Time 0:11:54 BEH-VR-S&A-Facility or nurse unit-FilteringOrders.script" />
+  </testcase>
+ </testsuite>
+</testsuites>

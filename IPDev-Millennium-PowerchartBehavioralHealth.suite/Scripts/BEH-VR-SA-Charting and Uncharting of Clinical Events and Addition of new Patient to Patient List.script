@@ -1,0 +1,1195 @@
+﻿(*******************
+Script Name: BEH-VR-SA-Charting and Uncharting of Clinical Events and Addition of new Patient to Patient List
+Test ID:10761
+Author: AB056220
+Date of creation: 08-Oct-2018
+
+Description: Verify the Safety and Attendance MPage component functionsappropriately for Patient List
+
+Prerequisites:
+
+1. User1 should have DBA privileges.
+
+2. Identify or create Powerform with the Event set 93 and 72 mapped.
+
+3. Identify facilities A, B and C which has nursing units associated to it.
+
+4.  Following pre-requisites need tobe set in prefamaint.exe for User 1: 
+
+a.  SetUp Page Tab
+
+i. Add a discern tab
+
+ii.Report Name: dc_mp_bhv_hlth_setup
+
+iii. ReportParam: "MINE","<Tab Name>"
+
+b. S&A Main Page Tab
+
+i. Add a discern tab
+
+ii. Report Name: bh_mp_safety_attendance
+
+iii. ReportParam: EX:"MINE", 3, "<TabName>"
+
+5. Configure the nursing units of facilities A and B using BH setuppage.
+
+6. Ensure User1 is associated to facility A and B in hnauser.exe but notfacility C.
+
+7. Create or Identify a two custom patient lists -Patient list A andPatient List B with patients having encounters under facilities A, B andC.
+
+8. Define "Standard Observation Level Label" in setup page. EX:standard
+
+9. Identify the Code sets for patient location, Fall Risk and Suicide Risk93 and 72 under corecodebuilder.exe.
+
+10. Identify Internet Explorer web browsers from Versions 7 or above.
+
+11. Verify Org and Confidentiality Level Security is enabled in the testingenvironment.
+
+12. Following pre-requisites need to be set in the setup page: 
+
+a. Patient Population: PatientList
+
+b. Default Population: Select on thepage
+
+c. Patient Link: Any Patient tab
+
+d. Patient image: Yes
+
+e. Tab navigation: No
+
+f. Default time interval: Set the multiple time intervals
+
+g. Observation Level Event 'Comments'
+
+13. Identify clinical event for Observation Level event. Both Observationlevel Orderables and Observation level event needs to be configured
+
+14.In S&A SetUp Page, configure the following
+
+i. Enter the code value for MRN andFIN at the respective labels.
+
+ii. Ensure  that clinical event set name in the domainshould have special characters except double quotes ""  and backslash \.Example:BH-SA~`!@]#$}%^&*
+
+iii. Click on "+" in thePatient Status/Activity-> Clinical Event. In order to add, multiple tabs,repeat the      same.
+
+iv. Enter the Label name and select either of the patient Location or thepatient activity. Click on update button. 
+
+v. Click on the "+" Available Nomenclature Risk responses forOther/Undefined Locations section. 
+
+vi. From the "Available Nomenclature Risk responses by Location"Select any of the alpha risk response 
+
+for the event 1-> location and move the alpha risk response from lefthand side to right hand side. 
+
+vii. Select the patient activity or the patient location radio button forthe "Clinical Event" and enter 
+
+the 'location/activity'.
+
+
+viii. Click on the Update button and Close the Setup page.
+
+15. Create a patient list F in First net application with patients havingencounters under facilities A or B or C.
+
+16. Identify Patients A to E in patient List F
+
+17. Place an order for the patient A, say Order A Ex:One to oneobservation
+
+18. In S&A setup page, 
+
+a. Make sure Number of Patients to Process Retrieve in a Batch is set to10.
+
+b. Make sure "Select All" is set to Yes
+
+
+Change Control:
+
+Date                  EDITOR                                                                             DESCRIPTION
+
+10/10/2017               MA051214                                                                                     Initial Design
+
+*****************************)
+//StartMovie BEHCharting
+
+set TestData to JSONValue(file ResourcePath("BEH-VR-SA-Charting and Uncharting of Clinical Events and Addition of new Patient to Patient List.json")) 
+Connect (serverID:TestData.ServerID,portnum: 3389, password:TestData.SUTPassword, username:TestData.SUTUser, type: "RDP",width: 1920, height: 1080)
+TypeText enterKey
+
+Log ("Step 1 Launch Powerchart by User 1")
+
+#Expected Result:Verify Powerchart is launched without error.
+#zero state
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 2:Open S&A mPage from View Menu")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH MAIN PAGE")
+click "BEH_SA_SetupPage/Icon_Refresh"
+
+# Expected Result: Verify that 'Safety and Attendance mPage' is displayed without any error.
+
+wait(15) // waiting for the Main Page 1 is loaded completely and responsive
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("S & A Pagel") into  Var1
+assert that Var1 contains "True" with error "Validating Main Page 1 loads successfully"
+
+CaptureScreen(Name:"Step 2")
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 3: Select Patinet List F, defined under prerequisites 15 and Click Submit")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 1 of TestData.PatientList) #("LIST A")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+wait(14) //waiting for the Patients to load and page to be responsive
+Click "BEH_SA_MainPageComponent/Icon_Patient"
+moveto (500,100) //removing focues
+
+#Expected Results : Verify Patients only from Facility A and Facility B are loaded
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 1 of TestData.PatientName) into FacilityVar
+//(item 1 of TestData.PatientNames) into FacilityVar
+assert that FacilityVar equals "False" with error "Validating patients from facility C is not loaded"
+
+CaptureScreen(Name:"Step 3")
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 4:Click on the time slot cell 'Click to Add...' for any of the patient.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 2 of TestData.PatientName),1
+//(item 5 of TestData.PatientNames),1
+
+#Expected Results: Verify that the Documentation window displays without any error.
+
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")// waiting for the documentation window to appear
+assert that ImageFound( "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime") with error "Validating Documentiaon window  displays"
+
+CaptureScreen(Name:"Step 4")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 5:Navigate to Location/activity tab and select any event.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents(item 1 of TestData.ClinicalEvents)
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTextSelected(item 1 of TestData.ClinicalEvents) into validateSelection
+
+assert that validateSelection equals true with error "The mentioned event is not selected"
+
+Click text:"OK"
+wait 5
+#Expected Results :Verify the activity is selected.Verify the documentation window closes and event is being displayed for that particular cell for the time range.
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals False with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 5")
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 6: Click on the event that is being selected for charting to deselect the event.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".deSelectEvent(item 2 of TestData.PatientName),(item 1 of TestData.ClinicalEvents)
+
+#Expected Results: Verify the Documentation window opens without any error.Verify the label "Unchart Event" and "Unchart ALL" is displayed.
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow")equals true with error "Validating Tab focus is not changed"
+assert that ImageFound(text:"Unchart all") equals True with error "Validating Documentation window is displayed"
+
+CaptureScreen(Name:"Step 6")
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 7: Click on cancel button.")
+click(Text:"Cancel")
+wait 5
+#Expected Results: Verify the documentation window closes.
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals False with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 7")
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step8: Click on the Sign changes to Chart")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 8 #wait for refresh
+
+#Expected Results: Verify the clinical event is charted with the selected event for the time range.
+click "BEH_SA_MainPageComponent/Icon_Location"
+Typetext pageDown
+Typetext pageDown
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateCellData(item 2 of TestData.PatientName, 1) into CellDetailVar
+//(item 2 of TestData.PatientNames,"1") into CellDetailVar
+assert that CellDetailVar contains (item 1 of TestData.ClinicalEvents) with error "Validating event is charted in the latest time slot"
+
+CaptureScreen(Name:"Step 8")
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 9: Click on the time slot cell Click to Add... for any of the patient.")
+TypeText pageUp
+TypeText pageUp
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 3 of TestData.PatientName),1
+wait 3
+
+#Expected Results: Verify Documentation window is displayed with date and time (hours and minutes entry point for the user to document an exact minute within the time interval).
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")// waiting for the documentation window to appear
+assert that ImageFound( "BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime") with error "Validating Documentiaon window  displays"
+
+CaptureScreen(Name:"Step 9")
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 10: Click on the Off Unit check box and the select. Special character reason from drop down option and click on ok.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".checkOffUnitChkBox
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".setMarkOffUnitDrpDwn(item 2 of TestData.ClinicalEvents)
+Click text:"OK"
+
+wait(12)// waiting for the offset reason to be visible
+
+
+# Expected Results: Verify Documentation window closes without any error. Verify the "Off unit" check box is displayed with the details of date and time, reason for off unit is displayed below the patient name.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 3 of TestData.PatientName) into PatDetails
+assert that PatDetails contains (item 1 of TestData.ClinicalEvents) with error "Validating off unit reason below the patient name"
+assert ImageFound(Image:"BEH_SA_MainPageComponent/Icon_SelectedCheckBox") with error "Validating Off unit checbox below patient name"
+
+CaptureScreen(Name:"Step 10")
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 11: Click on the Sign Changes To Chart button.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+
+#Expected Results: Verify that the cells "Click to Add." for all the intervals are dithered for that patient.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".CheckDisabledCell(item 3 of TestData.PatientName) into DisabledCell
+assert that DisabledCell equals "0" with error "Validating all Cells are disabled"
+
+CaptureScreen(Name:"Step 11")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 12: Uncheck the check box for the Off unit for the patient A.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".UncheckMarkOffUnit(item 3 of TestData.PatientName)
+
+#Expected Results: Verify the Documentation dialog box displays with date and time.
+
+put ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomLeft()+(-400,-170) into OffUnitWindow --Setting(x1,y1)
+insert ImageRectangle("BEH_SA_MainPageComponent/Icon_Window").bottomRight()+(10,50) into OffUnitWindow
+put ImageLocation(text:"Cancel",SearchRectangle:OffUnitWindow)+(-141,-63) into SRectangle
+insert SRectangle+(-46,-24) into SRectangle
+put ReadText(SRectangle) into OffUnitVar
+log OffUnitVar
+put OffUnitVar into FirstCellTimeStamp
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime(item 1 of TestData.UserName) into Var1
+assert that Var1 contains OffUnitVar  or Var1 contains OffUnitVar+1 or Var1 contains OffUnitVar+2 with error "Validating off unit time interval"
+
+CaptureScreen(Name:"Step 12")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 13: Enter the end time range that is more than the previously charted time range.")
+
+Click last item of everyimagelocation(Text:"Submit")
+wait 5
+if ImageFound(imageName:"BEH_SA_MainPageComponent/Button_OKDocWindow", waitFor:5) 
+	click ("BEH_SA_MainPageComponent/Button_OKDocWindow")
+end if
+#Expected Results: Verify the "off unit" check box detail is not displayed below the patient name and the Special character reason would get displayed in each cell of selected patient under the time range when the patient returns to the unit. All the other rest out cells for the patient are enabled.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 3 of TestData.PatientName) into PatDetails
+assert that PatDetails does not contain (item 1 of TestData.ClinicalEvents) with error "Validating off unit checkbox doesn't displays below patient name"
+
+CaptureScreen(Name:"Step 13")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 14: Click on the Sign Changes To Chart button.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+#Expected Results : Verify the reason would get displayed for the time range on charted cell of the selected patient under the time interval.
+
+
+CaptureScreen(Name:"Step 14")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 15: From the patient list, randomly multi select the patients under Select All column")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatient(item 3 of TestData.PatientName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatient(item 4 of TestData.PatientName)
+TypeText pageDown
+TypeText pageDown
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatient(item 2 of TestData.PatientName)
+
+#Expected Results: Verify that the check marks are displayed against the selected patients under Select All column.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 2 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+TypeText pageUp
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 4 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 3 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+
+CaptureScreen(Name:"Step 15")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 16: Deselect one of the check marks against one of the patient.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".deSelectPatient(item 2 of TestData.PatientName)
+
+#Expected Results: Verify that the patient gets deselected.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 2 of TestData.PatientName) into Var1
+assert that Var1 equals False with error "Validating Select all againt Patient"
+
+CaptureScreen(Name:"Step 16")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 17: Click on the time slot cell Click to Add... for any of the patient.")
+put Topright of ImageRectangle(Image:"BEH_SA_MainPageComponent/Badge_Precautions/Badge_Precautions",Tolerance:60)+(200,0) into Topright
+insert Topright +(100,50) into Bottomleft 
+put  ReadText(Topright,Bottomleft) into DateTimeRange
+
+TypeText pageUp
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 4 of TestData.PatientName),2
+#Expected Results: Verify Documentation window is displayed with multiple event location tabs displayed with the associated risk responses. Verify the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime("ah042544") into Var1
+click (Text:"Mark as")
+wait 1
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+assert that DateTimeRange contains Var3 with error "Error in 2nd cell time slot"
+
+CaptureScreen(Name:"Step 17")
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log ("Step 18: Select the response for the Event/activity and select the time range. Click OK.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents(item 3 of TestData.ClinicalEvents)
+Click text:"OK"
+
+#Expected Results: Verify the Documentation window is closed and one or more activity is charted as per User selection for the selected patients at the time range.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateCellData(item 4 of TestData.PatientName,1.5) into CellDetailVar
+assert that CellDetailVar contains (item 3 of TestData.ClinicalEvents) with error "Validating event is charted in the latest time slot"
+
+CaptureScreen(Name:"Step 18")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 19: Click on the Sign Changes To Chart button.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 8# wait time for refresh
+
+#Expected Results: Verify the document is charted and displayed for the particular time range Cell for the selected patients.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateSignedCell(item 4 of TestData.PatientName,item 3 of TestData.ClinicalEvents) into CellResult
+log CellResult
+assert that CellResult equals true with error "Validating if the cell is signed"
+
+CaptureScreen(Name:"Step 19")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 20: Select one of the documented response cells from the above steps.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickOnChartedResponse(item 4 of TestData.PatientName),(item 3 of TestData.ClinicalEvents)
+
+#Expected result:Verify Documentation window is displayed.
+assert that ImageFound(text:"Unchart all") equals True with error "Validating Documentation window is displayed"
+
+CaptureScreen(Name:"Step 20")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 21: Select Unchart all.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickUnchartAll
+
+#Expected Results: Verify the Documentation window is closed.
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals false with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 21")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 22: Click on Sign Changes to Chart")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 10 # time to refresh
+
+#Expected Results: Verify the document is uncharted for the selected patient and the selected time interval cell reverts back to an empty cell.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateCellData(item 4 of TestData.PatientName,4) into CellDetailVar
+assert that CellDetailVar does not contain (item 3 of TestData.ClinicalEvents) with error "Validating event is charted in the latest time slot"
+
+CaptureScreen(Name:"Step 22")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 23: Click on the Select All option.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSelectAll
+
+#Expected Results: Verify that the check marks are selected against all the Patients in the Patient list.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 3 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 4 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+TypeText pageDown
+TypeText pageDown
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 2 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+
+CaptureScreen(Name:"Step 23")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 24: Click again on the Select All option.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSelectAll
+
+#Expected Results: Verify that the check marks get deselected for all the patients.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 2 of TestData.PatientName) into Var1
+assert that Var1 equals false with error "Validating Select all againt Patient"
+TypeText pageUp
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 3 of TestData.PatientName) into Var1
+assert that Var1 equals False with error "Validating Select all againt Patient"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 4 of TestData.PatientName) into Var1
+assert that Var1 equals False with error "Validating Select all againt Patient"
+
+CaptureScreen(Name:"Step 24")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 25: Click on Click to Add New Patient link")
+
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickAddNewPatient
+
+#Expected Results: Verify the "Add New Patient" window is displayed without any error.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNewPatWindow into result
+assert that result equals True with error "Validating if add new patient window is displayed"
+
+CaptureScreen(Name:"Step 25")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 26: Check that the header, labels and buttons are displayed.")
+
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNewPatWindowElements into newPatWinData
+assert that newPatWinData contains ("Patient List") with error "Validating dropdown in Add New Pat Window"
+assert that newPatWinData contains ("Facilities") with error "Validating dropdown in Add New Pat Window"
+assert that newPatWinData contains ("Submit") with error "Validating Button in Add New Pat Window"
+assert that newPatWinData contains ("Cancel") with error "Validating Button in Add New Pat Window"
+#Expected Results: Verify that the header 'Add New Patient' is displayed appropriately. Verify the labels like 'Patient list' and 'Facilities' are displayed.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNewPatWindow into result
+assert that result equals True with error "Validating if add new patient window is displayed"
+
+CaptureScreen(Name:"Step 26")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 27: Hover the mouse on the nurse units hyperlink"), 
+
+MoveTo "BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit"
+put MouseLocation() into SRectangle
+wait 3
+#Expected Results: Verify that the tooltip "Click to Open Nurse Units" are displayed.
+
+insert SRectangle+(200,60) into SRectangle
+put ReadText(SRectangle,dpi:120) into NureToolTip
+assert that NureToolTip contains "Open Nurse units" with error "Validating Nurse Unit Tool Tip displays"
+
+CaptureScreen(Name:"Step 27")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 28: Select a 'Patient List B' from dropdown")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatListFromNewPatWindow(item 2 of TestData.PatientList)
+wait 5 #wait to load list b
+
+#Expected Results: 1) Verify the "Nurse Units" hyperlink is displayed. 2) Verify that the tooltip "Click to Open Nurse Units" are displayed. 3) Verify that the following labels in the 'Add New Patient' dialogue are displayed. i) MRN ii) FIN iii) DOB iv) Location
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNewPatWindowElements into newPatWinData
+assert that newPatWinData contains ("Nurse Unit") with error "Validating Link in Add New Pat Window"
+assert that newPatWinData contains ("MRN") with error "Validating Link in Add New Pat Window"
+assert that newPatWinData contains ("FIN") with error "Validating Link in Add New Pat Window"
+MoveTo "BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit"
+put MouseLocation() into SRectangle
+insert SRectangle+(200,60) into SRectangle
+wait(2)
+put ReadText(SRectangle,dpi:50) into NureToolTip
+log NureToolTip
+assert that NureToolTip contains "Click to Open Nurse units" with error "Validating Nurse Unit Tool Tip displays"
+
+CaptureScreen(Name:"Step 28")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 29: Click on Nurse Units hyperlink withou selecting facility")
+moveTo(0,10)
+click "BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit"
+wait 5
+
+#Expected Results:Verify that the alert "Please select a valid facility" is displayed.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".readWarningMsg into warnMsg
+assert that warnMsg contains("Please select a valid facility") with error "Validating warning message"
+
+CaptureScreen(Name:"Step 29")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 30: Click on 'Submit' button")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickOKWarningWin
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSumitInAddNewPatWindow
+wait 3 # wait to close  the patlist window
+#Expected Results: Verify the 'Add New Patient' dialogue is closed without any error.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateNewPatWindow into result
+assert that result equals False with error "Validating if add new patient window is displayed"
+
+CaptureScreen(Name:"Step 30")
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 31: 1.Click on Click to Add New Patient link 2. Ensure that the existing patient in the patient list is selected. 3. Click on Submit button")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickAddNewPatient
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatListFromNewPatWindow(item 1 of TestData.PatientList)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatFromNewPatWindow(item 3 of TestData.PatientName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSumitInAddNewPatWindow
+
+#Expected Results:Verify the alert "Patient is already in the patient list" is displayed appropriately.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".readWarningMsg into warnMsg
+assert that warnMsg contains("Patient is already in the patient list") with error "Validating warning message"
+TypeText return
+
+CaptureScreen(Name:"Step 31")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 32: 1. Click on Click to Add New Patient link 2. Select a patient list and patient/patients to be added.3. Click on Submit button")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickAddNewPatient
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatListFromNewPatWindow(item 2 of TestData.PatientList)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatFromNewPatWindow(item 5 of TestData.PatientName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSumitInAddNewPatWindow
+#Expected Results: Verify that the selected patients are added to the existing patient list.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 5 of TestData.PatientName) into PatExistence
+assert that PatExistence equals True with error "Validating patient existence"
+
+CaptureScreen(Name:"Step 32")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 33: 1) Click on Click to Add New Patient link. 2. Select the facility from the drop down and select the nurse unit. 3. Select a patient from the list. 4)Click on Submit button.")
+
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickAddNewPatient
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectFacilityAddNewPatWindow("Baseline East")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickNurseUnitInAddNewPatWindow
+wait 5
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". SelectNurseUnitNameFrom("BE Nurse Unit")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectNurseUnitSubmitCancelButtonFrom("Submit")
+wait 2
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatFromNewPatWindow(item 6 of TestData.PatientName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSumitInAddNewPatWindow
+
+#Expected Results: Verify that the selected patients are added to the existing patient list. 
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 6 of TestData.PatientName) into PatExistence
+assert that PatExistence equals True with error "Validating patient existence"
+
+CaptureScreen(Name:"Step 33")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 34: Click on the Click to Add... cell for the newly added patient.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 5 of TestData.PatientName),1
+//(item 5 of TestData.PatientNames),1
+wait 3
+
+#Expected Results: Verify Documentation window is displayed with event 1 location tab, displayed with the associated risk responses. Ensure the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime("ah042544") into Var1
+click (Text:"Mark as")
+wait 1
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+set SearchRectangle to ()
+assert that Var1 contains Var3 or Var1 contains Var3+1 or  Var1 contains Var3+2 with error "Validating Most recent cell time time"
+
+CaptureScreen(Name:"Step 34")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 35: Select multiple clinical events from location tab 1, chart a custom free text response in 'Other' field of location tab and select multiple clinical events from location tab 3 . Click OK.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents (item 1 of TestData.ClinicalEvents,item 3 of TestData.ClinicalEvents)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabDocumentWindow (item 1 of TestData.TabName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SetValueOtherTxtBox(item 4 of TestData.ClinicalEvents)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabDocumentWindow (item 2 of TestData.TabName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents (item 5 of TestData.ClinicalEvents,item 6 of TestData.ClinicalEvents)
+wait 2
+Click text:"OK"
+wait 2
+#Expected Results: Verify that tab focus doesn't get changed to the next location when an event is selected. Verify the Documentation window is closed.
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals false with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 35")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 36: Click on Sign Changes to Chart.")
+
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 10# wait for refresh
+#Expected Results:Verify that when multiple clinical events are selected in one location tab, they are separated by comma and when they are selected from different location tabs, they are separated by semicolons. Verify no data is lost.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".readChartedCell(item 5 of TestData.PatientName) into temp
+log temp
+assert that temp contains (item 3 of TestData.ClinicalEvents) with error "Validating cell data"
+
+CaptureScreen(Name:"Step 36")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 37: Select a documented response cell.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickOnChartedResponse(item 5 of TestData.PatientName),(item 7 of TestData.ClinicalEvents)
+
+#Expected Results: Verify Documentation window is displayed.
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DocumentWindow")equals true with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 37")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 38: Select Unchart all.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickUnchartAll
+#Expected Results: Verify the Documentation window is closed.
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals false with error "Validating Tab focus is not changed"
+
+CaptureScreen(Name:"Step 38")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 39: Click on Sign Changes to Chart.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 14# wait till refresh
+
+#Expected Results: Verify the document is uncharted and the cell reverts back to an empty cell.
+
+click "BEH_SA_MainPageComponent/Icon_Location"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateCellData (item 5 of TestData.PatientName,1)into CellDetailVar
+assert that CellDetailVar does not contain (item 7 of TestData.ClinicalEvents) with error "Validating event is charted in the latest time slot"
+
+CaptureScreen(Name:"Step 39")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 40: Click on the time slot cell Click to Add… for any of the patients")
+TypeText pageUp
+TypeText pageUp
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 7 of TestData.PatientName),1
+//(item 5 of TestData.PatientNames),1
+wait 4
+
+#Expected Results: Verify Documentation window is displayed with date and time (hours and minutes entry point for the user to document an exact minute within the time interval).
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals true with error "Validating document window is displayed"
+
+CaptureScreen(Name:"Step 40")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 41: Click on the Off Unit check box and the select Special character reason from drop down option and click on ok.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".checkOffUnitChkBox
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".setMarkOffUnitDrpDwn(item 2 of TestData.ClinicalEvents)
+Click text:"OK"
+
+wait(12)// waiting for the offset reason to be visible
+
+# Expected Results: Verify Documentation window closes without any error. Verify the "Off unit" check box is displayed with the details of date and time, reason for off unit is displayed below the patient name.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 7 of TestData.PatientName) into PatDetails
+assert that PatDetails contains (item 2 of TestData.ClinicalEvents) with error "Validating off unit reason below the patient name"
+assert ImageFound(Image:"BEH_SA_MainPageComponent/Icon_SelectedCheckBox") with error "Validating Off unit checbox below patient name"
+
+CaptureScreen(Name:"Step 41")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 42: Click to Sign changes to Chart")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 14#wait for refresh
+
+#Expected Results: Verify Changes are saved successfully
+
+CaptureScreen(Name:"Step 42")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 43: Close PowerChart")
+
+# Will be refreshing the page instead of logging out and logging back in
+#Expected Results: Verify PowerChart closes
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 44: Launch PowerChart.exe")
+
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 15 //waitng for the Page to refresh and load completely
+
+#Expected Results: Verify application is launched successfully
+
+CaptureScreen(Name:"Step 44")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 45: From Patient List drop down, select Patient List B.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 2 of TestData.PatientList)
+//(item 1 of TestData.PatientList)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+wait(14) //waiting for the Patients to load and page to be responsive
+Click "BEH_SA_MainPageComponent/Icon_Patient"
+moveto (500,100) //removing focues
+
+#Expected Results: Verify patients with Facility A and B are loaded for the patients list in Safety and Attendance mPage. But Patients with Facility C is not loaded.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 1 of TestData.PatientName) into FacilityVar
+//(item 1 of TestData.PatientNames) into FacilityVar
+assert that FacilityVar equals "False" with error "Validating patients from facility C is not loaded"
+
+CaptureScreen(Name:"Step 45")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 46: 1) Click on Click to Add New Patient link 2) Select Patient list A and the patient which was marked off in the previous step. 3) Click on Submit button")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickAddNewPatient
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatListFromNewPatWindow(item 1 of TestData.PatientList)
+moveTo (0,10)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectPatFromNewPatWindow(item 8 of TestData.PatientName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSumitInAddNewPatWindow
+#Expected Results: Verify that the selected patients are added to the existing patient list.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 8 of TestData.PatientName) into PatExistence
+assert that PatExistence equals True with error "Validating patient existence"
+
+CaptureScreen(Name:"Step 46")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 47: Uncheck the check box for the Off unit for the patient. Enter end time which is less than the current time. Click on submit."), "BEH_SA_MainPageComponent/Button_OKDocWindow"
+TypeText pageDown
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".UncheckMarkOffUnit(item 8 of TestData.PatientName)
+wait(7)// waiting for the unmark off  for the patient to be unchecked 
+Click last item of everyimagelocation(Text:"Submit")
+if ImageFound(imageName:"BEH_SA_MainPageComponent/Button_OKDocWindow", waitFor:5)
+	click "BEH_SA_MainPageComponent/Button_OKDocWindow"
+end if
+
+#Expected Results: Verify that the end time is entered and the Documentation dialog box is closed. Verify the "off unit" check box detail is not displayed below the patient name and the reason would get displayed in each of the slot of selected patient under the time range when the patient returns to the unit, the slots background color will be light green color.
+
+wait 2//waiting for submit to refelct the submitted changes
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals false with error "Validating document window is displayed"
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 8 of TestData.PatientName) into PatDetails
+assert that PatDetails does not contain (item 1 of TestData.ClinicalEvents)
+
+CaptureScreen(Name:"Step 47")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 48: Select a documented response cell and click on unchart all")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 9 of TestData.PatientName),1
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents(item 1 of TestData.ClinicalEvents)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+wait 2
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickOnChartedResponse(item 9 of TestData.PatientName),(item 1 of TestData.ClinicalEvents)
+Click(Text:"Unchart All")
+
+#Expected Results: Verify that the result displays as expected.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 9 of TestData.PatientName) into PatDetails
+assert that PatDetails does not contain (item 1 of TestData.ClinicalEvents)
+
+CaptureScreen(Name:"Step 48")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 49: Select Time interval as 1hr and Time range as 12 hours from the drop downs.")
+
+click (ImageLocation(Text:"Range")+(70,0))
+TypeText "12",return
+wait 14 # takes time to refresh
+
+click (ImageLocation(Text:"Interval")+(70,0))
+TypeText "1",return
+wait 3 # takes time to refresh
+
+#Expected Results: Verify that the Time range and Time intervals are being selected.
+moveto (700,200)// removes mouse focus
+wait(3)
+put ImageRectangle ("BEH_SA_MainPageComponent/Badge_TimeInterval").topRight()+(0,-10) into SRectangle
+insert ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeInterval").bottomRight+(70,10) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "1 hour" with error "Time Interval Error"
+put ImageRectangle ("BEH_SA_MainPageComponent/Badge_TimeRange").topRight()+(0,-10) into SRectangle
+insert ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").bottomRight+(70,10) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "12 hours" with error "Validaing Time Range as 12 hours and Time Interval as 1 hour"
+
+CaptureScreen(Name:"Step 49")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 50: Select the 3rd slot from the left hand side and click on the text Click to Add… for a patient")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 10 of TestData.PatientName),3
+//(item 5 of TestData.PatientNames),1
+
+#Expected Results: Verify Documentation window is displayed with date and time (hours and minutes entry point for the user to document an exact minute within the time interval).
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals true with error "Validating document window is displayed"
+
+CaptureScreen(Name:"Step 50")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 51: Click on the Off Unit check box and the reason from drop down option and click on ok.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".checkOffUnitChkBox
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".setMarkOffUnitDrpDwn(item 8 of TestData.ClinicalEvents)
+Click text:"OK"
+
+wait(12)// waiting for the offset reason to be visible
+
+#Expected Results:Verify that the Documentation window closes without any error. Verify the "off unit" check box is displayed with the details of date and time, reason for off unit is displayed below the patient name.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 10 of TestData.PatientName) into PatDetails
+assert that PatDetails contains (item 8 of TestData.ClinicalEvents) with error "Validating off unit reason below the patient name"
+assert ImageFound(Image:"BEH_SA_MainPageComponent/Icon_SelectedCheckBox") with error "Validating Off unit checbox below patient name"
+
+CaptureScreen(Name:"Step 51")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 52: Click on Select All label.")
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 10
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 2 of TestData.PatientList)
+//(item 1 of TestData.PatientList)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+wait(14) //waiting for the Patients to load and page to be responsive
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".clickSelectAll
+
+#Expected Results: Verify that the check marks are displayed against the all the patients under Select All column except the marked off patient from previous step.).
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 4 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 4 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".ValidateSelectedPatient(item 2 of TestData.PatientName) into Var1
+assert that Var1 equals True with error "Validating Select all againt Patient"
+
+CaptureScreen(Name:"Step 52")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 53: Click on the last time slot Click to Add... for any of the patient.")
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 14
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 2 of TestData.PatientList)
+//(item 1 of TestData.PatientList)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+wait(14) //waiting for the Patients to load and page to be responsive
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".getLastCellTime(item 4 of TestData.PatientName) into LastCellTimeVar
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")
+click (Text:"Other")
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+put Var3 into LastCellTimeStamp
+set SearchRectangle to ()
+
+#Expected Results: Verify Documentation window is displayed with event 1 location tab is displayed with the associated risk responses. Ensure the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.
+assert that LastCellTimeVar contains LastCellTimeStamp with error "Validating Last cell time slot"
+
+CaptureScreen(Name:"Step 53")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 54: Select the risk response from a location tab and click OK. Click on Sign Changes to Chart")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents(item 1 of TestData.ClinicalEvents)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+
+
+#Expected Results: Verify the document is charted and displayed for the particular time range Cell for all the previously selected patients.
+
+CaptureScreen(Name:"Step 54")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 55: Select Time interval as 2hrs and Time range as 12 hours from the drop downs.")
+click (ImageLocation(Text:"Range")+(70,0))
+TypeText "12",return
+wait 14 # takes time to refresh
+
+click (ImageLocation(Text:"Interval")+(70,0))
+TypeText "2 hours",return
+wait 3 # takes time to refresh
+
+#Expected Results: Verify that the Time range and Time intervals are being selected.
+moveto (700,200)// removes mouse focus
+wait(3)
+put ImageRectangle ("BEH_SA_MainPageComponent/Badge_TimeInterval").topRight()+(0,-10) into SRectangle
+insert ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeInterval").bottomRight+(70,10) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "2 hours" with error "Time Interval Error"
+put ImageRectangle ("BEH_SA_MainPageComponent/Badge_TimeRange").topRight()+(0,-10) into SRectangle
+insert ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").bottomRight+(70,10) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "12 hours" with error "Validaing Time Range as 12 hours and Time Interval as 2 hours"
+
+CaptureScreen(Name:"Step 55")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 56: Click on the first time slot Click to Add... for any of the patient.")
+
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 14
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 2 of TestData.PatientList)
+wait 4
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 9 of TestData.PatientName),1
+//(item 5 of TestData.PatientNames),1
+wait 3
+
+#Expected Results:Verify Documentation window is displayed with event 1 location tab is displayed with the associated responses. Ensure the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime("ah042544") into Var1
+click (Text:"Mark as")
+wait 1
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+set SearchRectangle to ()
+assert that Var1 contains Var3 or Var1 contains Var3+1 or  Var1 contains Var3+2 with error "Validating Most recent cell time time"
+
+CaptureScreen(Name:"Step 56")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 57: Enter time in documentation window greater than the current time but, within the range of the time in the slot. Select the risk response. Click on OK.")
+
+wait until ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")
+
+Put ImageLocation(Text:"Other") into OtherLocation
+Click (OtherLocation+(30,0))
+TypeText "Freetext"
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+log Var3
+put Var3+59 into var3
+if Var3>59
+	put 59 into Var3
+end if 
+set SearchRectangle to ()
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".setTimeDocWindow(Var3)
+Click (Text:"OK")
+wait 3
+
+#Expected Results: Verify the Documentation window is closed and one or more activity is charted as per User selection for the selected patients at the time range.
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals False with error "Validating Tab focus is not changed"
+click ("BEH_SA_MainPageComponent/Icon_Location")
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateCellData(item 9 of TestData.PatientName,1) into CellDetailVar
+assert that CellDetailVar contains(item 12 of TestData.ClinicalEvents) with error "Validating mutiple clinical events and custom text"
+
+CaptureScreen(Name:"Step 57")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 58: Click on Sign Changes to Chart")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 14 # wait for refresh
+#Expected Results: Verify the document is charted and displays. For the particular time range Cell for the patients. Verify that all the response reason including the free text is displayed for the time range on charted slots of the selected patient under the time interval and the slot background color will be dark green color.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateSignedCell(item 9 of TestData.PatientName,item 4 of TestData.ClinicalEvents) into result
+assert that result  equals True with error "Signed cell is not dark green"
+CaptureScreen(Name:"Step 58")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 59: Select any of the slot for the patient and click on the text Click to Add…")
+TypeText pageUp
+TypeText pageUp
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 3 of TestData.PatientName),1
+
+#Expected Results: Verify Documentation window is displayed with date and time (hours and minutes entry point for the user to document an exact minute within the time interval).
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals true with error "Validating document window is displayed"
+CaptureScreen(Name:"Step 59")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 60: Enter a Free text in the Other option for first Event Response")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SetValueOtherTxtBox(item 4 of TestData.ClinicalEvents)
+
+#Expected Results: VVerify that the Free text is entered.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateFreeTextInDocWindow into FreeTextData
+assert that FreeTextData contains(item 4 of TestData.ClinicalEvents) with error "Validating Free text data"
+
+CaptureScreen(Name:"Step 60")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 61: Select more than one risk response reason for second Event Response.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabDocumentWindow (item 1 of TestData.TabName)
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents (item 9 of TestData.ClinicalEvents,item 10 of TestData.ClinicalEvents)
+
+#Expected Results: Verify that the risk response reason is selected.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTextSelected(item 9 of TestData.ClinicalEvents) into validateSelection
+assert that validateSelection equals true with error "The mentioned event is not selected"
+
+CaptureScreen(Name:"Step 61")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 62: Enter a Free text in the Other option for third Event Response")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectTabDocumentWindow (item 2 of TestData.TabName)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SetValueOtherTxtBox(item 11 of TestData.ClinicalEvents)
+
+#Expected Results: Verify that the Free text is entered.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateFreeTextInDocWindow into FreeTextData
+assert that FreeTextData contains(item 11 of TestData.ClinicalEvents) with error "Validating Free text data"
+Click(Text:"OK")
+CaptureScreen(Name:"Step 62")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 63: Click on Sign Changes to Chart")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 14 # refresh time
+
+#Expected Results: Verify the document is charted and displays. For the particular time range Cell for the patients. Verify that all the risk response reason including the free text is displayed for the time range on charted slots of the selected patient under the time interval and the slot background color will be dark green color.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateSignedCell((item 3 of TestData.PatientName) ,(item 4 of TestData.ClinicalEvents)) into signedResult
+assert that signedResult equals true with error "Validating signed cell"
+CaptureScreen(Name:"Step 63")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 64: Check the Level of Observations column.")
+
+#only assertion is required. No actions here
+
+#Expected Results: Verify that Level of Observation is displayed as: For Patient A: <Order A> For Patient B: <Value defined in Standard Observation Level Label> For Patient C: :< Value defined in Standard Observation Level Label> For Patient D :<Value defined in Standard Observation Level Label >
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 4 of TestData.PatientName) into Pat2Details
+assert that Pat2Details contains("STANDARD") with error "Validating level of observation"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 12 of TestData.PatientName) into Pat3Details
+assert that Pat3Details contains("Observation") with error "Validating level of observation"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 11 of TestData.PatientName) into Pat4Details
+assert that Pat4Details contains("STANDARD") with error "Validating level of observation"
+
+CaptureScreen(Name:"Step 64")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 65: Navigate to S&A SetUp page")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH SETUP PAGE 1")
+wait 15 # wait for refresh
+#Expected Results: Verify Setup page is loaded Successfully
+wait 15// objejct is present but page is not reseponsive
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("General Setting") with error ("validating SetUp Page is load")
+
+CaptureScreen(Name:"Step 65")
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 66: Set the Default Population field to Use First Patient List. Set Tab Navigation to Yes. Select Update.")
+
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ClickDefPopOptions "Use First Patient List"
+TypeText pageDown
+TypeText pageDown
+TypeText pageDown
+TypeText pageDown
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SelectTabNavigation("Yes")
+moveTo (250,800)
+
+Repeat until  imagefound(Image:"BEH_SA_SetupPage/Button_Update")
+	TypeText pageDown
+	If repeatIndex() = 15 then
+		exit repeat
+	End If
+End Repeat
+click (Image:"BEH_SA_SetupPage/Button_Update")
+
+
+#Expected Results: Verify Setup page is updated without error.
+put ReadText("BEH_SA_SetupPage/Icon_Tick", "BEH_SA_SetupPage/Button_OK",dpi:120) into Var1
+log Var1
+assert that Var1 contains " Setup Page Updated" with error "Validating Setup Page Updated Sucessfully"
+
+CaptureScreen(Name:"Step 66")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 67: Navigate to S&A mPage")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH MAIN PAGE")
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait 14
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 2 of TestData.PatientList)
+#Expected Results: Ensure that 'Safety and Attendance mPage' is displayed without any error. Verify that first Patient List is loaded by Default.
+
+wait(15) // waiting for the Main Page 1 is loaded completely and responsive
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("S & A Pagel") into  Var1
+assert that Var1 contains "True" with error "Validating Main Page 1 loads successfully"
+
+CaptureScreen(Name:"Step 67")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 68: Click on the cell Click to Add... for any of the patient.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick(item 2 of TestData.PatientName),1
+
+#Expected Results: Verify Documentation window is displayed with event 1 location tab is displayed with the associated risk responses. Ensure the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateSUTTime("ah042544") into Var1
+click (Text:"Mark as")
+wait 1
+put ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").bottomright()+(172,10) into SRectangle 
+insert ImageRectangle(Image:"BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime").topright()+(137,-10) into SRectangle
+put readText(SRectangle) into Var3
+set SearchRectangle to ()
+assert that Var1 contains Var3 or Var1 contains Var3+1 or  Var1 contains Var3+2 with error "Validating Most recent cell time time"
+
+CaptureScreen(Name:"Step 68")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 69: Select the risk response from a location tab.")
+click(Text:"Other")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents(item 3 of TestData.ClinicalEvents)
+
+#Expected Results: Verify that the tab focus changes to the next tab location without performing it manually as set in the Setup page.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateClinicalEventData into DocDetailsVar
+assert that DocDetailsVar contains (item 9 of TestData.ClinicalEvents) with error "Validating Associated Risk responses in the documentation window"
+
+CaptureScreen(Name:"Step 69")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 70: Click OK.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+wait 2
+#Expected Results: Verify the Documentation window is closed..
+
+assert ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime")equals false with error "Validating document window is displayed"
+
+CaptureScreen(Name:"Step 70")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 71: Click on Sign Changes to Chart")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Chart")
+wait 14 # wait for refresh
+
+#Expected Results: Verify the document is charted and displayed for the particular time range Cell for the patient.
+click "BEH_SA_MainPageComponent/Icon_Location"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateSignedCell((item 2 of TestData.PatientName) ,(item 3 of TestData.ClinicalEvents)) into signedResult
+assert that signedResult equals true with error "Validating event is charted in the latest time slot"
+
+CaptureScreen(Name:"Step 71")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 72: Close PowerChart.")
+
+click ("BEH_SA_SetupPage/Icon_Close")
+
+#Expected Results: Verify that PowerChart closes without any error.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

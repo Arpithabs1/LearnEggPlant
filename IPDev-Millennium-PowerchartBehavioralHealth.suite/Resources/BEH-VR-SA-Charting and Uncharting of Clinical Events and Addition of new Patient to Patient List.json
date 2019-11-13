@@ -1,0 +1,7 @@
+{
+	"UserName":("AH042544"),
+	"PatientName" :("PAT,A","MAY","KAV, CER1","FEB04, OBS4","MED, PATIENT1","LTD, RG","RS-HIM,NOV3","RS-HIM","MED, PATIENT1","OSMEPTEST,PATIENT6","FEB04,OBS5","DISCERN,NEWPATIENT"),
+	"PatientList":("LIST A","List B"),
+	"ClinicalEvents":("Needs","practice/","Verb","Freetext","Tight","Rad","understand","Demo","Sharp","Throbbing","Freetext2","Free"),
+	"TabName":("B12","C3T"),
+}

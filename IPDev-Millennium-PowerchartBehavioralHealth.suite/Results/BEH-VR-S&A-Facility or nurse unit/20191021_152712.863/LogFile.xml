@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-21 15:27:12.863 +0530"
+ tests="1"  failures="0" errors="0" time="181.072000">
+  <properties>
+   <property name="RunDate" value="2019-10-21 15:27:12.863 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="8" status="error"  time="181.055">
+    <error type="Exception" message="Unable To Find Image &quot;BEH_SA_MainPageComponent/Icon_Time_Warning&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

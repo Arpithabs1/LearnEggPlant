@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-09 11:31:20.209 +0530"
+ tests="1"  failures="2" errors="1" time="780.506000">
+  <properties>
+   <property name="RunDate" value="2019-10-09 11:31:20.209 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="60" status="error"  time="780.474">
+    <failure type="LogError" message="Assertion Error: Validating Suicide Risk for Patient G (assertion: Var1 does not contain (&quot;Elopement&quot;); actually: Braden Assessment\nHumpty Dumpty Fall\nRisk Assessment\nElopement Precautions DOES contain Elopement)" />
+    <failure type="FAILURE" message="Image Not Found click Error - No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;  Restricted Search Rectangle ((201,50),(451,1080))\n -- Execution Time 0:13:00 BEH-VR-S&A-Facility or nurse unit.script" />
+    <error type="Exception" message="No Text Found On Screen: &quot;(TEXT:&quot;Baseline East Medical Center&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

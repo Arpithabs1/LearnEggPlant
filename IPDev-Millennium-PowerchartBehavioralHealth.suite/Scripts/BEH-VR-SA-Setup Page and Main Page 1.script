@@ -1,0 +1,1266 @@
+﻿(******************* MyJarvis *******************
+Script Name: BEH-VR-SA-Setup page and Main Page 1
+Test ID:10752
+Author: MA051214
+Date of creation: 09-Jul-2018
+*****************************
+
+ BEH-VR-SA-Setup page and Main Page 1 
+
+Purpose: ? Verify the Safety and Attendance MPage component functions appropriately as per the Setup page.
+Pre-requisites:
+
+
+
+1. User1 should have DBA privileges.
+
+2. Identify facilities A, B and C which has nursing units associated to it. For facility A and nurse units name should consists of special characters except the (Black Slash and Double Quotes) characters.
+
+3. Configure the nursing units of facilities A and B using BH setup page.
+
+4. Create an step up pages in prefmaint.exe at organizer level.
+
+    a. Display Name: BHSAFETY Setup Page 1
+
+Report Name: dc_mp_bhv_hlth_setup
+
+ReportParam: EX:"MINE","BHSAFETY"
+
+
+
+5. Create an main S and A pages in prefmaint.exe at organizer level.
+
+    a. Display Name: BHSAFETY Main Page 1
+
+Report Name: bh_mp_safety_attendence
+
+ReportParam: EX:"MINE", 3, "BHSAFETY"
+
+
+
+6. Ensure User1 is associated to facility A and B in hnauser.exe but not facility C.
+
+7. Identify or register the patients having male, female and unknown genders with date of birth under the nurse units of facilities A and B.
+
+8. Create or identify a custom patient with patients having encounters under facilities A, B and C.
+
+9. Identify the Code sets 93 ,72 and 200 under corecodebuilder.exe.
+
+10. Identify Internet Explorer web browsers from Versions 7 or above.
+
+11. Verify Org and Confidentiality Level Security is enabled in the testing environment.
+
+12. Following pre-requisites need to be set in prefamaint.exe for User 1:
+
+    a. Powerchart > Powerchart
+
+i. HIDE_PERSON_IF_NO_ENCNTRS = 0-Show Patient Name
+
+13. Create multiple Orders for Patient A, B and C.
+
+14. Create SELECT * from order_detail_od where od.order_id= ********. **
+
+
+
+Change Request
+
+EDITOR        DATE        DESCRIPTION
+
+
+
+GR031471    16-SEP-2017
+
+Note- Skipped steps 63 to 68 and 74 to 80 with jiras mentioned in the steps
+
+
+*************************************************)
+
+//StartMovie FirstPlan
+set TestData to JSONValue(file ResourcePath("BEH-VR-SA-Setup_Page_and_Main _Page1.json"))
+Connect (serverID:TestData.ServerID,portnum: 3389, password:TestData.SUTPassword, username:TestData.SUTUser, type: "RDP",width: 1920, height: 1080)
+TypeText enterKey
+
+Log ("Step 1:Launch Powerchart by User 1")
+//run Google_Chrome.OpenGoogleChrome
+//run Google_Chrome.TypeInWebAddress "ipsf01.northamerica.cerner.net/Citrix/IPCTXweb/"
+
+
+#Expected Result:Verify Powerchart is launched without error.
+
+TypeText altKey & F4
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 2: Select BHSAFETY Setup Page 1 from view menu.")
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH SETUP PAGE 1")
+# Expected Result:Verify setup page is loaded without any error.
+wait(15)// objejct is present but page is not reseponsive
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("General Setting") with error ("validating SetUp Page is load")
+
+CaptureScreen(Name:"Step 2")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 3: Check the Page Title label is displayed. Enter the title needed (S and A 1) to be displayed for the Behavioral Health MPage.")
+
+# Expected Result:Verify the Page Title label and the title entered is displayed.
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("Page Title") with error (" SetUp Page load")
+
+CaptureScreen(Name:"Step 3")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 4: Check for the Patient Population title.")
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("Patient Population") with error (" SetUp Page load")
+
+#Expected Result:Verify that the following radio buttons are displayed:
+#Patient List, Facility/Nurse Unit, Patient List and Facility/Nurse Unit.
+
+put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation/Badge_WTSLocation") into Location1
+put Location1+(420,0) into Location2
+put ImageLocation( "BEH_SA_SetupPage/Badge_PatientPopulation", ) into Location3
+put  (Location3-(50,0))into Location4
+set the searchRectangle to ( Location4,Location2)
+put ReadText(Location4,Location2) into PatPopDetails
+Assert that PatPopDetails contains("Patient List") with error("Validating Patient Population Details")
+put ReadText(Location4,Location2) into PatPopDetails
+Assert that PatPopDetails contains("Facility/Nurse Unit")with error("Validating Patient Population Details")
+put ReadText(Location4,Location2) into PatPopDetails
+Assert that PatPopDetails contains("Patient List and Facility/Nurse Unit") with error("Validating Patient Population Details")
+set the SearchRectangle to ()
+
+CaptureScreen(Name:"Step 4")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 5: Select the radio button for Patient List and Facility/Nurse Unit.")
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ClickPatPopOptions "Patient List and Facility"
+
+# Expected Result: The radio button of Patient List and Facility/Nurse Unit are selected.
+MoveTo (530,580) --Removing focus
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".VerifyPatPopOptions("Patient List and Facility") into Var1
+Assert Var1 equals "Radio button selected" with error "Validating Button selected for Patient List and Facility/Nurse Unit."
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 6:Check for the WTS Location label.")
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("WTS Location") with error (" SetUp Page load")
+
+# Expected Result: Verify that the radio buttons "Yes" and "No" are available.
+put ImageLocation("BEH_SA_SetupPage/Badge_WTSLocation") into Location1
+put Location1+(-43,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location2
+put Location2+(623,0) into Location2
+put ReadText(Location1,Location2) into WTSDetails
+Assert that WTSDetails contains("Yes") with error("Validating WTS Details")
+Assert that WTSDetails contains("No") with error("Validating WTS Details")
+
+CaptureScreen(Name:"Step 6")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 7:Select the radio button for No.")
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ClickWTSOptions "No"
+MoveTo (169,684)
+
+# Expected Result:Verify that the Radio button for "No" is selected.
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".VerifyWTSOptions("No") into Var1
+Assert that Var1 equals "Radio button selected" with error "Validating No Button selected"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 8:Check for the Default Population label.")
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("Default Population") with error ("Default Population Error")
+
+# Expected Result: Verify that the Default Population label and the following radio buttons are displayed:
+#Use First Patient List, Use WTS Location, Select On The Page
+
+put ImageLocation("BEH_SA_SetupPage/Badge_DefaultPopulation") into Location1
+put Location1+(-43,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location2
+put Location2+(623,0) into Location2
+put ReadText(Location1,Location2) into DefaultPopDetails
+Assert that DefaultPopDetails contains("Use First Patient List") with error("Validating Default Population details")
+Assert that DefaultPopDetails contains("Use WTS Location") with error("Validating Default Population details")
+Assert that DefaultPopDetails contains("Select On The Page") with error("Validating Default Population details")
+
+CaptureScreen(Name:"Step 8")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 9: Select the radio button for Select On The Page.")
+
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ClickDefPopOptions "Select On The Page"
+
+# Expected Result: Verify that the "Select On The Page" radio button is selected.
+moveto (480,780)
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".VerifyDefPopOptions ("Select On The Page") into Var1
+Assert that Var1 equals "Radio button selected" with error "Validating Select On The Page Button selected"
+
+CaptureScreen(Name:"Step 9")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 10: Check for the Location Type Selection label.")
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("Location Type Selection") with error ("Location Type Selection error")
+Click "BEH_SA_SetupPage/Icon_ScrollDown"
+# Expected Result: Verify that all available location types are available under Location Type Selection and the user is allowed to select the Location types.
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ReadAvailableItems into Var1
+Assert that Var1 contains ("Ambulatory(s)") with error "Validating Available Items label"
+Assert that Var1 contains("Appointment Location(s)") with error "Validating Available Items label"
+Assert that Var1 contains("BB Drawing Station(s)") with error "Validating Available Items label"
+Assert that Var1 contains("BB Inverntory Area") with error "Validating Available Items label"
+Assert that Var1 contains("BB Owner Area View(s)") with error "Validating Available Items label"
+Assert that Var1 contains("Bed(s)") with error "Validating Available Items label"
+Assert that Var1 contains("Building(s)") with error "Validating Available Items label"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 11: From the Multi Selection Box, select Example: Ambulatory(s), Building(s), Facility(s), Nurse Unit(s) items and move it to the Selected items box.")
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". SelectAvailableItems("Ambulatory")
+Click "BEH_SA_SetupPage/Icon_MoveRight"
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". SelectAvailableItems("Building")
+Click "BEH_SA_SetupPage/Icon_MoveRight"
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". SelectAvailableItems("Building")
+Click "BEH_SA_SetupPage/Icon_MoveRight"
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". SelectAvailableItems("Nurse Unit")
+Click "BEH_SA_SetupPage/Icon_MoveRight"
+
+# Expected Result: Verify that the selected items are moved to the Selected Items box.
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ReadSelectedItems into SelectedItems
+assert that SelectedItems contains ("Ambulatory") with error "Validating Items in Selected items "
+assert that SelectedItems contains("Building") with error "Validating Items in Selected items "
+assert that SelectedItems contains("Nurse Unit") with error "Validating Items in Selected items "
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 12:Check mark the check box of Display inactive items below the Multi Selection Box.")
+
+click last item of everyimagelocation ("BEH_SA_SetupPage/Icon_ScrollDown")  
+click last item of everyimagelocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".CheckDisplayInactiveItems
+MoveTo (252,888)// removing mouse focus
+
+
+# Expected Result:Verify that the check box is checked and the inactive location types (nurse units) are displayed in the Multi Selection Box.
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidateDisplayInactiveItems into Var1
+Assert that Var1 contains("Checkbox selected") with error("Checkbox for Display inactive itmes not selected")
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 13: Check the Patient Link label. Enter the display name of the tab within PowerChart that the user wants to be available as a hyperlink from the patient's name in the Patient column.")
+
+click last item of everyimagelocation  ("BEH_SA_SetupPage/Icon_ScrollDown")
+click last item of everyimagelocation  ("BEH_SA_SetupPage/Icon_ScrollDown")
+put ImageLocation("BEH_SA_SetupPage/Badge_LocationTypeSelection") into Location1
+put Location1+(-90,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_PatientImage") into Location2
+put Location2+(90,0) into Location2
+put ReadText(Location1,Location2) into Var1
+Assert that Var1 contains("Patient Link") with error ("Patient Link Error")
+
+# Expected Result: Verify thatVerify that the specific tab name is entered. Eg: PowerOrders, MAR, Patient Information, etc.
+Assert that Var1 contains("PowerOrders") with error ("Patient Link Error")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 14: Check for the Patient Image label.")
+
+click last item of everyimagelocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+click last item of everyimagelocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+put ImageLocation("BEH_SA_SetupPage/Badge_PatientLink") into Location1
+put Location1+(-90,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_MRN") into Location2
+put Location2+(80,0) into Location2
+put ReadText((Location1, Location2)) into Var1
+# Expected Result: Verify thatVerify that the following two radio buttons "Yes" and "No" are displayed for the Patient Image.
+
+Assert that Var1 contains("Yes") with error ("Validating Patient Image label")
+Assert that Var1 contains("No") with error ("Validating Patient Image label")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 15: Select the Yes radio button.")
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SelectPatientImage("Yes")
+
+# Expected Result: Verify that the radio button is selected.
+MoveTo (150,500)
+
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidatePatientImage("Yes") into Var1
+assert that Var1 equals "Radio button selected" with error "Validating Yes button selected"
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 16: Check for the MRN label.")
+
+click last item of everyimagelocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+click last item of everyimagelocation("BEH_SA_SetupPage/Icon_ScrollDown")
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_MRN") into Location1
+put bottomRight of ImageRectangle("BEH_SA_SetupPage/Badge_FIN") into Location2
+put Location2+(450,0) into Location2
+put ReadText(Location1, Location2) into Var1
+assert that Var1 contains "MRN" with error "MRN Label error"
+
+# Expected Result: Verify that the following radio buttons are displayed:
+#a. DISPLAY (PERSON LEVEL, CODE_SET 4)
+#b. DISPLAY (ENCOUNTER LEVEL, CODE_SET 319)
+assert that Var1 contains ("DISPLAY(PERSON LEVEL, CODE_SET 4)") with error "Validating MRN codeset"
+assert that Var1 contains ("DISPLAY(ENCOUNTER LEVEL, CODE_SET 319)") with error "Validating MRN codeset"
+
+CaptureScreen(Name:"Step 16")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 17: Enter the code value that indicates MRN.")
+
+# Expected Result: Verify that the code value is entered.
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_MRN")+(0,50) into Location1
+put bottomRight of ImageRectangle("BEH_SA_SetupPage/Badge_FIN")+(400,0) into Location2
+set the searchRectangle to(Location1,Location2)
+put ReadText(Location1,Location2) into MRNVal
+set the SearchRectangle to()
+assert that MRNVal contains "MRN" with error "Validating MRN codeset"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 18: Check for the FIN label. Enter the code value that indicates FIN.")
+
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_FIN") into Location1
+put bottomRight of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location2
+put Location2+(400,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains "FIN" with error ("FIN Label Error")
+
+# Expected Result: Verify that the label and the radio button "DISPLAY (CODE_SET 319) is displayed. Verify that code value is entered.
+
+assert that Var1 contains ("DISPLAY(CODE_SET 319") with error "Validating FIN codeset"
+
+CaptureScreen(Name:"Step 18")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 19:Check for the Precautions section")
+Repeat until ImageFound("BEH_SA_SetupPage/Badge_PatientStatusActivity")
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+End Repeat
+wait(3)  //waitnig for the screen to be responsive
+
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains "Precautions" with error "Validating Precautions"
+
+# Expected Result:Verify that " Precautions " section is displayed with the following Label: "Risk Event"."+" Add button displayed right side of the label.
+
+assert that Var1 contains "Risk Event" with error "Validating Risk Events"
+
+CaptureScreen(Name:"Step 19")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 20: Click on multiple Risk Event + Add button.Ex:fall Risk/Suicide Risk ")
+
+# Verify the following is displayed :"Label" field followed by a free text value field.Radio buttons displaying the event codes:DISPLAY(Code_Set 93)DISPLAY(Code Set 72)DISPLAY(Code Set 200) Two headers (along with "+" buttons to the right) are displayed below the event codes:QUALIFIER RESPONSE RISK RESPONSE
+
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("Label") with error "Validating multiple risk events"
+assert that Var1 contains("DISPLAY(Code Set 72)") with error "Validating multiple risk events"
+assert that Var1 contains ("DISPLAY(Code Set 200)") with error "Validating multiple risk events"
+assert that Var1 contains ("QUALIFIER RESPONSE") with error "Validating multiple risk events"
+assert that Var1 contains ("RISK RESPONSE") with error "Validating multiple risk events"
+
+CaptureScreen(Name:"Step 20")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 21:Enter a free text in the Label field to indicate the Precaution name. Select one of the radio buttons and select a clinical event that indicates Risk events..")
+
+# Expected Result: Verify that the precaution name is entered in the field and the clinical event indicating Risk is selected.
+
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("Suicide Risk") with error ("Validating Precaution Names")
+assert that Var1 contains ("Blood Unit #1") with error ("Validating Precaution Names")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 22:Click on QUALIFIER REPONSE + Add button EX: fall Risk a.Greater than,Numeric,45 Suicide Risk a)ANY,ALPHA,CRITICALStep 22: Click OK button")
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("Greater") with error "Validating Qualifier Response"
+assert that Var1 contains("than") with error "Validating Qualifier Response"
+assert that Var1 contains ("Numeric") with error "Validating Qualifier Response"
+assert that Var1 contains ("25") with error "Validating Qualifier Response"
+
+# Expected Result: Verify that the drop downs "Qualifier", "Type" and free text "Value" are displayed in a single row.
+
+
+assert that Var1 contains ("Qualifier") with error "Validating Risk Qualifier Labels"
+assert that Var1 contains ("Type") with error "Validating Risk Qualifier Labels"
+assert that Var1 contains ("Value") with error "Validating Risk Qualifier Labels"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 23:From the drop downs, select the desired Qualifier, Type and Free text value.")
+
+# Expected Result: Verify that the desired values are selected and entered. Note: Multiple QUALIFIER cannot be created.
+
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("GREATER THAN") with error ("Validating Risk Qualifier Details")
+assert that Var1 contains ("NUMERIC") with error ("Validating Risk Qualifier Details")
+assert that Var1 contains ("25") with error ("Validating Risk Qualifier Details")
+
+CaptureScreen(Name:"Step 23")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 24:Click on the + button next to RISK RESPONSE, multiple times.Enter the free text in the empty field and from the drop downs, select the desired Icon. EX: fall Risk a.Greater than,Numeric,45 35 Medium icon 50 High Icon Suicide Risk a)ANY,ALPHA,CRITICAL Critical critical icon")
+
+# Expected Result: Verify that the Free text field and Icon drop downs are displayed. Verify that the desired values are selected and entered. Verify the multiple RISK RESPONSE which are configured are displayed.
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_ClinicalEvents") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("30","BEH_SA_SetupPage/Icon_Danger") with error ("Validating Risk Qualifier Responses")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 25:Check for the Patient Status/Activity label. Click on the  + button next to the Clinical Event label.")
+Repeat 4 times
+	click the last item of everyimagelocation  ("BEH_SA_SetupPage/Icon_ScrollDown")
+End Repeat
+
+# Expected Result: Verify that the "Patient Status/Activity" label is displayed. Verify that "Label" will be displayed as the tab text followed by two radio buttons: a. DISPLAY(Code_Set 93) b.DISPLAY(Code Set 72)
+
+put topleft of ImageRectangle ("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_TabNavigation") into Location2
+put Location2+(400,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("Patient Status/Activity") with error ("Validating Patient Status/Activity label")
+assert that Var1 contains("DISPLAY(Code_Set 93)") with error ("Validating Patient Status/Activity label")
+assert that Var1 contains("DISPLAY(Code Set 72)") with error ("Validating Patient Status/Activity label")
+
+CaptureScreen(Name:"Step 25")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 26: Enter a free text label as Patient Status/Activity Event 1. Select the desired radio button and a clinical event associated to the code set.EX:Label 1:Activity 1 Codeset 93 Quality")
+
+# Expected Result: Verify that the free text "Label" is entered as "Patient Status/Activity Event 1". Verify that the desired radio button and the associated clinical event is selected.
+
+put topleft of ImageRectangle ("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_TabNavigation") into Location2
+put Location2+(400,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("A#123") with error ("Validating Patient Status/Activity values set 1")
+assert that Var1 contains("Pain Scale") with error ("Validating Patient Status/Activity values")
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 27: Select the + sign next to the Clinical Event label. Enter a free text label as Patient Status/Activity Event 2. Select the desired radio button and a clinical event associated to the code set.Label 2: Activity 2Codeset 93 Pain Negatively Impacts")
+
+# Expected Result: Verify that the free text "Label" is entered as "Patient Status/Activity Event 2". Verify that the desired radio button and the associated clinical event are selected.
+put topleft of ImageRectangle ("BEH_SA_SetupPage/Badge_PatientStatusActivity") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_TabNavigation") into Location2
+put Location2+(400,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("B#456") with error ("Validating Patient Status/Activity values set 2")
+assert that Var1 contains("Pain Score") with error ("Validating Patient Status/Activity values set 2")
+
+CaptureScreen(Name:"Step 27")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 28:Check for Tab Navigation label. Select the Yes radio button.")
+
+click the last item of everyimagelocation  ("BEH_SA_SetupPage/Icon_ScrollDown")
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SelectTabNavigation("Yes")
+moveTo (250,800)
+
+# Expected Result: Verify that two radio button "Yes" and "No" are available. Verify that "Yes" radio button is selected.
+
+put  "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidateTabNavigation("Yes") into Var1
+assert that Var1 equals "Radio button selected" with error "Button not selected"
+
+CaptureScreen(Name:"Step 28")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 29:Click on update button. Click OK.")
+
+Repeat until  imagefound(Image:"BEH_SA_SetupPage/Button_Update")
+	TypeText pageDown
+	If repeatIndex() = 15 then
+		exit repeat
+	End If
+End Repeat
+click (Image:"BEH_SA_SetupPage/Button_Update")
+
+
+
+# Expected Result: Verify that a message window with the following message " Setup page has been successfully updated " is displayed.Verify that the green circle with a check mark is displayed.
+
+put ReadText("BEH_SA_SetupPage/Icon_Tick", "BEH_SA_SetupPage/Button_OK",dpi:120) into Var1
+assert that Var1 contains "Validating Setup Page Updated Sucessfully"
+
+CaptureScreen(Name:"Step 29")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 30:Click on refresh button")
+
+Click "BEH_SA_SetupPage/Button_OK"
+click "BEH_SA_SetupPage/Icon_Refresh"
+# Expected Result: Verify that the page and powerchart is refreshed.
+
+MoveTo (100,100)
+put ImageRectangle("BEH_SA_SetupPage/Icon_Refresh").bottomright()+(0,10) into SRectangle
+insert ImageRectangle("BEH_SA_SetupPage/Icon_Refresh").topLeft+(50,-10) into SRectangle
+put ReadText(SRectangle) into RefVal
+set SRectangle to ()
+assert that RefVal contains ("0") with error "Validating Page Refresh"
+CaptureScreen(Name:"Step 30")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 31:Click on the Add (+) option for the Available Nomenclature Responses by Location.Check for Available Nomenclature Responses by Location label.")
+
+wait (18) --waiting till the setup pages loads
+Repeat 3 times
+	TypeText pageDown	
+End Repeat
+click  ("BEH_SA_SetupPage/Icon_ScrollDown")
+put ImageRectangle("BEH_SA_SetupPage/Badge_AvailableNomenclatureResponsesLoc").TopLeft() into SRectangle
+insert ImageRectangle( "BEH_SA_SetupPage/Badge_AvailableNomenclatureResOthers").bottomRight()+(100,0) into SRectangle
+Click (Image: "BEH_SA_SetupPage/Icon_Add", SearchRectangle:SRectangle)
+
+# Expected Result: Verify that the Facility Location is loaded with the Facility name and Location type. Verify that the Clinical Event is being displayed for the Facility Location.Verify the "Available Nomenclature Responses by Location" label is displayed
+
+put ReadText(SRectangle) into AvailVar
+assert that AvailVar contains ("Available Nomenclature Responses by Location") with error "Validating Available Nomenclature Responses by Location details"
+assert that AvailVar contains("Baseline West Behavioral")  with error "Validating Available Nomenclature Responses by Location details"
+assert that AvailVar contains ("Sharp")  with error "Validating Available Nomenclature Responses by Location details"
+assert that AvailVar contains ("Dull")  with error "Validating Available Nomenclature Responses by Location details"
+set SRectangle to ()
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 32:Check for Available Nomenclature Responses for Other/Undefined label. Click on the + Available Nomenclature Responses for Other/Undefined Locations section. Select any of the response from the drop down.")
+
+Repeat until ImageFound("BEH_SA_SetupPage/Badge_OffUnitEventResponse")
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+
+# Expected Result:Verify that the "Available Nomenclature Responses for Other/Undefined" label is displayed and the responses are selected for the created Patient Status/Activity.
+
+put ImageRectangle("BEH_SA_SetupPage/Badge_AvailableNomenclatureResOthers").TopLeft() into SRectangle
+insert ImageRectangle("BEH_SA_SetupPage/Badge_OffUnitEventResponse").bottomRight()+(200,0) into SRectangle
+put ReadText(SRectangle) into AvailOthers
+assert that AvailOthers contains ("Available Nomenclature Responses for Other/Undefined") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+assert that AvailOthers contains("A#123") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+assert that AvailOthers contains("B#456") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+assert that AvailOthers contains("Sharp") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+assert that AvailOthers contains("Burning") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+assert that AvailOthers contains("Dull") with error "Validating Available Nomenclature Responses for Other/Undefined details"
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 33:Check for Off Unit Event and Response label. Select the desired radio button and a clinical event that indicates Off Unit.(Codeset 93)")
+
+Repeat 4 times
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+# Expected Result: Verify that "Off Unit Event and Response" label is displayed along with the following radio buttons: a.DISPLAY(Code_Set 93) b.DISPLAY(Code Set 72) Verify that the clinical event is selected.
+
+put topleft of ImageRectangle("BEH_SA_SetupPage/Badge_OffUnitEventResponse") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_StandardObservationlevellabel") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("Off Unit Event & Response") with error "Validating Off Unit Event and Response label" 
+assert that Var1 contains ("DISPLAY(Code_Set 93)") with error "Validating Off Unit Event and Response label" 
+assert that Var1 contains ("DISPLAY(Code Set 72)") with error "Validating Off Unit Event and Response label" 
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 34:Check for  Standard Observation Level Label label.Enter Label Name(Standard).")
+
+# Expected Result: Verify that Standard observation Level label is displayed.Verify that the free text "Label" is entered
+put topleft of ImageRectangle("BEH_SA_SetupPage/Badge_StandardObservationlevellabel") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_ObservationLevelOrderables") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("Standard Observation Level Label") with error "Validating Standard Observation Level"
+assert that Var1 contains ("Standard") with error "Validating Standard Observation Level"
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 35: Check for the Observation Level Orderable label.Click on Observation event multiple times.(Twice) Enter values for Codeset 200(Search for Pre-req 16 orderable) a)One to one Observation ID:12646 b)Pain Assessment Adult Meaning:FREQ Select the desired radio button and Enter appropriate values for OE_FIELD MEANING and ID(Pre-req 17).")
+
+Repeat 2 times
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+# Expected Result: Check for the "Observation Level Orderable" label.Verify that the pre-req orderable are entered in different codeset 200.Verify that the desired radio button and the associated event are entered.
+put topleft of ImageRectangle("BEH_SA_SetupPage/Badge_ObservationLevelOrderables") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_Comments") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("Observation Level Orderables") with error "Validating Observation Level Orderable"
+assert that Var1 contains ("Display(CODE_SET 200)") with error "Validating Observation Level Orderable"
+assert that Var1 contains ("OE_FIELD_MEANING") with error "Validating Observation Level Orderable"
+assert that Var1 contains ("OE_FIELD_ID") with error "Validating Observation Level Orderable"
+assert that Var1 contains ("Dextrose 5% in Water") with error "Validating Observation Level Orderable"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 36:Check for the Comments label. Select the codeset 72 Radio button")
+
+Repeat 3 times
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+
+# Expected Result: Check for the " Comments" label.Verify that the desired radio button selected
+
+put topleft of ImageRectangle("BEH_SA_SetupPage/Badge_Comments") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_LocationTimeInterval") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains ("Comments") with error "Validating Commnts label details"
+assert that Var1 contains ("Blood Glucose") with error "Validating Commnts label details"
+assert that Var1 contains ("Capillary") with error "Validating Commnts label details"
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 37: Check for the Location Time Interval label. Enter the desired time interval.(720)")
+
+Repeat 2 times
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+# Expected Result: Verify that the time interval is saved.
+
+put topleft of ImageRectangle("BEH_SA_SetupPage/Badge_LocationTimeInterval") into Location1
+put bottomright of ImageRectangle("BEH_SA_SetupPage/Badge_DefaultTime") into Location2
+put Location2+(300,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("Location Time Interval")
+assert that Var1 contains ("15") with error "Validating time iterval"
+assert that Var1 contains ("30") with error "Validating time iterval"
+assert that Var1 contains ("60") with error "Validating time iterval"
+assert that Var1 contains ("120") with error "Validating time iterval"
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 38:Enter the numeric value of 0 in the Default Time. Click on ok.")
+
+Repeat 2 times
+	click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+	moveto (100,100)
+End Repeat
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SetDefaulTime("0")
+# Expected Result: Verify that the alert message is displayed "Please enter a valid number".Verify that curser focus returns to" Default Time" section. 
+
+put topleft of ImageRectangle("BEH_SA_SetupPage/Icon_Alert") into Location1
+put Location1+(1100,40)into Location2
+put ReadText(Location1, Location2,DPI:"110") into Var1
+assert that Var1 contains ("Please enter a valid number ranging between 1-720") with error ("Validating Default Time")
+
+CaptureScreen(Name:"Step 38")
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 39: Enter the numeric value of 720 in the Default Time.")
+
+TypeText spacebar
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SetDefaulTime("720")
+
+# Expected Result: Verify that the value is enter without any error.
+put topLeft of ImageRectangle("BEH_SA_SetupPage/Badge_DefaultTime") into Location1
+put bottomright of Imagerectangle("BEH_SA_SetupPage/Badge_BatchtoSaveClinicalEvents")+(50,0) into Location2
+put ReadText(Location1,Location2) into Var1
+assert that Var1 contains("720") with error ("Validating end time enterted for Default Time ")
+
+CaptureScreen(Name:"Step 39")
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 40:Enter the numeric value of 0 in the clinical event.Click on ok.")
+
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+wait(2)
+put ImageLocation("BEH_SA_SetupPage/Badge_BatchtoSaveClinicalEvents") into Location1
+put Location1+(5,65) into Location1
+click Location1
+TypeText controlKey & "a"
+TypeText "0"
+
+# Expected Result: Verify that the alert message is displayed "Please enter a valid number ranging between 1 to 100".Verify that curser focus returns to section.
+
+put topleft of ImageRectangle("BEH_SA_SetupPage/Icon_Alert") into Location1
+log Location1
+put Location1+(1100,40)into Location2
+put ReadText(Location1, Location2,DPI:"110") into Var1
+assert that Var1 contains ("Please enter a valid number ranging between 1-100") with error "Validating alert message"
+
+
+CaptureScreen(Name:"Step 40")
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 41:Enter the value '15' for  Number of Patients to Process (Retrieve) in a Batch section and value 25 Batch to Save Clinical Events section.")
+
+TypeText spacebar
+put ImageLocation("BEH_SA_SetupPage/Badge_PatientsRetrieveInBatch") into Location1
+put Location1+(10,80) into Location1
+click Location1
+TypeText controlKey & "a"
+TypeText "15"
+
+put ImageLocation("BEH_SA_SetupPage/Badge_BatchtoSaveClinicalEvents") into Location1
+put Location1+(10,70) into Location1
+click Location1
+TypeText controlKey & "a"
+TypeText "25"
+Click (290,700)
+
+# Expected Result: Verify that the values are set to for both the " Number of Patients to Process (Retrieve) in a Batch" and "Batch to Save Clinical Events" sections.
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+put ImageLocation("BEH_SA_SetupPage/Badge_BatchtoSaveClinicalEvents") into Location1
+put Location1+(-50,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_PatientsRetrieveInBatch") into Location2
+put  ReadText (Location1,Location2) into Var1
+log Var1
+assert that Var1 contains "25" with error "Validating Batch to save clinical events details"
+
+put Imagelocation("BEH_SA_SetupPage/Badge_PatientsRetrieveInBatch") into Location1
+put Location1+(-230,0) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_SelectAll") into Location2
+put  ReadText (Location1,Location2) into Var1
+assert that Var1 contains ("15") with error "Validating Patients to Process (Retrieve) in a Batch details"
+set the SearchRectangle to ""
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SetDefaulTime("15")
+
+CaptureScreen(Name:"Step 41")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 42: Check for the Select All section.")
+
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+# Expected Result: Verify that "Select All" label is displayed.Verify that the following radio buttons are displayed: a.Yes b.No
+wait(2)
+put ImageLocation("BEH_SA_SetupPage/Badge_SelectAll") into Location1
+put Location1+(-40,-10) into Location1
+put ImageLocation("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location2
+put Location2+(100,0) into Location2
+put  ReadText (Location1,Location2) into Var1
+assert that Var1 contains ("Select All") with error "Validating Select all Label"
+assert that Var1 contains("Yes") with error "Validating Select all Label"
+assert that Var1 contains("No") with error "Validating Select all Label"
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 43: Select Yes radio button")
+
+Run "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SelectAll("Yes")
+
+# Expected Result: Verify that "Yes" radio button is selected.
+
+moveto(147,840)
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidateSelectAll("Yes") into Var1
+assert that Var1 contains ("Radio button Selected") with error "Validataing Yes button for Select All"
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 44: Check for Multi Select option")
+
+click last item of everyImageLocation ("BEH_SA_SetupPage/Icon_ScrollDown")
+put the topleft of ImageRectangle("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location1
+put the bottomright of ImageRectangle("BEH_SA_SetupPage/Button_Update") into Location2
+put Location2+(300,20) into Location2
+put ReadText(Location1,Location2) into Var1
+
+# Expected Result: Verify that the label is displayed and radio buttons for selecting  Yes and No options are displayed and by default No option is selected
+
+assert that Var1 contains("Enable Multi Select") with error "Validating Multi Select Label"
+assert that Var1 contains("Yes") with error "Validating Multi Select Label"
+assert that Var1 contains ("No") with error "Validating Multi Select Label"
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 45: Select No radio button")
+run  "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SetMultiSelect("No")
+MoveTo (300,900)
+
+# Expected Result: Verify that "No" radio button is selected.
+
+put  "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidateSetMultiSelect("No") into Var1
+assert that Var1 equals "Radio button selected" with error "Validating No option for radio button"
+
+CaptureScreen(Name:"Step 45")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 46: Check for the instruction for Multi Select")
+
+# Expected Result: Very that the instruction "This setting determines if the user wants to utilize the tab navigation functionality while charting responses, using patient status/activity events." is displayed
+
+put the topleft of ImageRectangle("BEH_SA_SetupPage/Badge_EnableMultiSelect") into Location1
+put the bottomright of ImageRectangle("BEH_SA_SetupPage/Button_Update") into Location2
+put Location2+(900,20) into Location2
+put ReadText(Location1,Location2) into Var1
+assert  that Var1 contains "This setting determines if the user wants to utilize the Multi Select functionality while charting responses, using patient status/activity events" with error "Validating instructions for Multi Select"
+CaptureScreen(Name:"Step 46")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 47: Click on update button. Click OK.")
+
+Click ("BEH_SA_SetupPage/Button_Update")
+# Expected Result: Verify that a message window with the following message " Setup page has been successfully updated " is displayed.Verify that the green circle with a check mark is displayed.
+
+put ReadText("BEH_SA_SetupPage/Icon_Tick", "BEH_SA_SetupPage/Button_OK",DPi:120) into Var1
+assert that Var1 contains " Setup Page Updated Sucessfully" with error "Validating page successfully updated"
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 48:Close the powerchart")
+--Not Required
+# Expected Result: Verify that the powerchart is closed
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 49:Launch Powerchart by User 1.")
+--Not Required
+# Expected Result: Problem6 is selected in the Problem list. The Onset Date changes to the date
+# identified in prerequisite 6f. The Staging System does not change and matches
+# the system identified in prerequisite 6a. Verify that Form does not change
+# Verify Sign and Save buttons are Enabled.
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 50: Click on 'Safety and Attendance mPage(BHSAFETY main page 1)'' tab at organizer level.")
+
+Click "BEH_SA_SetupPage/Button_OK"
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH MAIN PAGE1")
+click "BEH_SA_SetupPage/Icon_Refresh"
+# Expected Result: Verify that 'Safety and Attendance mPage' is displayed without any error.
+wait(12)
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("S & A Page 1") into  Var1
+assert that Var1 contains "True" with error "Validating Main Page 1 displays"
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 51:Ensure the Title, Labels, Sign, Submit, Reset buttons and Patient List, Time Interval and Time Range drop downs are displayed.")
+
+#Expected Result: Verify the configured (In BHSAFETY setup page 1)title name is displayed in the title section.
+#Verify that the title is displayed in the top left corner.
+#Verify the drop downs of Patient List and Facilities are displayed appropriately. Verify Nurse Units and Reset buttons are enabled. Submit button is dithered.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("Patient List","Facilities") into  Var1
+assert that Var1 contains "True" with error "Main Page 1 error"
+assert ImageFound("BEH_SA_MainPageComponent/Button_Submit","BEH_SA_MainPageComponent/Button_Reset") with error "Validating Submit button is Enabled"
+
+CaptureScreen(Name:"Step 51")
+
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 52:Hover over the Nurse unit hyper link.")
+
+MoveTo "BEH_SA_MainPageComponent/Icon_NurseUnits"
+put MouseLocation() into SRectangle
+# Expected Result: Verify the Tool tip displays as "Click to open nurse units".
+insert SRectangle+(200,60) into SRectangle
+wait(2)
+put ReadText(SRectangle,dpi:120) into NureToolTip
+assert that NureToolTip contains "Click to Open Nurse units" with error "Validating Nurse Unit Tool Tip displays"
+
+CaptureScreen(Name:"Step 52")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 53:Click on the Patient list dropdown and check for the Patients lists available.")
+
+
+# Expected Result:The drop down list will have the same sequence as the User's sequence in the Patient list tab.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidatePatientlistFrom(item 1 of TestData.PatientList ) into Var1
+assert that Var1 contains("True") with error "Patient List not found"
+wait (2)
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidatePatientlistFrom(item 2 of TestData.PatientList) into Var1
+assert that Var1 contains("True") with error "Validating Patient List found"
+CaptureScreen(Name:"Step 53")
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 54:Select the pre-requisite Patient list from the dropdown and click on Submit.")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 1 of TestData.PatientList)
+
+Run"BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+# Expected Result: Verify patients with Facility A and B are loaded for the patients list in Safety and Attendance mPage. But Patients with Facility C is not loaded.
+wait(10)
+Click "BEH_SA_MainPageComponent/Icon_Patient"
+moveto (500,100)
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatExists(item 1 of TestData.Patientnames) into FacilityVar
+assert that FacilityVar equals "False" with error "Validating patients from facility C is not loaded"
+Click "BEH_SA_MainPageComponent/Icon_Patient"
+Repeat 3 times
+	TypeText pageUp
+End Repeat
+
+
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 55:Check the Location Column.")
+click(500,200)
+Assert ImageFound("BEH_SA_MainPageComponent/Icon_Location")
+
+#Expected Result:Verify that for Patients with photos, photograph is displayed. Beneath the photo, Patient location is in the following format: Unit/Room/Bed.
+#Verify that For patient without photos, blue silhouette icon is displayed
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 2 of TestData.Patientnames) into PatientDetailVar
+//log PatientDetailVar
+assert that PatientDetailVar contains "BE IN"
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatesilhouetteicon(item 2 of TestData.Patientnames) into PatIconVar
+assert that PatIconVar equals "True" with error "Validating Patient Image displays"
+
+---------------------------------------------------------------------------------------------------------------
+
+Log ("Step 56:Check the Patient Column.")
+Assert ImageFound("BEH_SA_MainPageComponent/Icon_Patient") with error "Patient Column Error"
+
+#Expected Result:Verify below information are displayed as follows:
+#Patient Name
+#Level of Observation
+#Gender, Age, Date of Birth
+#MRN and FIN
+#For Ex: Patient Name format: Last Name, First Name
+#Gender format: "F" for female; "M" for male; "Unknown" when gender not specified.
+#Age format: 27 years
+#Date of Birth format: MM/DD/YY
+#MRN format: MRN:12345
+#FIN format:FIN:1278498
+#Observation level format: Level of Observation: Low
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePatDetails(item 3 of TestData.Patientnames) into PatientDetailVar
+
+assert that PatientDetailVar contains ("Level of Observation") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("Standard") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("M") with error "Validating Patient Details"
+assert that PatientDetailVar contains("30") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("DOB") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("11/27/87") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("MRN") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("741") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("FIN") with error "Validating Patient Details"
+assert that PatientDetailVar contains ("706") with error "Validating Patient Details"
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 57:Check Precautions header")
+Assert ImageFound("BEH_SA_MainPageComponent/Icon_Precautions") with error "Precautions Error"
+
+#Expected Result:Verify that the risks configured in the setup page is displayed in the drop down.If none of the clinical events are found, "None" option is displayed.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePrecautionsDrpDwn into Var1
+assert that Var1 contains "None" with "Validating Precautions header" 
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 58:Check Precautions column.Select the Precautions")
+
+#Expected Result:Verify that the precautions column is displayed with the charted precautions for each patient in the patient list loaded.
+#If clinical event for a configured precaution is charted on a patient, the data is displayed in the following format : <Risk icon><Name of the precaution>: <Charted value>If no precaution is charted on a patient, "--" is displayed.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validatePecautionDetails(item 3 of TestData.Patientnames) into PrecautionsVar
+assert that PrecautionsVar contains "No Precaution" with error "Validating Precaution Details"
+
+CaptureScreen(Name:"Step 58")
+
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 59:Check the Time range section.")
+assert ImageFound("BEH_SA_MainPageComponent/Badge_TimeRange") with error "Time Range Error"
+
+#Expected Result:Verify that the Time range slot defaults to 4 hours.
+
+put  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").topRight into SRectangle
+//log SRectangle
+insert  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeRange").bottomRight+(100,3) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "4 hours" with error "Validating Time Range section" 
+set SRectangle to ()
+
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 60:Check the time interval section..")
+
+assert ImageFound("BEH_SA_MainPageComponent/Badge_TimeRange") with error "Time Interval Error"
+
+#Expected Result:Verify that time interval defaults as per the setup page "BHSAFETY Setup Page 1". For Ex: 20 min,30 min, 1 hour and 2 hours.
+
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("15 min") into Var1
+Assert that Var1 contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("30 min") into Var1
+Assert that Var1 contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("hour") into Var1
+Assert that Var1 contains "True" with error "Validating Time Interval values"
+TypeText escapeKey
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeIntervalFrom("hours") into Var1
+Assert that Var1 contains "True" with error "Validating Time Interval values"
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 61:Click the time range drop down.")
+
+#Expected Result:Verify that drop down options displays upto 12 hours.
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".ValidateTimeRangeFrom("12")into Var1
+assert that Var1 contains "True" with error "Validating Time Range Details"
+TypeText escapeKey
+---------------------------------------------------------------------------------------------------------------
+Log ("Step 62:Select Time Range of 4 hours from drop down and also select Time Interval of 1 hour from the drop down.")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectTimeRangeFrom("4")
+Run  "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectTimeIntervalFrom("1 hour")
+
+#Expected Result:Verify that the Time Range is selected and displayed from the dropdown. Verify that the time interval is set to "1 hour" in the drop down and verify that 4 or 5 activity columns are displayed based on the test execution time.
+moveto (100,100)
+wait(5)
+insert  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeInterval").topRight into SRectangle
+insert  ImageRectangle("BEH_SA_MainPageComponent/Badge_TimeInterval").bottomRight+(100,3) into SRectangle
+put ReadText(SRectangle) into Var1
+assert that Var1 contains "1 hour" with error "validating Time Range dropdown" 
+set SRectangle to ()
+
+CaptureScreen(Name:"Step 62")
+--------------------------------------------------------------------------------------------------------------------
+Log ("Step 63:Check the activity section displayed for date and time.")
+
+#Expected Result:Verify that the Date and time is being displayed as Reverse Chronological order in particular time slot and verify the time range is being displayed as iView. For Ex"3:00-3.59 CST"  " 2:00 -2:59 CST" 1:00-1:59 CST" "12:00-12:59 CST" or 14:00 - 14:59 +0530 UTC" Verify that Date interval is displayed in MM/DD/YY format. Note: CST depends on the date time setup.
+#Handler limitation-works only for 15 mins time interval
+--------------------------------------------------------------------------------------------------------------------
+Log ("Step 64:Click on the left most/ recent time slot 'Click to Add...' cell for any of the patient.")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+//Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick("NEW, AP"),1
+#Expected Result:Verify Documentation window is displayed with multiple clinical activities tabs displayed with the associated responses. Verify the date and time in the message should be the current date and the time will be the current hour and minute will default to the end of the time interval.Ensure that the tabs displayed in the charting window maintains the same sequence of Patient Status/Activity clinical events saved in the setup page
+//assert that ImageFound("BEH_SA_MainPageComponent/Icon_DocumentWindow") with error "Documentation window not displayed"
+//put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateClinicalEventData into DocDetailsVar
+//assert that DocDetailsVar contains ("Sharp","Burning","nDull","Aching","Unable to describe","Cramping")
+----------------------------------------------------------------------------------------------------------------------
+Log("Step 65:Select multiple risk responses for Location 1 without holding control button")
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+//Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents("Sharp")
+//Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents("Cramping")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Expected Result:Verify that the user is not able to select multiple responses.
+//put  "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateTextSelected("Cramping") into SelectedVar
+//assert that SelectedVar equals "true"
+
+-----------------------------------------------------------------------------------------------------------------------
+Log("Step 66:Select multiple risk responses for Location 1 by holding control button")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Expected Result:Verify that the user is able to select multiple responses
+-----------------------------------------------------------------------------------------------------------------------
+Log("Step 67:Click Ok")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+
+#Expected Result:Verify that the documentation window is closed and the events are charted
+
+------------------------------------------------------------------------------------------------------------------------
+Log("Step 68:Click on Sign Changes to Chart")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Sign Changes To Chart")
+
+#Expected Result:Verify the clinical events are charted and displayed for the selected time slot for the patient. Verify that selected responses are charted with each response separated by semi colons. Verify no data is lost.
+------------------------------------------------------------------------------------------------------------------------
+Log("Step 69:Navigate to BHSAFETY Setup Page 1")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH SETUP PAGE 1")
+#Expected Result:Verify that the "BHSAFETY Setup Page 1" is loaded without errors
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait(30)
+put "BEH_SA_SetupPageComponents/BEH_SA_SetupPage". ReadTextSetupPage into SetUpDetails
+Assert that SetUpDetails contains("General Setting") with error ("Validating  SetUp Page loads successfully")
+------------------------------------------------------------------------------------------------------------------------
+Log("Step 70:Select radio button for Yes option in Multi Select")
+click "BEH_SA_SetupPage/Icon_ScrollDown"
+Repeat 6 times
+	TypeText pageDown
+End repeat
+run  "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".SetMultiSelect("Yes")
+MoveTo (300,900)
+
+#Expected Result:Verify that the Yes option is selected for the radio button
+put  "BEH_SA_SetupPageComponents/BEH_SA_SetupPage".ValidateSetMultiSelect("Yes") into Var1
+assert that Var1 equals "Radio button selected" with error "Validating yes option for Multi Select"
+
+CaptureScreen(Name:"Step 70")
+------------------------------------------------------------------------------------------------------------------------
+
+Log("Step 71:Click on update button. Click OK")
+Click ("BEH_SA_SetupPage/Button_Update")
+
+#Expected Result:Verify that a message window with the following message " Setup page has been successfully updated " is displayed. Verify that the green circle with a check mark is displayed.
+
+wait (2)
+put ReadText("BEH_SA_SetupPage/Icon_Tick", "BEH_SA_SetupPage/Button_OK",dpi:120) into Var1
+assert that Var1 contains " Setup Page Updated Sucessfully" with error "Validating Page updated successfully"
+Click "BEH_SA_SetupPage/Button_OK"
+------------------------------------------------------------------------------------------------------------------------
+Log("Step 72:Navigate to Safety and Attendance mPage(BHSAFETY main page 1")
+
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers". selectTab("BH MAIN PAGE1")
+wait(3)
+#Expected Result:Verify that Safety and Attendance mPage is displayed without any error
+put "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header". ValidateMainPageheaderLabels("S & A Page 1") into  Var1
+assert that Var1 contains "True" with error "Validating Main Page 1 Loaded successfully"
+------------------------------------------------------------------------------------------------------------------------
+Log ("Step 73:Select the pre-requisite Patient list from the dropdown and click on Submit.")
+click "BEH_SA_SetupPage/Icon_Refresh"
+wait(5)
+Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".SelectPatientlistFrom(item 1 of TestData.PatientList)
+Run"BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Submit")
+
+#Expected Result:Verify patients with Facility A and B are loaded for the patients list in Safety and Attendance mPage. But Patients with Facility C is not loaded.
+------------------------------------------------------------------------------------------------------------------------
+Log ("Step 74:Click on the left most/ recent time slot Click to Add... cell for any of the patient")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick("NEW, AP"),1
+
+#Expected Result:Verify Documentation window is displayed with multiple clinical activities tabs displayed with the associated responses. Verify the date and time in the message should be the current date and the time will be the current hour and minute. Ensure that the tabs displayed in the charting window maintains the same sequence of Patient Status/Activity clinical events saved in the setup page
+
+-----------------------------------------------------------------------------------------------------------------------
+Log ("Step 75:Select multiple risk responses for Location 1 without holding control button")
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents("Needs further teaching")
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents("Demonstrate")
+
+#Expected Result:Verify that the user is able to select multiple responses
+-----------------------------------------------------------------------------------------------------------------------
+Log ("Step 76:Click OK")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+#Expected Result:Verify the Documentation window is closed and events are charted in the particular time slot
+
+-----------------------------------------------------------------------------------------------------------------------
+Log ("Step 77:Click on Sign Changes to Chart.")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Sign Changes To Chart")
+#Expected ResultVerify the clinical events are charted and displayed for the selected time slot for the patient. Verify that selected responses are charted with each response separated by semi colons. Verify no data is lost.
+-------------------------------------------------------------------------------------------------------------------------------
+Log("Step 78: Click on the left most/ recent time slot Click to Add... cell for any of the patient")
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+//Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectAddToClick "STARTPAT",1
+
+#Verify Documentation window is displayed with multiple clinical activities tabs displayed with the associated responses. Verify the date and time in the message should be the current date and the time will be the current hour and minute. Ensure that the tabs displayed in the charting window maintains the same sequence of Patient Status/Activity clinical events saved in the setup page
+
+//put "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".validateClinicalEventData into DocDetailsVar
+//assert that DocDetailsVar contains ("Sharp","Burning","nDull","Aching","Unable to describe","Cramping")
+-----------------------------------------------------------------------------------------------------------------------------------
+Log ("Step 79: Select multiple responses and chart a free text response in Other field. Click OK." )
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectClinicalEvents("Needs further teaching", "Demonstrates")
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".SetValueOtherTxtBox "Other Details"
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers".selectOKDocumentWindow
+#Verify that tab focus doesn't get changed to the next location when an event is selected. Verify the Documentation window is closed.
+----------------------------------------------------------------------------------------------------------------------------------------
+Log("Step 80:Click on Sign Changes to Chart")
+
+#Skipping the assertion with https://jira.cerner.com/browse/CERTPHYS-11166
+#Run "BEH_SA_MainPageComponent/BEH_SA_MainPage_Header".HeaderSubmitResetSignChangesToChartbuttons("Sign Changes To Chart")
+#Verify the clinical events are charted and displayed for the selected time slot for the patient. Verify that selected responses are charted with each response separated by semi colons. Verify no data is lost.
+--------------------------------------------------------------------------------------------------------------------------------------------
+Log("Step81: Close the powerchart")
+click ("BEH_SA_SetupPage/Icon_Close")
+
+#Verify that the powerchart is closed without any error.
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

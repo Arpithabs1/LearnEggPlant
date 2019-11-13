@@ -1,0 +1,35 @@
+﻿Date Run,Status,Time,# of Errors,# of Warnings,# of Exceptions,Log File,Return Value,Error Message,# of Successes
+2019-10-24 16:07:53.225 +0530,"Aborted",0:00:03,1,0,1,"20191024_160753.225/LogFile.txt","","",0
+2019-10-28 00:06:43.440 +0530,"Failure",0:10:19,2,0,1,"20191028_000643.440/LogFile.txt","","Image Not Found -- imagelocation Error - Unable To Find Image ""(TEXT:""Heavy"")""  Restricted Search Rectangle ((673,627),(1804,722))\n",35
+2019-10-29 00:02:22.091 +0530,"Failure",0:10:19,2,0,1,"20191029_000222.091/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_DocumentWindow/Icon_DateTime""",26
+2019-10-29 10:21:16.027 +0530,"Failure",0:09:44,1,0,1,"20191029_102116.027/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_SetupPage/Icon_Refresh""",30
+2019-10-29 14:33:42.343 +0530,"Failure",0:04:44,1,0,1,"20191029_143342.343/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Time_Warning""",12
+2019-10-29 15:26:02.777 +0530,"Aborted",0:31:57,1,0,1,"20191029_152602.777/LogFile.txt","","",38
+2019-10-29 23:42:53.823 +0530,"Aborted",0:26:59,3,0,1,"20191029_234253.823/LogFile.txt","","",36
+2019-10-30 00:12:41.898 +0530,"Failure",0:00:01,1,0,1,"20191030_001241.898/LogFile.txt","","No Remote Connection -- click Error - Remote Connection Unavailable",0
+2019-10-30 12:26:46.436 +0530,"Failure",0:02:56,1,0,1,"20191030_122646.436/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Time_Warning""",7
+2019-10-30 12:47:46.120 +0530,"Aborted",0:03:33,1,0,0,"20191030_124746.120/LogFile.txt","","",10
+2019-10-30 14:06:20.329 +0530,"Aborted",0:20:27,1,0,0,"20191030_140620.329/LogFile.txt","","",59
+2019-10-31 10:56:03.364 +0530,"Aborted",0:24:06,2,0,1,"20191031_105603.364/LogFile.txt","","",74
+2019-10-31 12:35:31.515 +0530,"Failure",0:06:09,1,0,1,"20191031_123531.515/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Time_Warning""",12
+2019-10-31 15:03:36.586 +0530,"Aborted",0:19:17,1,0,1,"20191031_150336.586/LogFile.txt","","",70
+2019-11-05 11:59:16.852 +0530,"Aborted",0:24:02,3,0,0,"20191105_115916.852/LogFile.txt","","",57
+2019-11-05 12:29:21.069 +0530,"Aborted",0:01:14,1,0,1,"20191105_122921.069/LogFile.txt","","",1
+2019-11-05 12:49:04.666 +0530,"Failure",0:17:31,1,0,1,"20191105_124904.666/LogFile.txt","","Image Not Found -- click Error - No Image Found On Screen: ""BEH_SA_MainPageComponent/Icon_CDT""",70
+2019-11-05 14:01:55.325 +0530,"Failure",0:23:49,1,0,1,"20191105_140155.325/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""(TEXT:""BE Nurse Unit"")""  Restricted Search Rectangle ((795,413),(1395,913))\n",68
+2019-11-05 14:58:13.896 +0530,"Failure",0:23:31,4,0,1,"20191105_145813.896/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Time_Warning""",67
+2019-11-08 10:01:31.133 +0530,"Aborted",0:22:54,2,0,1,"20191108_100131.133/LogFile.txt","","",69
+2019-11-08 10:59:33.495 +0530,"Failure",0:27:59,2,0,1,"20191108_105933.495/LogFile.txt","","Image Not Found -- imagelocation Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Location""",84
+2019-11-08 12:06:10.850 +0530,"Aborted",0:17:47,1,0,0,"20191108_120610.850/LogFile.txt","","",59
+2019-11-08 12:23:58.446 +0530,"Aborted",0:00:01,1,0,0,"20191108_122358.446/LogFile.txt","","",0
+2019-11-08 12:29:04.037 +0530,"Failure",0:01:21,1,0,1,"20191108_122904.037/LogFile.txt","","Image Not Found -- imagerectangle Error - Unable To Find Image ""BEH_SA_MainPageComponent/Icon_Time_Warning""",1
+2019-11-08 14:01:19.447 +0530,"Failure",0:24:44,2,0,1,"20191108_140119.447/LogFile.txt","","Image Not Found -- click Error - No Image Found On Screen: ""BEH_SA_MainPageComponent/Icon_TimeZone""",69
+2019-11-11 09:49:02.989 +0530,"Aborted",0:24:53,1,0,0,"20191111_094902.989/LogFile.txt","","",59
+2019-11-11 10:13:56.812 +0530,"Aborted",0:00:01,1,0,0,"20191111_101356.812/LogFile.txt","","",0
+2019-11-11 10:17:04.419 +0530,"Aborted",1:03:19,2,0,0,"20191111_101704.419/LogFile.txt","","",71
+2019-11-11 11:23:25.352 +0530,"Aborted",0:02:36,1,0,0,"20191111_112325.352/LogFile.txt","","",6
+2019-11-11 11:56:50.511 +0530,"Failure",0:14:21,3,0,1,"20191111_115650.511/LogFile.txt","","Image Not Found -- moveto Error - No Image Found On Screen: ""BEH_SA_MainPageComponent/BEH_SA_AddPatientWindow/Link_NurseUnit""",48
+2019-11-11 12:15:25.382 +0530,"Aborted",0:26:58,2,0,0,"20191111_121525.382/LogFile.txt","","",71
+2019-11-11 12:47:28.024 +0530,"Aborted",0:26:18,2,0,0,"20191111_124728.024/LogFile.txt","","",71
+2019-11-11 13:20:56.203 +0530,"Failure",0:21:20,3,0,1,"20191111_132056.203/LogFile.txt","","Image Not Found -- click Error - No Image Found On Screen: ""BEH_SA_MainPageComponent/Button_OKDocWindow/Button_OK1501exp""",85
+2019-11-11 14:22:11.523 +0530,"Aborted",0:08:26,2,0,1,"20191111_142211.523/LogFile.txt","","",26

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-09 00:35:56.933 +0530"
+ tests="1"  failures="2" errors="0" time="413.811000">
+  <properties>
+   <property name="RunDate" value="2019-10-09 00:35:56.933 +0530"/>
+   <property name="Status" value="Failure"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="44" status="failure"  time="413.78">
+    <failure type="LogError" message="Assertion Error: Validating Suicide Risk for Patient F (assertion: Var1 contains(&quot;Braden Assessment&quot;); actually: suidde risk: None DOES NOT contain Braden Assessment)" />
+    <failure type="FAILURE" message="AssertionFailed Validating Precautions header (assertion: PrecautionOptions contains &quot;Seizure risk&quot;; actually: V\nsuicide risk: Plan\nFall risk: 40 DOES NOT contain Seizure risk) -- Execution Time 0:06:54 BEH-VR-S&A-Facility or nurse unit.script" />
+  </testcase>
+ </testsuite>
+</testsuites>

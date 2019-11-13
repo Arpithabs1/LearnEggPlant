@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-09 14:41:12.586 +0530"
+ tests="1"  failures="0" errors="0" time="333.265000">
+  <properties>
+   <property name="RunDate" value="2019-10-09 14:41:12.586 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="39" status="error"  time="333.236">
+    <error type="Exception" message="Unable To Find Image &quot;(TEXT:&quot;TEST, MIC4&quot;)&quot;" />
+  </testcase>
+ </testsuite>
+</testsuites>

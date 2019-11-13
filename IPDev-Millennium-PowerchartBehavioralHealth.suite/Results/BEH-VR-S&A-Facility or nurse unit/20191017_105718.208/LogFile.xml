@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-10-17 10:57:18.208 +0530"
+ tests="1"  failures="1" errors="0" time="78.727000">
+  <properties>
+   <property name="RunDate" value="2019-10-17 10:57:18.208 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit.script" assertions="3" status="failure"  time="78.706">
+    <failure type="LogError" message="Assertion Error: Validating Future time warning message (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.readTimeWarningWindow contains &quot;The entered time is in the future. Activity Date/Time will default to&quot;; actually: The entered time is outside the chosen time frame. Do you want to use\n10/17/2019 00:14 as the Activity Date/Time instead? DOES NOT contain The entered time is in the future. Activity Date/Time will default to)" />
+  </testcase>
+ </testsuite>
+</testsuites>

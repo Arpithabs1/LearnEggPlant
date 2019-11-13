@@ -1,0 +1,10 @@
+﻿Date Run,Status,Time,# of Errors,# of Warnings,# of Exceptions,Log File,Return Value,Error Message,# of Successes
+2019-10-14 12:43:09.956 +0530,"Aborted",0:06:24,1,0,1,"20191014_124309.956/LogFile.txt","","",39
+2019-10-14 13:03:25.146 +0530,"Aborted",0:06:16,1,0,1,"20191014_130325.146/LogFile.txt","","",39
+2019-10-14 13:17:07.549 +0530,"Failure",0:05:42,1,0,1,"20191014_131707.549/LogFile.txt","","Image Not Found -- click Error - No Image Found On Screen: ""BEH_SA_MainPageComponent/Button_Sign""",39
+2019-10-14 14:09:53.338 +0530,"Failure",0:11:54,1,0,0,"20191014_140953.338/LogFile.txt","","Script Error -- Number of Errors logged: 1",54
+2019-10-14 14:31:53.086 +0530,"Aborted",0:22:14,1,0,0,"20191014_143153.086/LogFile.txt","","",39
+2019-10-14 15:02:32.448 +0530,"Aborted",0:06:10,2,0,1,"20191014_150232.448/LogFile.txt","","",39
+2019-10-14 15:12:08.926 +0530,"Failure",0:07:19,1,0,0,"20191014_151208.926/LogFile.txt","","AssertionFailed -- Validating Precautions header (assertion: ""BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers"".validatePrecautionsDrpDwn contains ""Seizure risk""; actually: Precautions\nNone\n=3\nsuicide risk: Plan\nFall risk: 40 DOES NOT contain Seizure risk)",40
+2019-10-14 15:33:12.798 +0530,"Aborted",0:01:12,1,0,0,"20191014_153312.798/LogFile.txt","","",6
+2019-10-14 15:42:43.397 +0530,"Success",0:10:37,0,0,0,"20191014_154243.397/LogFile.txt","","",57

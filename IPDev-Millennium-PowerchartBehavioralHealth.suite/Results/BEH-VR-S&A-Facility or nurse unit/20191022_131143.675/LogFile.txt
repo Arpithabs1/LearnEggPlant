@@ -1,0 +1,6 @@
+﻿2019-10-22 13:11:43.691 +0530	START		Running BEH-VR-S&A-Facility or nurse unit.script
+2019-10-22 13:11:44.059 +0530	Log		Step 1:Launch Powerchart by User 1	55	on_beh_vr_s_a_facility_or_nurse_unit	BEH-VR-S&A-Facility or nurse unit.script
+2019-10-22 13:11:44.060 +0530	Log		Step 2: Select Facility A from the drop down.Select the required nurse units and click on Submit.	64	on_beh_vr_s_a_facility_or_nurse_unit	BEH-VR-S&A-Facility or nurse unit.script
+2019-10-22 13:12:07.894 +0530	Exception	BEH_SA_MainPageComponent/Icon_TabSelection	No Image Found On Screen: "BEH_SA_MainPageComponent/Icon_TabSelection"	2	on_selecttabfromheader	C:/EggPlantSA/IPDev-Millennium-Shared-PowerchartBehavioralHealth/IPDev-Millennium-Shared-PowerchartBehavioralHealth.suite/Scripts/BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers.script
+2019-10-22 13:12:08.515 +0530	EndTestCase		(Duration:"24.818", Errors:"1", Exceptions:"1", StartTime:"2019-10-22 13:11:43 +0530", Successes:"0", TestCase:"BEH-VR-S&A-Facility or nurse unit.script", Warnings:"0")
+2019-10-22 13:12:08.679 +0530	FAILURE	Screen_Error.png	Image Not Found click Error - No Image Found On Screen: "BEH_SA_MainPageComponent/Icon_TabSelection" -- Execution Time 0:00:25 BEH-VR-S&A-Facility or nurse unit.script

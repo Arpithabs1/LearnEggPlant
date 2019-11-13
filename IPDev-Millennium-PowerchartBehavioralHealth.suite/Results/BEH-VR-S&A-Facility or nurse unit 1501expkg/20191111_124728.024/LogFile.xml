@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<testsuites>
+ <testsuite name="BEH-VR-S&A-Facility or nurse unit 1501expkg_script" package="IPDev-Millennium-PowerchartBehavioralHealth.suite" timestamp="2019-11-11 12:47:28.024 +0530"
+ tests="1"  failures="1" errors="0" time="1578.574000">
+  <properties>
+   <property name="RunDate" value="2019-11-11 12:47:28.024 +0530"/>
+   <property name="Status" value="Aborted"/>
+  </properties>
+  <testcase name="BEH-VR-S&A-Facility or nurse unit 1501expkg.script" assertions="73" status="failure"  time="1578.555">
+    <failure type="LogError" message="Assertion Error: Validating off unit reason below the patient name (assertion: &quot;BEH_SA_MainPageComponent/BEH_SA_MainPageHandlers&quot;.validatePatDetails(item 10 of TestData.PatientNames) contains (item 6 of TestData.ClinicalEvents); actually: Added From:\nBS NU1\nPatient is off unit\natrNeeds further teaching\nSince:10/Nov/2019 21:44\n0\nTN, PATE\nLevel Of Observation: STANDARD\nComments: -\nF 26 Years\nDOB: 04/05/93\nMRN: 9879879 FIN: 98709870987 DOES NOT contain practice/)" />
+  </testcase>
+ </testsuite>
+</testsuites>
